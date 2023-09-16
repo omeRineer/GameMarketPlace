@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstract\**" />
+    <Compile Remove="Concrete\**" />
+    <Compile Remove="Features\**" />
+    <Compile Remove="ValidationRules\**" />
+    <EmbeddedResource Remove="Abstract\**" />
+    <EmbeddedResource Remove="Concrete\**" />
+    <EmbeddedResource Remove="Features\**" />
+    <EmbeddedResource Remove="ValidationRules\**" />
+    <None Remove="Abstract\**" />
+    <None Remove="Concrete\**" />
+    <None Remove="Features\**" />
+    <None Remove="ValidationRules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+    <ProjectReference Include="..\MeArch.Module.Email\MeArch.Module.Email.csproj" />
+    <ProjectReference Include="..\MeArch.Module.File\MeArch.Module.File.csproj" />
+    <ProjectReference Include="..\MeArch.Module.Security\MeArch.Module.Security.csproj" />
+    <ProjectReference Include="..\MeArch.Module.Strategy\MeArch.Module.Strategy.csproj" />
+    <ProjectReference Include="..\MeArch.Module.Templates\MeArch.Module.Templates.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="RazorLight" Version="2.3.1" />
+  </ItemGroup>
+
+</Project>

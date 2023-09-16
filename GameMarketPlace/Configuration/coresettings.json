@@ -1,0 +1,21 @@
+{
+  "EmailOptions": {
+    "Host": "smtp.gmail.com",
+    "Port": 465,
+    "UseSSL": true,
+    "UserName": "omertyu864@gmail.com",
+    "Password": "rvqqwrcpwgmhvhvs"
+  },
+
+  "TokenOptions": {
+    "Audience": "www.gamestore.com",
+    "Issuer": "www.gamestore.com",
+    "ExpirationTime": 1,
+    "SecurityKey": "this area use for json web token signature"
+  },
+
+  "FileOptions": {
+      "Extensions": [ ".JPG", ".PNG" ],
+      "FilePath": "./Main"
+  }
+}

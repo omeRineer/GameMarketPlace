@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Entities\Concrete\ProcessGroup\**" />
+		<EmbeddedResource Remove="Entities\Concrete\ProcessGroup\**" />
+		<None Remove="Entities\Concrete\ProcessGroup\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="CrossCuttingConcerns\Validation\ValidationTool.cs~RF26c5bf26.TMP" />
+		<None Remove="DataAccess\IEntityRepository.cs~RF45c2c5b.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="7.0.1" />
+		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
+		<PackageReference Include="FluentValidation" Version="11.5.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RestSharp" Version="110.2.0" />
+	</ItemGroup>
+
+</Project>
