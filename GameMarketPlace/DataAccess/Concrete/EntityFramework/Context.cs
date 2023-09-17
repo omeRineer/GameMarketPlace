@@ -16,6 +16,10 @@ namespace DataAccess.Concrete.EntityFramework
 
         public DbSet<GeneralSetting> GeneralSettings { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
+
         public override int SaveChanges()
         {
             var dataEntries = ChangeTracker.Entries<BaseEntity<object>>();
