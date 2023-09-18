@@ -22,12 +22,20 @@ namespace Core.DataAccess
                                                                Expression<Func<TEntity, bool>> filter = null);
         TEntity Get(Expression<Func<TEntity, bool>> filter,
                     Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null);
-        void Add(TEntity entity);
-        void Delete(TEntity entity);
-        void Update(TEntity entity);
 
+        void Add(TEntity entity);
+        void AddRange(IEnumerable<TEntity> entities);
+
+        void Delete(TEntity entity);
+        void DeleteRange(IEnumerable<TEntity> entities);
+
+        void Update(TEntity entity);
+        void UpdateRange(IEnumerable<TEntity> entities);
+
+        void ExecuteSql(string query, params object[] parameters);
 
         void Save();
+
     }
 
 

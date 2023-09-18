@@ -11,7 +11,6 @@ namespace Core.Extensions
     public static class GeneralTypeExtensions
     {
         public static string JsonSerialize<TModel>(this TModel obj)
-            where TModel : class, new()
         {
             return JsonConvert.SerializeObject(obj);
         }

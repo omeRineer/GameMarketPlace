@@ -13,6 +13,8 @@ namespace DataAccess.Concrete.EntityFramework.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.ToTable("Categories");
+
             builder
                 .HasKey(x => x.Id);
 

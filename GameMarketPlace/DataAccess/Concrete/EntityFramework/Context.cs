@@ -1,10 +1,14 @@
 ﻿using Core.Entities.Abstract;
 using Core.Entities.Concrete.GeneralSettings;
+using Core.Extensions;
+using DataAccess.Concrete.EntityFramework.EntityConfigurations;
+using Entities.Main;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,10 +18,12 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public Context(DbContextOptions<Context> options) : base(options) { }
 
-        public DbSet<GeneralSetting> GeneralSettings { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.GeneralSettings();
+            modelBuilder.ProcessGroups();
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
         }
 
         public override int SaveChanges()

@@ -1,4 +1,5 @@
-﻿using Core.ServiceModules;
+﻿using Configuration;
+using Core.ServiceModules;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,10 @@ namespace Business.ServiceModules
         {
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MeArchitecture;Trusted_Connection=True;");
+                options.UseSqlServer(CoreConfiguration.ConnectionString);
             });
+
+            services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 
             services.AddMemoryCache();
         }

@@ -1,4 +1,8 @@
 {
+  "ConnectionStrings": {
+    "DbConnectionString": "Server=(localdb)\\MSSQLLocalDB;Database=db_GameStore;Trusted_Connection=True;"
+  },
+
   "EmailOptions": {
     "Host": "smtp.gmail.com",
     "Port": 465,
@@ -15,7 +19,7 @@
   },
 
   "FileOptions": {
-      "Extensions": [ ".JPG", ".PNG" ],
-      "FilePath": "./Main"
+    "Extensions": [ ".JPG", ".PNG" ],
+    "FilePath": "./Main"
   }
 }

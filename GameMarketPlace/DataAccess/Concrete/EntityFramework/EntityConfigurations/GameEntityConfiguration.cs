@@ -8,6 +8,8 @@ namespace DataAccess.Concrete.EntityFramework.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Game> builder)
         {
+            builder.ToTable("Games");
+
             builder
                 .HasKey(x => x.Id);
 

@@ -8,6 +8,8 @@ namespace DataAccess.Concrete.EntityFramework.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<SystemRequirement> builder)
         {
+            builder.ToTable("SystemRequirements");
+
             builder
                 .HasKey(x => x.Id);
         }

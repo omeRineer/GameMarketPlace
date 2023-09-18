@@ -23,17 +23,7 @@ namespace Core.DataAccess.EntityFramework
             Table = _context.Set<TEntity>();
         }
 
-        public void Add(TEntity entity)
-        {
-            var addEntity = _context.Entry(entity);
-            addEntity.State = EntityState.Added;
-        }
 
-        public void Delete(TEntity entity)
-        {
-            var addEntity = _context.Entry(entity);
-            addEntity.State = EntityState.Deleted;
-        }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter,
                            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
@@ -60,10 +50,40 @@ namespace Core.DataAccess.EntityFramework
             return query.ToList();
         }
 
+        public void Add(TEntity entity)
+        {
+            var addEntity = _context.Entry(entity);
+            addEntity.State = EntityState.Added;
+        }
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            _context.AddRange(entities);
+        }
+
+        public void Delete(TEntity entity)
+        {
+            var addEntity = _context.Entry(entity);
+            addEntity.State = EntityState.Deleted;
+        }
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            _context.RemoveRange(entities);
+        }
+
         public void Update(TEntity entity)
         {
             var addEntity = _context.Entry(entity);
             addEntity.State = EntityState.Modified;
+        }
+
+        public void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            _context.UpdateRange(entities);
+        }
+
+        public void ExecuteSql(string query, params object[] parameters)
+        {
+            _context.Database.ExecuteSqlRaw(query, parameters);
         }
 
         public void Save()
@@ -71,7 +91,9 @@ namespace Core.DataAccess.EntityFramework
             _context.SaveChanges();
         }
 
-        public Dictionary<TKey, TValue> GetDictionaries<TKey, TValue>(Func<TEntity, TKey> key, Func<TEntity, TValue> value, Expression<Func<TEntity, bool>> filter = null)
+        public Dictionary<TKey, TValue> GetDictionaries<TKey, TValue>(Func<TEntity, TKey> key,
+                                                                      Func<TEntity, TValue> value,
+                                                                      Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = Table.AsQueryable();
 
@@ -79,5 +101,7 @@ namespace Core.DataAccess.EntityFramework
 
             return query.ToDictionary(key, value);
         }
+
+
     }
 }
