@@ -25,6 +25,7 @@ namespace Core.DataAccess.EntityFramework
 
 
 
+        #region Sync
         public TEntity Get(Expression<Func<TEntity, bool>> filter,
                            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
         {
@@ -35,7 +36,7 @@ namespace Core.DataAccess.EntityFramework
             return query.FirstOrDefault(filter);
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null,
+        public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null,
                                     Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
                                     Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
                                     PaginationParameter? paginationParameter = null)
@@ -75,7 +76,6 @@ namespace Core.DataAccess.EntityFramework
             var addEntity = _context.Entry(entity);
             addEntity.State = EntityState.Modified;
         }
-
         public void UpdateRange(IEnumerable<TEntity> entities)
         {
             _context.UpdateRange(entities);
@@ -101,7 +101,59 @@ namespace Core.DataAccess.EntityFramework
 
             return query.ToDictionary(key, value);
         }
+        #endregion
 
 
+        #region Async
+        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, PaginationParameter? paginationParameter = null)
+        {
+            IQueryable<TEntity> query = Table.AsQueryable();
+
+            if (filter != null) query = query.Where(filter);
+            if (includes != null) query = includes(query);
+            if (orderBy != null) query = orderBy(query);
+            if (paginationParameter != null) query = query.Skip(paginationParameter.Value.Page * paginationParameter.Value.Size).Take(paginationParameter.Value.Size);
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<Dictionary<TKey, TValue>> GetDictionariesAsync<TKey, TValue>(Func<TEntity, TKey> key, Func<TEntity, TValue> value, Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = Table.AsQueryable();
+
+            if (filter != null) query = query.Where(filter);
+
+            return await query.ToDictionaryAsync(key, value);
+        }
+
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+        {
+            IQueryable<TEntity> query = Table.AsQueryable();
+
+            if (includes != null) query = includes(query);
+
+            return await query.FirstOrDefaultAsync(filter);
+        }
+
+        public async Task AddAsync(TEntity entity)
+        {
+            await _context.AddAsync(entity);
+        }
+
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            await _context.AddRangeAsync(entities);
+        }
+
+        public async Task ExecuteSqlAsync(string query, params object[] parameters)
+        {
+            await _context.Database.ExecuteSqlRawAsync(query, parameters);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        } 
+        #endregion
     }
 }

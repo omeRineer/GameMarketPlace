@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework.General
 {
-    public interface IGameDal : IEntityRepository<Game> 
+    public interface IGameRepository : IEntityRepository<Game> 
     { 
 
     }
-    public class GameDal : EfRepositoryBase<Game>, IGameDal
+    public class GameRepository : EfRepositoryBase<Game>, IGameRepository
     {
-        public GameDal(DbContext context) : base(context)
+        public GameRepository(DbContext context) : base(context)
         {
         }
     }

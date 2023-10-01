@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework.General
 {
-    public interface ICategoryDal : IEntityRepository<Category>
+    public interface ICategoryRepository : IEntityRepository<Category>
     {
 
     }
-    public class CategoryDal : EfRepositoryBase<Category>, ICategoryDal
+    public class CategoryRepository : EfRepositoryBase<Category>, ICategoryRepository
     {
-        public CategoryDal(DbContext context) : base(context)
+        public CategoryRepository(DbContext context) : base(context)
         {
         }
     }

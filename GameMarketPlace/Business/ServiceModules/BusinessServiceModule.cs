@@ -1,5 +1,7 @@
-﻿using Configuration;
+﻿using Business.Services;
+using Configuration;
 using Core.ServiceModules;
+using DataAccess;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +32,9 @@ namespace Business.ServiceModules
             });
 
             services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
+
+            services.AddServices();
+            services.AddRepositories();
 
             services.AddMemoryCache();
         }

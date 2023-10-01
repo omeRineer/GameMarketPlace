@@ -1,0 +1,21 @@
+﻿using Core.Business;
+using Core.Utilities.ResultTool;
+using Entities.Dto.Category;
+using Entities.Main;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Business.Services.Abstract
+{
+    public interface ICategoryService : IEntityService<Category>
+    {
+        Task<IDataResult<List<CategoryDto>>> GetListAsyncDto();
+        Task<IDataResult<CategoryDto>> GetByIdAsyncDto(Guid id);
+        Task<IResult> AddAsyncDto(CategoryAddDto categoryAddDto);
+        Task<IResult> DeleteAsyncDto(CategoryDeleteDto categoryDeleteDto);
+        Task<IResult> UpdateAsyncDto(CategoryEditDto categoryEditDto);
+    }
+}

@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework.General
 {
-    public interface ISystemRequirementDal : IEntityRepository<SystemRequirement>
+    public interface ISystemRequirementRepository : IEntityRepository<SystemRequirement>
     {
 
     }
-    public class SystemRequirementDal : EfRepositoryBase<SystemRequirement>, ISystemRequirementDal
+    public class SystemRequirementRepository : EfRepositoryBase<SystemRequirement>, ISystemRequirementRepository
     {
-        public SystemRequirementDal(DbContext context) : base(context)
+        public SystemRequirementRepository(DbContext context) : base(context)
         {
         }
     }

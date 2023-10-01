@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccess
 {
-    public interface IEntityRepository<TEntity> where TEntity : class, IEntity, new()
+    public interface IEntityRepository<TEntity> : IEntityRepositoryAsync<TEntity>
+        where TEntity : class, IEntity, new()
     {
-        List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null,
+        List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null,
                              Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
                              Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
                              PaginationParameter? paginationParameter = null);
