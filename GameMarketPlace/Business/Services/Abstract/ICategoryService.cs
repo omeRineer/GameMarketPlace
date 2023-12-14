@@ -16,6 +16,6 @@ namespace Business.Services.Abstract
         Task<IDataResult<CategoryDto>> GetByIdAsyncDto(Guid id);
         Task<IResult> AddAsyncDto(CategoryAddDto categoryAddDto);
         Task<IResult> DeleteAsyncDto(CategoryDeleteDto categoryDeleteDto);
-        Task<IResult> UpdateAsyncDto(CategoryEditDto categoryEditDto);
+        Task<IResult> UpdateAsyncDto(CategoryUpdateDto categoryUpdateDto);
     }
 }

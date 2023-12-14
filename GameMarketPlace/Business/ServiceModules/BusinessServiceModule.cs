@@ -26,10 +26,10 @@ namespace Business.ServiceModules
 
         public void Load(IServiceCollection services)
         {
-            services.AddDbContext<Context>(options =>
-            {
-                options.UseSqlServer(CoreConfiguration.ConnectionString);
-            });
+            //services.AddDbContext<Context>(options =>
+            //{
+            //    options.UseSqlServer(CoreConfiguration.ConnectionString);
+            //});
 
             services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 

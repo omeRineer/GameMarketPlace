@@ -82,9 +82,9 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
-        public async Task<IResult> UpdateAsyncDto(CategoryEditDto categoryEditDto)
+        public async Task<IResult> UpdateAsyncDto(CategoryUpdateDto categoryUpdateDto)
         {
-            var mapEntity = _mapper.Map<Category>(categoryEditDto);
+            var mapEntity = _mapper.Map<Category>(categoryUpdateDto);
 
             _categoryRepository.Update(mapEntity);
             await _categoryRepository.SaveAsync();

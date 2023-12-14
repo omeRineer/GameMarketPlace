@@ -9,7 +9,7 @@ namespace Business.Mapping.AutoMapper
         public CategoryProfile()
         {
             CreateMap<Category, CategoryAddDto>().ReverseMap();
-            CreateMap<Category, CategoryEditDto>().ReverseMap();
+            CreateMap<Category, CategoryUpdateDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
         }
     }

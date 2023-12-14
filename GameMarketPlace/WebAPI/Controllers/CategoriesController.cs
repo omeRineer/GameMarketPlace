@@ -15,10 +15,22 @@ namespace WebAPI.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpPost("add")]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddAsync(CategoryAddDto categoryAddDto)
         {
-            var result = await _categoryService.AddAsync();
+            var result = await _categoryService.AddAsyncDto(categoryAddDto);
+
+            return result.Success ? Ok(result) 
+                                  : BadRequest(result);
+        }
+
+        [HttpGet("GetCategories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var result = await _categoryService.GetListAsync();
+
+            return result.Success ? Ok(result) 
+                                  : BadRequest(result);       
         }
     }
 }

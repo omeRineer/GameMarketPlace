@@ -1,8 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
+using Business.Services.Abstract;
+using Business.Services.Concrete;
 using Castle.DynamicProxy;
+using Configuration;
 using Core.Utilities.Interceptor;
 using DataAccess.Concrete.EntityFramework;
+using DataAccess.Concrete.EntityFramework.General;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,27 +20,24 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
-            //builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+            builder.RegisterType<CategoryService>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>().SingleInstance();
 
-            //builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
-            //builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+            builder.Register<DbContext>(x =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<Context>();
+                optionsBuilder.UseSqlServer(CoreConfiguration.ConnectionString);
+                return new Context(optionsBuilder.Options);
+            }).InstancePerLifetimeScope();
 
-            //builder.Register(x =>
-            //{
-            //    var optionsBuilder = new DbContextOptionsBuilder<Context>();
-            //    optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MeArchitecture;Trusted_Connection=True;");
-            //    return new Context(optionsBuilder.Options);
-            //}).InstancePerLifetimeScope();
-
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly)
-                .AsImplementedInterfaces()
-                .EnableInterfaceInterceptors(new ProxyGenerationOptions
-                {
-                    Selector = new InterceptorSelector()
-                })
-                .SingleInstance();
+            //var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            //builder.RegisterAssemblyTypes(assembly)
+            //    .AsImplementedInterfaces()
+            //    .EnableInterfaceInterceptors(new ProxyGenerationOptions
+            //    {
+            //        Selector = new InterceptorSelector()
+            //    })
+            //    .SingleInstance();
 
         }
     }
