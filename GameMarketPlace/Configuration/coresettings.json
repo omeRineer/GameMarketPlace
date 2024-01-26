@@ -3,6 +3,12 @@
     "DbConnectionString": "Server=(localdb)\\MSSQLLocalDB;Database=db_GameStore;Trusted_Connection=True;"
   },
 
+  "APIOptions": {
+    "WebAPIOptions": {
+      "BaseUrl": "https://localhost:7075"
+    }
+  },
+
   "EmailOptions": {
     "Host": "smtp.gmail.com",
     "Port": 465,

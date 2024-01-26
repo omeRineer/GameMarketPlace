@@ -11,4 +11,6 @@ namespace Entities.Dto.Game
         public decimal Price { get; set; }
         public DateTime ReleaseDate { get; set; }
     }
+
+    public record GameDeleteDto(Guid Id);
 }

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.Entities.DTO.Options
 {
-    public class FileOptions
+    public class APIOptions
     {
-        public string[] Extensions { get; set; }
-        public string FilePath { get; set; }
+        public WebAPIOptions WebAPI { get; set; }
     }
-    
+    public class WebAPIOptions
+    {
+        public string BaseUrl { get; set; }
+    }
 }

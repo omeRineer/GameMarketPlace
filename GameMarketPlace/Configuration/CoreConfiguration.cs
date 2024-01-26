@@ -23,5 +23,6 @@ namespace Configuration
         public static EmailOptions EmailOptions { get => Configuration.GetSection("EmailOptions").Get<EmailOptions>(); }
         public static TokenOptions TokenOptions { get => Configuration.GetSection("TokenOptions").Get<TokenOptions>(); }
         public static FileOptions FileOptions { get => Configuration.GetSection("FileOptions").Get<FileOptions>(); }
+        public static APIOptions APIOptions { get => Configuration.GetSection("APIOptions").Get<APIOptions>(); }
     }
 }
