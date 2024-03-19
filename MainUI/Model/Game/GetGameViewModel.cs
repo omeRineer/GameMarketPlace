@@ -1,6 +1,6 @@
-﻿using GameStore.UI.Model.Category;
+﻿using MainUI.Model.Category;
 
-namespace GameStore.UI.Model.Game
+namespace UserInterface.Model.Game
 {
     public record GetGameViewModel(Guid id,
                                    GetCategoryViewModel Category,

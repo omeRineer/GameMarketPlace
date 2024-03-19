@@ -3,7 +3,6 @@ using Core.Entities.Abstract;
 using Core.Entities.DTO.Pagination;
 using Core.Utilities.ResultTool;
 using Microsoft.EntityFrameworkCore.Query;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System;
 using System.Collections.Generic;
 using System.Linq;

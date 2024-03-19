@@ -4,7 +4,6 @@ using MeArch.Module.Security.Helpers;
 using MeArch.Module.Security.Extensions;
 using MeArch.Module.Email.Extensions;
 using MeArch.Module.File.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Business.ServiceModules
 {

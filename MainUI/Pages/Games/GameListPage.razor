@@ -1,6 +1,5 @@
 ﻿@page "/games"
 
-@inject GameService GameService
 
 <div class="section trending">
     <div class="container">
@@ -191,11 +190,11 @@
 </div>
 
 @code {
-    List<GameStore.UI.Model.Game.GetGameViewModel> Games;
+    List<UserInterface.Model.Game.GetGameViewModel> Games;
 
     protected override async Task OnInitializedAsync()
     {
-        Games = await GameService.GetGames();
+        //Games = await GameService.GetGames();
     }
 
 }

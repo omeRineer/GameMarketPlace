@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Abstract;
 using Core.Entities.DTO.Pagination;
-using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
