@@ -837,6 +837,7 @@ Trending Style
   position: relative;
   border-radius: 25px;
   overflow: hidden;
+  height: 65%
 }
 
 .trending .item span.price em {

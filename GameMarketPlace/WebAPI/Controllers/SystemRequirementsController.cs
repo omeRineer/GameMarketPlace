@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPI.Controllers.Base;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SystemRequirementsController : ControllerBase
+    public class SystemRequirementsController : BaseController
     {
     }
 }

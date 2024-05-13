@@ -9,12 +9,11 @@ using Entities.Dto.Game;
 
 namespace Business.Services.Abstract
 {
-    public interface IGameService : IEntityService<Game>
+    public interface IGameService : IEntityService<Game, Guid>
     {
         Task<IDataResult<List<GameDto>>> GetListAsyncDto();
         Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id);
         Task<IResult> AddAsyncDto(GameAddDto gameAddDto);
-        Task<IResult> DeleteAsyncDto(GameDeleteDto gameDeleteDto);
         Task<IResult> UpdateAsyncDto(GameEditDto gameEditDto);
     }
 }

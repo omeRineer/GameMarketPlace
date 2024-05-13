@@ -1,4 +1,6 @@
-﻿using UserInterface.Model.Game;
+﻿using Configuration;
+using Core.Utilities.RestHelper;
+using UserInterface.Model.Game;
 
 namespace MainUI.Services
 {
@@ -7,12 +9,12 @@ namespace MainUI.Services
 
         public async Task<List<GetGameViewModel>> GetGames()
         {
-            //var result = await RestHelper.GetAsync<List<GetGameViewModel>>(new RestRequestParameter
-            //{
-            //    BaseUrl = $"{CoreConfiguration.APIOptions.WebAPI.BaseUrl}/api/Games/GetGames"
-            //});
+            var result = await RestHelper.GetAsync<List<GetGameViewModel>>(new RestRequestParameter
+            {
+                BaseUrl = $"{CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Games/GetGames"
+            });
 
-            return null;
+            return result.Data;
         }
     }
 }

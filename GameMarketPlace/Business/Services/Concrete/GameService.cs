@@ -4,6 +4,7 @@ using Core.Business.BaseService;
 using Core.DataAccess;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
+using Entities.Dto.Category;
 using Entities.Dto.Game;
 using Entities.Main;
 using System;
@@ -51,18 +52,23 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
-        public async Task<IResult> DeleteAsyncDto(GameDeleteDto gameDeleteDto)
+        public async Task<IResult> DeleteByIdAsync(Guid id)
         {
-            var entity = await _gameRepository.GetAsync(x => x.Equals(gameDeleteDto));
+            var entity = await _gameRepository.GetAsync(f => f.Id.Equals(id));
+
             _gameRepository.Delete(entity);
-            await _gameRepository.SaveAsync();
+            _gameRepository.Save();
 
             return new SuccessResult();
         }
 
-        public Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id)
+        public async Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _gameRepository.GetAsync(x => x.Id.Equals(id));
+
+            var result = _mapper.Map<GameDto>(entity);
+
+            return new SuccessDataResult<GameDto>(result);
         }
 
         public async Task<IDataResult<List<Game>>> GetListAsync()

@@ -5,7 +5,7 @@
 
   "APIOptions": {
     "WebAPIOptions": {
-      "BaseUrl": "https://localhost:7075"
+      "BaseUrl": "https://localhost:7075/api"
     }
   },
 

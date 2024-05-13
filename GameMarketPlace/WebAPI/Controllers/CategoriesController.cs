@@ -1,12 +1,11 @@
 ﻿using Business.Services.Abstract;
 using Entities.Dto.Category;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Controllers.Base;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : BaseController
     {
         ICategoryService _categoryService;
 
@@ -20,17 +19,44 @@ namespace WebAPI.Controllers
         {
             var result = await _categoryService.AddAsyncDto(categoryAddDto);
 
-            return result.Success ? Ok(result) 
+            return result.Success ? Ok(result)
+                                  : BadRequest(result);
+        }
+
+        [HttpPost("Delete")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var result = await _categoryService.DeleteByIdAsync(id);
+
+            return result.Success ? Ok(result)
+                                  : BadRequest(result);
+        }
+
+        [HttpPost("Update")]
+        public async Task<IActionResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
+        {
+            var result = await _categoryService.UpdateAsyncDto(categoryUpdateDto);
+
+            return result.Success ? Ok(result)
                                   : BadRequest(result);
         }
 
         [HttpGet("GetCategories")]
-        public async Task<IActionResult> GetCategories()
+        public async Task<IActionResult> GetCategoriesAsync()
         {
             var result = await _categoryService.GetListAsync();
 
-            return result.Success ? Ok(result) 
-                                  : BadRequest(result);       
+            return result.Success ? Ok(result)
+                                  : BadRequest(result);
+        }
+
+        [HttpGet("GetCategory/{id}")]
+        public async Task<IActionResult> GetCategoryAsync(Guid id)
+        {
+            var result = await _categoryService.GetByIdAsyncDto(id);
+
+            return result.Success ? Ok(result)
+                                  : BadRequest(result);
         }
     }
 }

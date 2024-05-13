@@ -4,6 +4,7 @@ using Core.DataAccess;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Main;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,6 +31,15 @@ namespace Business.Services.Concrete
         {
             _systemRequirementRepository.Delete(entity);
             await _systemRequirementRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> DeleteByIdAsync(Guid id)
+        {
+            var entity = await _systemRequirementRepository.GetAsync(f => f.Id.Equals(id));
+
+            _systemRequirementRepository.Delete(entity);
 
             return new SuccessResult();
         }

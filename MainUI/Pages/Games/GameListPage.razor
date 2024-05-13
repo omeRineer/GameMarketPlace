@@ -1,5 +1,6 @@
 ﻿@page "/games"
 
+@inject MainUI.Services.GameService GameService
 
 <div class="section trending">
     <div class="container">
@@ -194,7 +195,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //Games = await GameService.GetGames();
+        Games = await GameService.GetGames();
     }
 
 }

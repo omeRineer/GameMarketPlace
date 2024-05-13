@@ -100,5 +100,14 @@ namespace Business.Services.Concrete
 
             return new SuccessDataResult<List<CategoryDto>>(result);
         }
+
+        public async Task<IResult> DeleteByIdAsync(Guid id)
+        {
+            var entity = await _categoryRepository.GetAsync(f => f.Id == id);
+
+            _categoryRepository.Delete(entity);
+
+            return new SuccessResult();
+        }
     }
 }

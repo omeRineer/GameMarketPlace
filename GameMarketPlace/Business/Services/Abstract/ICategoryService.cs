@@ -10,12 +10,11 @@ using System.Threading.Tasks;
 
 namespace Business.Services.Abstract
 {
-    public interface ICategoryService : IEntityService<Category>
+    public interface ICategoryService : IEntityService<Category, Guid>
     {
         Task<IDataResult<List<CategoryDto>>> GetListAsyncDto();
         Task<IDataResult<CategoryDto>> GetByIdAsyncDto(Guid id);
         Task<IResult> AddAsyncDto(CategoryAddDto categoryAddDto);
-        Task<IResult> DeleteAsyncDto(CategoryDeleteDto categoryDeleteDto);
         Task<IResult> UpdateAsyncDto(CategoryUpdateDto categoryUpdateDto);
     }
 }

@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace Core.Business
 {
-    public interface IEntityService<TEntity>
+    public interface IEntityService<TEntity, TIdentifier>
         where TEntity : class, IEntity, new()
+        where TIdentifier : struct
     {
         Task<IDataResult<List<TEntity>>> GetListAsync();
         Task<IResult> AddAsync(TEntity entity);
         Task<IResult> DeleteAsync(TEntity entity);
+        Task<IResult> DeleteByIdAsync(TIdentifier id);
         Task<IResult> UpdateAsync(TEntity entity);
     }
 }
