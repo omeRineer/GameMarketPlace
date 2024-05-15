@@ -3,6 +3,7 @@ using Core.Entities.Concrete.GeneralSettings;
 using Core.Extensions;
 using DataAccess.Concrete.EntityFramework.EntityConfigurations;
 using Entities.Main;
+using MeArch.Module.Security.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,6 +23,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             modelBuilder.GeneralSettings();
             modelBuilder.ProcessGroups();
+            modelBuilder.UserIdentity();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
         }

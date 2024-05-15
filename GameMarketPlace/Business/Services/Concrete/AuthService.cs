@@ -12,16 +12,20 @@ namespace Business.Services.Concrete
 {
     public class AuthService : IAuthService
     {
+        readonly IUserService _userService;
         readonly ITokenService _tokenService;
 
-        public AuthService(ITokenService tokenService)
+        public AuthService(ITokenService tokenService, IUserService userService)
         {
             _tokenService = tokenService;
+            _userService = userService;
         }
 
-        public Task<IDataResult<UserLoginResponse>> Login(UserLoginRequest request)
+        public async Task<IDataResult<UserLoginResponse>> Login(UserLoginRequest request)
         {
-            throw new NotImplementedException();
+            var user = await _userService.GetByLoginModel(request);
+
+            return new SuccessDataResult<UserLoginResponse>();
         }
     }
 }

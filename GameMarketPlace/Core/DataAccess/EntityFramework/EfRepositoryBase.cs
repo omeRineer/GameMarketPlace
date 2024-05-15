@@ -14,8 +14,8 @@ namespace Core.DataAccess.EntityFramework
     public class EfRepositoryBase<TEntity> : IEntityRepository<TEntity>
         where TEntity : class, IEntity, new()
     {
-        private readonly DbContext _context;
-        private readonly DbSet<TEntity> Table;
+        protected readonly DbContext _context;
+        protected readonly DbSet<TEntity> Table;
         public EfRepositoryBase(DbContext context)
         {
             this._context = context;

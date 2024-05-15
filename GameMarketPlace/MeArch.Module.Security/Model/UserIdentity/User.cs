@@ -15,5 +15,6 @@ namespace MeArch.Module.Security.Model.UserIdentity
         public string PhoneNumber { get; set; }
 
         public IEnumerable<UserRoleClaim> UserRoleClaims { get; set; }
+        public IEnumerable<UserPermission> UserPermissions { get; set; }
     }
 }
