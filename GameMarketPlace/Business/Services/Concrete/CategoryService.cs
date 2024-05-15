@@ -60,7 +60,7 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<CategoryDto>> GetByIdAsyncDto(Guid id)
         {
-            var entity = await _categoryRepository.GetAsync(x => x.Equals(id));
+            var entity = await _categoryRepository.GetAsync(x => x.Id.Equals(id));
 
             var result = _mapper.Map<CategoryDto>(entity);
 

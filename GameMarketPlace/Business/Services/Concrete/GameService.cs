@@ -7,6 +7,7 @@ using DataAccess.Concrete.EntityFramework.General;
 using Entities.Dto.Category;
 using Entities.Dto.Game;
 using Entities.Main;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,9 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id)
         {
-            var entity = await _gameRepository.GetAsync(x => x.Id.Equals(id));
+            var entity = await _gameRepository.GetAsync(filter: x => x.Id.Equals(id),
+                                                        includes: i => i.Include(x => x.Category)
+                                                                        .Include(x => x.SystemRequirements));
 
             var result = _mapper.Map<GameDto>(entity);
 
@@ -78,9 +81,13 @@ namespace Business.Services.Concrete
             return new SuccessDataResult<List<Game>>(list);
         }
 
-        public Task<IDataResult<List<GameDto>>> GetListAsyncDto()
+        public async Task<IDataResult<List<GameDto>>> GetListAsyncDto()
         {
-            throw new NotImplementedException();
+            var list = await _gameRepository.GetListAsync(includes: i => i.Include(x => x.Category)
+                                                                          .Include(x => x.SystemRequirements));
+            var result = _mapper.Map<List<GameDto>>(list);
+
+            return new SuccessDataResult<List<GameDto>>(result);
         }
 
         public async Task<IResult> UpdateAsync(Game entity)

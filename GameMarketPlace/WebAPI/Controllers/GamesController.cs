@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
         [HttpGet("GetGames")]
         public async Task<IActionResult> GetGamesAsync()
         {
-            var result = await _gameService.GetListAsync();
+            var result = await _gameService.GetListAsyncDto();
 
             return result.Success ? Ok(result)
                                   : BadRequest(result);

@@ -1,4 +1,5 @@
 ﻿using Entities.Dto.Category;
+using Entities.Dto.SystemRequirement;
 using System;
 
 namespace Entities.Dto.Game
@@ -7,6 +8,8 @@ namespace Entities.Dto.Game
     {
         public Guid Id { get; set; }
         public CategoryDto Category { get; set; }
+        public SystemRequirementDto SystemRequirement { get; set; }
+        public string Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public DateTime ReleaseDate { get; set; }
