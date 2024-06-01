@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class Context : DbContext
+    public class CoreContext : DbContext
     {
-        public Context(DbContextOptions<Context> options) : base(options) { }
+        public CoreContext(DbContextOptions<CoreContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
             modelBuilder.ProcessGroups();
             modelBuilder.UserIdentity();
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoreContext).Assembly);
         }
 
         public override int SaveChanges()

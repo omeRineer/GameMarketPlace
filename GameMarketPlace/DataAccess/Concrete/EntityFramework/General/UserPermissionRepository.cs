@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework.General
 {
-    public interface IUserPermissionDal : IEntityRepository<UserPermission>
+    public interface IUserPermissionRepository : IEntityRepository<UserPermission>
     {
 
     }
-    public class UserPermissionDal : EfRepositoryBase<UserPermission>, IUserPermissionDal
+    public class UserPermissionRepository : EfRepositoryBase<UserPermission>, IUserPermissionRepository
     {
-        public UserPermissionDal(DbContext context) : base(context)
+        public UserPermissionRepository(DbContext context) : base(context)
         {
         }
     }

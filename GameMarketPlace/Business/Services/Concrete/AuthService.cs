@@ -1,6 +1,9 @@
-﻿using Business.Services.Abstract;
+﻿using AutoMapper;
+using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
 using Entities.Dto.Auth.Login;
+using Entities.Dto.Auth.Register;
+using MeArch.Module.Security.Model.UserIdentity;
 using MeArch.Module.Security.Service;
 using System;
 using System.Collections.Generic;
@@ -14,18 +17,52 @@ namespace Business.Services.Concrete
     {
         readonly IUserService _userService;
         readonly ITokenService _tokenService;
+        readonly IMapper _mapper;
 
-        public AuthService(ITokenService tokenService, IUserService userService)
+        public AuthService(ITokenService tokenService, IUserService userService, IMapper mapper)
         {
             _tokenService = tokenService;
             _userService = userService;
+            _mapper = mapper;
         }
 
-        public async Task<IDataResult<UserLoginResponse>> Login(UserLoginRequest request)
+        public async Task<IDataResult<UserLoginResponse>> LoginAsync(UserLoginRequest request)
         {
-            var user = await _userService.GetByLoginModel(request);
+            var userResult = await _userService.GetByLoginModelAsync(request);
 
-            return new SuccessDataResult<UserLoginResponse>();
+            if (userResult.Data == null)
+                return new ErrorDataResult<UserLoginResponse>();
+
+            var userRoleClaimsResult = await _userService.GetUserRoleClaimsAsync(userResult.Data.Id);
+            var accessTokenResult = _tokenService.GenerateToken(userResult.Data, userRoleClaimsResult.Data);
+
+            var result = new UserLoginResponse
+            {
+                ExpireDate = accessTokenResult.ExpireDate,
+                Token = accessTokenResult.Token,
+            };
+
+            return new SuccessDataResult<UserLoginResponse>(result);
         }
+
+        public async Task<IResult> RegisterAsync(UserRegisterRequest request)
+        {
+            var isExistUserNameResult = await _userService.IsExistByUserNameAsync(request.UserName);
+
+            if (isExistUserNameResult.Success)
+                return isExistUserNameResult;
+
+            var isExistEmailResult = await _userService.IsExistByEmailAsync(request.Email);
+
+            if (isExistEmailResult.Success)
+                return isExistEmailResult;
+
+            User user = _mapper.Map<User>(request);
+            var userCreateResult = await _userService.AddAsync(user);
+
+            return userCreateResult;
+        }
+
+
     }
 }

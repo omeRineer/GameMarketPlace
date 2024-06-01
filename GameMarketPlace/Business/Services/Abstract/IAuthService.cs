@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.ResultTool;
 using Entities.Dto.Auth.Login;
+using Entities.Dto.Auth.Register;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Business.Services.Abstract
 {
     public interface IAuthService
     {
-        Task<IDataResult<UserLoginResponse>> Login(UserLoginRequest request);
+        Task<IDataResult<UserLoginResponse>> LoginAsync(UserLoginRequest request);
+        Task<IResult> RegisterAsync(UserRegisterRequest request);
     }
 }

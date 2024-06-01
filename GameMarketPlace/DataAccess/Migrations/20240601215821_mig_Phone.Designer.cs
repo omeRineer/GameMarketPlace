@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    [Migration("20230918091702_mig_CreateDatabase")]
-    partial class mig_CreateDatabase
+    [Migration("20240601215821_mig_Phone")]
+    partial class mig_Phone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -263,6 +263,160 @@ namespace DataAccess.Migrations
                     b.ToTable("SystemRequirements", (string)null);
                 });
 
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RecordState")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions", (string)null);
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.RoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RecordState")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RecordState")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.UserPermission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RecordState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPermissions", (string)null);
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.UserRoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("RecordState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RoleClaimId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleClaimId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoleClaims", (string)null);
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.ProcessGroups.StatusLookup", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.ProcessGroups.ProcessGroup", "ProcessGroup")
@@ -315,6 +469,44 @@ namespace DataAccess.Migrations
                     b.Navigation("SystemRequirementType");
                 });
 
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.UserPermission", b =>
+                {
+                    b.HasOne("MeArch.Module.Security.Model.UserIdentity.Permission", "Permission")
+                        .WithMany("UserPermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MeArch.Module.Security.Model.UserIdentity.User", "User")
+                        .WithMany("UserPermissions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.UserRoleClaim", b =>
+                {
+                    b.HasOne("MeArch.Module.Security.Model.UserIdentity.RoleClaim", "RoleClaim")
+                        .WithMany("UserRoleClaims")
+                        .HasForeignKey("RoleClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MeArch.Module.Security.Model.UserIdentity.User", "User")
+                        .WithMany("UserRoleClaims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RoleClaim");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.ProcessGroups.ProcessGroup", b =>
                 {
                     b.Navigation("StatusLookup");
@@ -330,6 +522,23 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Main.Game", b =>
                 {
                     b.Navigation("SystemRequirements");
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.Permission", b =>
+                {
+                    b.Navigation("UserPermissions");
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.RoleClaim", b =>
+                {
+                    b.Navigation("UserRoleClaims");
+                });
+
+            modelBuilder.Entity("MeArch.Module.Security.Model.UserIdentity.User", b =>
+                {
+                    b.Navigation("UserPermissions");
+
+                    b.Navigation("UserRoleClaims");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,6 +23,7 @@ namespace Core.DataAccess
                                                                     Expression<Func<TEntity, bool>> filter = null);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter,
                          Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null);
+        Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> expression);
 
         Task AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);

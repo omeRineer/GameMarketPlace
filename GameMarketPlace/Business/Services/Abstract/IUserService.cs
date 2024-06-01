@@ -12,7 +12,11 @@ namespace Business.Services.Abstract
 {
     public interface IUserService : IEntityService<User, int>
     {
-        Task<IDataResult<User>> GetByLoginModel(UserLoginRequest request);
-        Task<IDataResult<bool>> IsExistByLoginModel(UserLoginRequest request);
+        Task<IDataResult<List<RoleClaim>>> GetUserRoleClaimsAsync(int userId);
+        Task<IDataResult<User>> GetByLoginModelAsync(UserLoginRequest request);
+        Task<IDataResult<bool>> IsExistByLoginModelAsync(UserLoginRequest request);
+        Task<IResult> IsExistByUserNameAsync(string userName);
+        Task<IResult> IsExistByEmailAsync(string email);
+
     }
 }

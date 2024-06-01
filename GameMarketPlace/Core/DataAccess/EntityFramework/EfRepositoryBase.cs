@@ -50,6 +50,11 @@ namespace Core.DataAccess.EntityFramework
             return query.ToList();
         }
 
+        public bool IsExist(Expression<Func<TEntity, bool>> expression)
+        {
+            return Table.Any(expression);
+        }
+
         public void Add(TEntity entity)
         {
             var addEntity = _context.Entry(entity);
@@ -134,6 +139,10 @@ namespace Core.DataAccess.EntityFramework
             return await query.FirstOrDefaultAsync(filter);
         }
 
+        public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            return await Table.AnyAsync(expression);
+        }
         public async Task AddAsync(TEntity entity)
         {
             await _context.AddAsync(entity);
@@ -152,7 +161,9 @@ namespace Core.DataAccess.EntityFramework
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
-        } 
+        }
+
+       
         #endregion
     }
 }

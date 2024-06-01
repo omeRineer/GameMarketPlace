@@ -24,6 +24,8 @@ namespace Core.DataAccess
         TEntity Get(Expression<Func<TEntity, bool>> filter,
                     Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null);
 
+        bool IsExist(Expression<Func<TEntity, bool>> expression);
+
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 

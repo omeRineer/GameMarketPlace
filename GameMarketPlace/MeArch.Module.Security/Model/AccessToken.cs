@@ -9,5 +9,6 @@ namespace MeArch.Module.Security.Model
     public class AccessToken
     {
         public string Token { get; set; }
+        public DateTime ExpireDate { get; set; }
     }
 }

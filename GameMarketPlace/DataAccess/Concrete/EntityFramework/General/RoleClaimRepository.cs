@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework.General
 {
-    public interface IRoleClaimDal : IEntityRepository<RoleClaim>
+    public interface IRoleClaimRepository : IEntityRepository<RoleClaim>
     {
 
     }
-    public class RoleClaimDal : EfRepositoryBase<RoleClaim>, IRoleClaimDal
+    public class RoleClaimRepository : EfRepositoryBase<RoleClaim>, IRoleClaimRepository
     {
-        public RoleClaimDal(DbContext context) : base(context)
+        public RoleClaimRepository(DbContext context) : base(context)
         {
         }
     }

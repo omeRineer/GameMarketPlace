@@ -13,9 +13,17 @@ namespace Business.Services
     {
         public static void AddServices(this IServiceCollection services)
         {
+            services.AddScoped<IAuthService, AuthService>();
+
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+
+            services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IPermissionSe, GameService>();
+            //services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+            //services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+            //services.AddScoped<ISystemRequirementService, SystemRequirementService>();
         }
     }
 }

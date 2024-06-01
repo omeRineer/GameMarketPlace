@@ -20,7 +20,7 @@
   "TokenOptions": {
     "Audience": "www.gamestore.com",
     "Issuer": "www.gamestore.com",
-    "ExpirationTime": 1,
+    "ExpirationTime": 10,
     "SecurityKey": "this area use for json web token signature"
   },
 

@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework.General
 {
-    public interface IUserDal : IEntityRepository<User>
+    public interface IUserRepository : IEntityRepository<User>
     {
         Task<bool> IsExistByUserNameAndPassword(string userName, string password);
         Task<User> GetByUserNameAndPassword(string userName, string password);
     }
-    public class UserDal : EfRepositoryBase<User>, IUserDal
+    public class UserRepository : EfRepositoryBase<User>, IUserRepository
     {
-        public UserDal(DbContext context) : base(context)
+        public UserRepository(DbContext context) : base(context)
         {
         }
 
