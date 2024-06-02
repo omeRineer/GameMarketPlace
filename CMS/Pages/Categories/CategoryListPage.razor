@@ -1,0 +1,64 @@
+﻿@page "/categories"
+
+@inject DialogService DialogService
+@inject CategoryODataService CategoryODataService
+
+<h1>Kategoriler</h1>
+<div class="row">
+    <div class="col-xl-3">
+        <RadzenButton Icon="add" Click=@(args => DialogService.Open<CategoryAddPage>("Kategori Ekle",
+                                           null,
+                                           new DialogOptions{Width = "1000px"} )) />
+
+        <RadzenButton Icon="edit" Click=@(args => DialogService.Open<CategoryUpdatePage>("Kategori Düzenle")) />
+        @*<RadzenButton Icon="remove" Click=@DeleteRecord />
+            <RadzenButton Icon="refresh" Click=@RefreshRecords />*@
+    </div>
+</div>
+<RadzenDataGrid FilterMode="FilterMode.SimpleWithMenu"
+                IsLoading="@_isLoading"
+                AllowColumnResize="true"
+                Count="@count"
+                Data="@categories"
+                LoadData="@LoadData"
+                SelectionMode="DataGridSelectionMode.Single"
+                RowSelect="@(args => selectedCategory = args)"
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                AllowSorting="true"
+                AllowFiltering="true"
+                AllowPaging="true"
+                PageSize="10"
+                PagerHorizontalAlign="HorizontalAlign.Right"
+                ShowPagingSummary="true"
+                TItem="Category"
+                Style="margin-top: 20px;" ColumnWidth="200px">
+    <Columns>
+        <RadzenDataGridColumn TItem="Category" Property="Name" Title="Ülke" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    object selectedCategory;
+    bool _isLoading = false;
+    IEnumerable<Category> categories;
+    int count;
+
+    async Task LoadData(LoadDataArgs args)
+    {
+        _isLoading = true;
+
+        var result = await CategoryODataService.GetListAsync(new ODataRequestParams
+        {
+            Count = true,
+            Filter = args.Filter,
+            OrderBy = args.OrderBy,
+            Skip = args.Skip,
+            Top = args.Top
+        });
+
+        categories = result.Value.AsODataEnumerable();
+        count = result.Count;
+
+        _isLoading = false;
+    }
+}

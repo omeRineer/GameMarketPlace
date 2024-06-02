@@ -14,9 +14,9 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 builder.Services.AddServiceModules(new IServiceModule[]
 {
     new BusinessServiceModule(builder.Configuration),
-    new MeArchitectureServiceModule()
+    new MeArchitectureServiceModule(),
+    new RepositoryServiceModule()
 });
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

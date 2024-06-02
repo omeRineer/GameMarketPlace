@@ -20,6 +20,7 @@ namespace Configuration
         }
 
         public static string ConnectionString { get => Configuration.GetConnectionString("DbConnectionString"); }
+        public static string ODataApiUrl { get => Configuration.GetSection("ODataApiUrl").Value; }
         public static EmailOptions EmailOptions { get => Configuration.GetSection("EmailOptions").Get<EmailOptions>(); }
         public static TokenOptions TokenOptions { get => Configuration.GetSection("TokenOptions").Get<TokenOptions>(); }
         public static FileOptions FileOptions { get => Configuration.GetSection("FileOptions").Get<FileOptions>(); }

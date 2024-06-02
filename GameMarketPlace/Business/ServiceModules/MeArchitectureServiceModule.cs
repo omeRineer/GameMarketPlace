@@ -14,6 +14,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using DataAccess.Concrete.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.ServiceModules
 {
@@ -21,6 +23,13 @@ namespace Business.ServiceModules
     {
         public void Load(IServiceCollection services)
         {
+            services.AddDbContext<CoreContext>(options =>
+            {
+                options.UseSqlServer(CoreConfiguration.ConnectionString);
+            });
+
+            services.AddMemoryCache();
+            services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

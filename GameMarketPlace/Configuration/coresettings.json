@@ -27,5 +27,7 @@
   "FileOptions": {
     "Extensions": [ ".JPG", ".PNG" ],
     "FilePath": "./Main"
-  }
+  },
+
+  "ODataApiUrl": "https://localhost:7227/odata"
 }

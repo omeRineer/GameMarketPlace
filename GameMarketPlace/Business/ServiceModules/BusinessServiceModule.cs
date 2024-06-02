@@ -26,17 +26,7 @@ namespace Business.ServiceModules
 
         public void Load(IServiceCollection services)
         {
-            services.AddDbContext<CoreContext>(options =>
-            {
-                options.UseSqlServer(CoreConfiguration.ConnectionString);
-            });
-
-            services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
-
             services.AddServices();
-            services.AddRepositories();
-
-            services.AddMemoryCache();
         }
     }
 }

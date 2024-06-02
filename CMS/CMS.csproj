@@ -9,7 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.14" PrivateAssets="all" />
+    <PackageReference Include="Radzen.Blazor" Version="4.32.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameMarketPlace\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\GameMarketPlace\Entities\Entities.csproj" />
   </ItemGroup>
 
 </Project>
