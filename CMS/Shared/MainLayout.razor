@@ -1,32 +1,33 @@
 ﻿@inherits LayoutComponentBase
 
-<RadzenLayout>
+    <RadzenComponents />
+    <RadzenLayout>
 
-    <RadzenHeader>
-        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
-            <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
-            <RadzenLabel Text="Game Store Content Management System" />
-        </RadzenStack>
-    </RadzenHeader>
+        <RadzenHeader>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+                <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
+                <RadzenLabel Text="Game Store Content Management System" />
+            </RadzenStack>
+        </RadzenHeader>
 
-    <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
-        <RadzenPanelMenu>
-            <RadzenPanelMenuItem Text="Dashboard" Icon="home" Path="categories" />
-            <RadzenPanelMenuItem Text="Slider" Icon="view_carousel" />
-            <RadzenPanelMenuItem Text="Kategoriler" Icon="category" />
-            <RadzenPanelMenuItem Text="Oyunlar" Icon="games" />
-            <RadzenPanelMenuItem Text="Kullanıcılar" Icon="people" />
-            <RadzenPanelMenuItem Text="Roller" Icon="admin_panel_settings" />
-        </RadzenPanelMenu>
-    </RadzenSidebar>
+        <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
+            <RadzenPanelMenu>
+                <RadzenPanelMenuItem Text="Dashboard" Icon="home"  />
+                <RadzenPanelMenuItem Text="Slider" Icon="view_carousel" />
+                <RadzenPanelMenuItem Text="Kategoriler" Path="categories" Icon="category" />
+                <RadzenPanelMenuItem Text="Oyunlar" Icon="games" />
+                <RadzenPanelMenuItem Text="Kullanıcılar" Icon="people" />
+                <RadzenPanelMenuItem Text="Roller" Icon="admin_panel_settings" />
+            </RadzenPanelMenu>
+        </RadzenSidebar>
 
-    <RadzenBody>
-        <div class="rz-p-4">
-            @Body
-        </div>
-    </RadzenBody>
-</RadzenLayout>
+        <RadzenBody>
+            <div class="rz-p-4">
+                @Body
+            </div>
+        </RadzenBody>
+    </RadzenLayout>
 
-@code {
-    bool sidebar1Expanded = true;
-}
+    @code {
+        bool sidebar1Expanded = true;
+    }

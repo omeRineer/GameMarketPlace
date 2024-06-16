@@ -28,6 +28,10 @@ namespace Business.ServiceModules
                 options.UseSqlServer(CoreConfiguration.ConnectionString);
             });
 
+            services.AddCors(options =>
+                            options.AddDefaultPolicy(builder =>
+                            builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+
             services.AddMemoryCache();
             services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 
@@ -48,6 +52,7 @@ namespace Business.ServiceModules
                     };
                 });
 
+            var deg = CoreConfiguration.APIOptions;
             services.AddTokenService(options =>
             {
                 options.Audience = CoreConfiguration.TokenOptions.Audience;

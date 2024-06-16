@@ -1,17 +1,31 @@
-﻿using DataAccess.Concrete.EntityFramework;
+﻿using Core.Entities.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using Entities.Main;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.EntityFrameworkCore;
 
 namespace ODataAPI.Controllers.Base
 {
-    [Route("odata/[controller]")]
-    public class BaseODataController : ODataController
+    public class BaseODataController<TEntity> : ODataController
+        where TEntity : class, IEntity, new()
     {
-        protected readonly CoreContext Context;
+        protected readonly DbContext Context;
 
-        protected BaseODataController(CoreContext context)
+        protected BaseODataController(DbContext context)
         {
             Context = context;
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        public IEnumerable<TEntity> Get()
+        {
+            var query = Context.Set<TEntity>()
+                               .AsQueryable();
+
+            return query;
         }
     }
 }

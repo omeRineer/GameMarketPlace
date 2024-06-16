@@ -1,7 +1,12 @@
 ﻿using Configuration;
+using Core.Utilities.RestHelper;
+using Entities.Main;
+using Newtonsoft.Json;
 using Radzen;
+using RestSharp;
+using System.Net.Http.Json;
 
-namespace CMS.Services.OData
+namespace CMS.Services.Base
 {
     public struct ODataRequestParams
     {
@@ -26,9 +31,8 @@ namespace CMS.Services.OData
 
         protected async Task<ODataServiceResult<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
         {
-            var deg = CoreConfiguration.ODataApiUrl;
-            var uri = (new Uri($"{CoreConfiguration.ODataApiUrl}/{path}"))
-                       .GetODataUri(requestParams.Filter,
+            var uri = new Uri(new Uri(CoreConfiguration.ODataApiUrl), $"odata/categories");
+            var oDataUri = uri.GetODataUri(requestParams.Filter,
                                     requestParams.Top,
                                     requestParams.Skip,
                                     requestParams.OrderBy,
@@ -36,11 +40,25 @@ namespace CMS.Services.OData
                                     requestParams.Select,
                                     requestParams.Count);
 
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, oDataUri);
 
             var response = await HttpClient.SendAsync(httpRequestMessage);
 
             return await response.ReadAsync<ODataServiceResult<TEntity>>();
+
+        }
+
+        protected async Task<RestResponse> AddAsync(Category category)
+        {
+            var httpContent = new StringContent(JsonConvert.SerializeObject(category));
+
+
+            var response = await RestHelper.PostAsync<Category, object>(new RestRequestParameter
+            {
+                BaseUrl = $"{CoreConfiguration.ODataApiUrl}/odata/categories/add"
+            }, category);
+
+            return response;
 
         }
     }

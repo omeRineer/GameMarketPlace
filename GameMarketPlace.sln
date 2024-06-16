@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangFire", "HangFire\HangFi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "UserInterface\UserInterface.csproj", "{8BB3AF6D-29CB-46C2-AAD8-855F6EE23F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODataAPI", "ODataAPI\ODataAPI.csproj", "{15E56BEC-B810-4AC9-B88F-41DC55CD662F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ODataAPI", "ODataAPI\ODataAPI.csproj", "{15E56BEC-B810-4AC9-B88F-41DC55CD662F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

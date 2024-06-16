@@ -106,6 +106,7 @@ namespace Business.Services.Concrete
             var entity = await _categoryRepository.GetAsync(f => f.Id == id);
 
             _categoryRepository.Delete(entity);
+            await _categoryRepository.SaveAsync();
 
             return new SuccessResult();
         }
