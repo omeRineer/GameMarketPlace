@@ -110,5 +110,12 @@ namespace Business.Services.Concrete
 
             return new SuccessResult();
         }
+
+        public async Task<IDataResult<Category>> GetByIdAsync(Guid id)
+        {
+            var entity = await _categoryRepository.GetAsync(x => x.Id.Equals(id));
+
+            return new SuccessDataResult<Category>(entity);
+        }
     }
 }

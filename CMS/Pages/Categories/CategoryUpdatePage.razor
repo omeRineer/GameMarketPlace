@@ -1,4 +1,5 @@
 ﻿@inject CategoryService CategoryService
+@inject CategoryODataService CategoryODataService
 @inject DialogService DialogService
 @inject NotificationService NotificationService
 
@@ -20,17 +21,17 @@
 
 @code {
     [Parameter] public object CategoryId { get; set; }
-    private Category Category { get; set; }
+    Category Category;
     bool _isLoading = false;
 
     protected async override void OnInitialized()
     {
         var result = await CategoryService.GetByIdAsync((Guid)CategoryId);
-        if (!result.IsSuccessful)
-        {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
-            return;
-        }
+        //if (!result.IsSuccessStatusCode)
+        //{
+        //    NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Kategori bulunamadı!" });
+        //    return;
+        //}
 
         Category = result.Data;
     }

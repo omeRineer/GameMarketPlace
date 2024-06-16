@@ -1,5 +1,6 @@
 ﻿using Configuration;
 using Core.Utilities.RestHelper;
+using Core.Utilities.ResultTool;
 using RestSharp;
 
 namespace CMS.Services.Base

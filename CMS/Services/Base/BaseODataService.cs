@@ -48,6 +48,18 @@ namespace CMS.Services.Base
 
         }
 
+        protected async Task<TEntity> GetByIdAsync(string path)
+        {
+            var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{path}");
+
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+
+            var response = await HttpClient.SendAsync(httpRequestMessage);
+
+            return await response.ReadAsync<TEntity>();
+
+        }
+
         protected async Task<RestResponse> AddAsync(Category category)
         {
             var httpContent = new StringContent(JsonConvert.SerializeObject(category));

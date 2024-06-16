@@ -8,5 +8,8 @@ namespace CMS.Services.OData
     {
         public async Task<ODataServiceResult<Game>> GetListAsync(ODataRequestParams requestParams)
             => await GetListAsync("games", requestParams);
+
+        public async Task<Game> GetByIdAsync(Guid id)
+            => await GetByIdAsync($"games/{id}");
     }
 }

@@ -4,6 +4,7 @@ using Entities.Main;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +21,8 @@ namespace ODataAPI.Controllers.Base
             Context = context;
         }
 
-        [HttpGet]
-        [Route("[controller]")]
         [EnableQuery]
-        public IEnumerable<TEntity> GetList()
+        public IQueryable<TEntity> Get()
         {
             var query = Context.Set<TEntity>()
                                .AsQueryable();
@@ -31,14 +30,13 @@ namespace ODataAPI.Controllers.Base
             return query;
         }
 
-        //[HttpGet("{key}")]
-        //[EnableQuery]
-        //public TEntity GetList([FromRoute] TKey key)
-        //{
-        //    var query = Context.Set<TEntity>()
-        //                       .Find(key);
+        [EnableQuery]
+        public TEntity Get([FromRoute] TKey key)
+        {
+            var query = Context.Set<TEntity>()
+                               .Find(key);
 
-        //    return query;
-        //}
+            return query;
+        }
     }
 }

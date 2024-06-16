@@ -46,12 +46,12 @@ namespace WebAPI.Controllers
             return Result(result);
         }
 
-        //[HttpGet("GetCategory/{id}")]
-        //public async Task<IActionResult> GetCategoryAsync(Guid id)
-        //{
-        //    var result = await _categoryService.Get(id);
+        [HttpGet("GetCategory/{id}")]
+        public async Task<IActionResult> GetCategoryAsync(Guid id)
+        {
+            var result = await _categoryService.GetByIdAsync(id);
 
-        //    return Result(result);
-        //}
+            return Ok(result.Data);
+        }
     }
 }
