@@ -19,8 +19,7 @@ namespace WebAPI.Controllers
         {
             var result = await _categoryService.AddAsyncDto(categoryAddDto);
 
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
+            return Result(result);
         }
 
         [HttpPost("Delete")]
@@ -28,8 +27,7 @@ namespace WebAPI.Controllers
         {
             var result = await _categoryService.DeleteByIdAsync(id);
 
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
+            return Result(result);
         }
 
         [HttpPost("Update")]
@@ -37,8 +35,7 @@ namespace WebAPI.Controllers
         {
             var result = await _categoryService.UpdateAsyncDto(categoryUpdateDto);
 
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
+            return Result(result);
         }
 
         [HttpGet("GetCategories")]
@@ -46,17 +43,15 @@ namespace WebAPI.Controllers
         {
             var result = await _categoryService.GetListAsync();
 
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
+            return Result(result);
         }
 
-        [HttpGet("GetCategory/{id}")]
-        public async Task<IActionResult> GetCategoryAsync(Guid id)
-        {
-            var result = await _categoryService.GetByIdAsyncDto(id);
+        //[HttpGet("GetCategory/{id}")]
+        //public async Task<IActionResult> GetCategoryAsync(Guid id)
+        //{
+        //    var result = await _categoryService.Get(id);
 
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
-        }
+        //    return Result(result);
+        //}
     }
 }

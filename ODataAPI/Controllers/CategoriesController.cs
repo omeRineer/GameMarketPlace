@@ -8,7 +8,7 @@ using ODataAPI.Controllers.Base;
 
 namespace ODataAPI.Controllers
 {
-    public class CategoriesController : BaseODataController<Category>
+    public class CategoriesController : BaseODataController<Category, Guid>
     {
         public CategoriesController(DbContext context) : base(context) { }
     }

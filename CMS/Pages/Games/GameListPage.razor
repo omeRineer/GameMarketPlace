@@ -1,19 +1,17 @@
-﻿@page "/categories"
+﻿@page "/games"
 
-@inherits CMS.Pages.Base.BaseDataPage<Category>
-@inject CategoryODataService CategoryODataService
-@inject CategoryService CategoryService
+@inherits CMS.Pages.Base.BaseDataPage<Game>
+@inject GameODataService GameODataService
+@inject GameService GameService
 
 <h3>Kategoriler</h3>
 <div class="row">
     <div class="col-xl-3">
-        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<CategoryAddPage>("Kategori Ekle",
+        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<GameAddPage>("Oyun Ekle",
                                            null,
                                            new DialogOptions{Width = "600px"} )) />
 
-        <RadzenButton Icon="edit" Click=@(args => DialogService.Open<CategoryUpdatePage>("Kategori Düzenle",
-                                          new Dictionary<string, object> { { "CategoryId", ((Category)SelectedItem).Id } },
-                                          new DialogOptions{Width = "600px"})) />
+        <RadzenButton Icon="edit" Click=@(args => DialogService.Open<GameUpdatePage>("Oyun Düzenle")) />
         <RadzenButton Icon="remove" Click=@Delete />
         <RadzenButton Icon="refresh" Click=@Refresh />
     </div>
@@ -21,7 +19,7 @@
 
 
 
-<BaseDataGrid TItem="Category"
+<BaseDataGrid TItem="Game"
               IsLoading="IsLoading"
               Data="Data"
               @bind-SelectedItem="@SelectedItem"
@@ -29,25 +27,27 @@
               Count="Count"
               Columns=@(new Dictionary<string, string>
              {
-                 { "Name", "Kategori Adı" },
+                 { "Name", "Oyun İsmi" },
+                 { "Category.Name", "Kategori" },
+                 { "ReleaseDate", "Yayınlanma Tarihi" },
                  { "CreateDate", "Oluşturulma Tarihi" },
                  { "EditDate", "Son Güncellenme Tarihi" }
              }) />
 
 @code {
-
     async Task LoadData(LoadDataArgs args)
     {
         IsLoading = true;
         LastArgs = args;
 
-        var result = await CategoryODataService.GetListAsync(new ODataRequestParams
+        var result = await GameODataService.GetListAsync(new ODataRequestParams
         {
             Count = true,
             Filter = args.Filter,
             OrderBy = args.OrderBy,
             Skip = args.Skip,
-            Top = args.Top
+            Top = args.Top,
+            Expand = "Category"
         });
 
         Data = result.Value.AsODataEnumerable();
@@ -61,7 +61,7 @@
     {
         if (SelectedItem == null)
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen bir kategori seçin!" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen bir oyun seçin!" });
             return;
 
         }
@@ -72,7 +72,7 @@
 
         IsLoading = true;
 
-        var result = await CategoryService.DeleteAsync(((Category)SelectedItem).Id);
+        var result = await GameService.DeleteAsync(((Game)SelectedItem).Id);
         if (!result.IsSuccessful)
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
 
@@ -98,5 +98,4 @@
         await LoadData(LastArgs);
         StateHasChanged();
     }
-
 }

@@ -6,6 +6,9 @@ namespace CMS.Services.Master
 {
     public class CategoryService : BaseService<Category>
     {
+        public async Task<RestResponse<Category>> GetByIdAsync(Guid id)
+            => await GetByIdAsync($"/categories/getcategory/{id}");
+
         public async Task<RestResponse> AddAsync(Category category)
             => await AddAsync("/categories/add", category);
 

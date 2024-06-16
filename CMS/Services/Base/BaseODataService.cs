@@ -31,7 +31,7 @@ namespace CMS.Services.Base
 
         protected async Task<ODataServiceResult<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
         {
-            var uri = new Uri(new Uri(CoreConfiguration.ODataApiUrl), $"odata/categories");
+            var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{path}");
             var oDataUri = uri.GetODataUri(requestParams.Filter,
                                     requestParams.Top,
                                     requestParams.Skip,

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
@@ -30,7 +31,21 @@ namespace DataAccess.Concrete.EntityFramework
 
         public override int SaveChanges()
         {
-            var dataEntries = ChangeTracker.Entries<BaseEntity<object>>();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            ProcessEntries<Guid>();
+            ProcessEntries<int>();
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void ProcessEntries<TKey>()
+        {
+            var dataEntries = ChangeTracker.Entries<BaseEntity<Guid>>();
             foreach (var data in dataEntries)
             {
                 switch (data.State)
@@ -42,7 +57,6 @@ namespace DataAccess.Concrete.EntityFramework
                     case EntityState.Added: data.Entity.CreateDate = DateTime.Now; break;
                 }
             }
-            return base.SaveChanges();
         }
     }
 }
