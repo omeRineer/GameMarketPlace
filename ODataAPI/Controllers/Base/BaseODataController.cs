@@ -16,7 +16,7 @@ namespace ODataAPI.Controllers.Base
     {
         protected readonly DbContext Context;
 
-        protected BaseODataController(DbContext context)
+        public BaseODataController(DbContext context)
         {
             Context = context;
         }

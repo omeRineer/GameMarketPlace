@@ -1,0 +1,114 @@
+﻿@inject MediaODataService MediaODataService
+@inject MediaService MediaService
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+<div class="row mb-2">
+    <div class="col-md-4">
+        <RadzenUpload Multiple="true"
+                      Change=@OnSelectFiles
+                      Accept="image/*"
+                      Icon="upload"
+                      class="w-100" />
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <RadzenListBox TValue="string"
+                       LoadData="LoadData"
+                       Data="GameCollection"
+                       TextProperty="MediaPath"
+                       ValueProperty="MediaPath"
+                       @bind-Value="SelectedMedia"
+                       class="w-100"
+                       Style="height:200px" />
+    </div>
+    <div class="col-md-8">
+        @if (SelectedMedia != null)
+        {
+            <RadzenImage Path="@($"{Configuration.CoreConfiguration.WebApiUrl}/Main/GameImages/{GameId}/{SelectedMedia}")" class="w-100 h-100" />
+        }
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(_isLoading == false)" />
+        <RadzenButton Click="@((args) => DialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="İptal" Style="margin-bottom: 10px; width: 150px" />
+    </div>
+</div>
+
+@code {
+    [Parameter] public Guid GameId { get; set; }
+    string SelectedMedia;
+    IEnumerable<Media> GameCollection;
+    List<FileInfo> MediaList = new List<FileInfo>();
+    bool _isLoading = false;
+
+    protected async override Task OnInitializedAsync()
+    {
+    }
+
+    async Task LoadData(LoadDataArgs args)
+    {
+        _isLoading = true;
+
+        var result = await MediaODataService.GetListAsync(new ODataRequestParams
+        {
+            Filter = $"EntityId eq {GameId} and MediaTypeId eq {(int)Entities.Enum.Type.MediaTypeEnum.GameImage}"
+        });
+
+        GameCollection = result.Value.AsODataEnumerable();
+
+        StateHasChanged();
+        _isLoading = false;
+    }
+
+    async Task OnSelectFiles(UploadChangeEventArgs args)
+    {
+        MediaList = args.Files.ToList();
+    }
+
+    async Task Save()
+    {
+        _isLoading = true;
+
+        var newMediaRequest = new CMS.Model.Media.MediaUploadModel
+        {
+            EntityId = GameId,
+            MediaList = new List<Model.Media.MediaUploadFile>()
+        };
+
+        foreach (var file in MediaList)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(memoryStream);
+                newMediaRequest.MediaList.Add(new Model.Media.MediaUploadFile
+                {
+                    Bytes = memoryStream.ToArray(),
+                    FileName = file.Name
+                });
+            }
+        }
+
+        var result = await MediaService.UploadMedia(newMediaRequest);
+
+        if (!result.IsSuccessful)
+        {
+            NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = result.ErrorMessage
+            });
+            _isLoading = false;
+            return;
+        }
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
+
+        DialogService.Close(true);
+        _isLoading = false;
+    }
+}

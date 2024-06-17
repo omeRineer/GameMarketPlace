@@ -53,8 +53,13 @@ namespace DataAccess.Concrete.EntityFramework
                     case EntityState.Detached: break;
                     case EntityState.Unchanged: break;
                     case EntityState.Deleted: break;
-                    case EntityState.Modified: data.Entity.EditDate = DateTime.Now; break;
-                    case EntityState.Added: data.Entity.CreateDate = DateTime.Now; break;
+                    case EntityState.Modified: 
+                        data.Entity.EditDate = DateTime.Now; 
+                        break;
+                    case EntityState.Added: 
+                        data.Entity.CreateDate = DateTime.Now;
+                        data.Entity.EditDate = DateTime.Now; 
+                        break;
                 }
             }
         }

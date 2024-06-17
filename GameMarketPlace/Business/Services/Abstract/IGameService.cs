@@ -13,6 +13,7 @@ namespace Business.Services.Abstract
     {
         Task<IDataResult<List<GameDto>>> GetListAsyncDto();
         Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id);
+        Task<IDataResult<Game>> GetByIdAsync(Guid id);
         Task<IResult> AddAsyncDto(GameAddDto gameAddDto);
         Task<IResult> UpdateAsyncDto(GameEditDto gameEditDto);
     }

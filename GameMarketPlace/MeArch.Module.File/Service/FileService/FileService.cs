@@ -22,7 +22,7 @@ namespace MeArch.Module.File.Service.FileService
             FileOptions = options.Value;
         }
 
-        public IDataResult<FileInfo> UploadFile(Http.IFormFile file, FileOptionsParameter fileOptionsParameter)
+        public async Task<IDataResult<FileInfo>> UploadFileAsync(Http.IFormFile file, FileOptionsParameter fileOptionsParameter)
         {
             var businessRules = BusinessTool.Run(ExtensionValidate(file.GetExtension()));
             if (!businessRules.Success) return new ErrorDataResult<FileInfo>(businessRules.Message);
@@ -32,7 +32,7 @@ namespace MeArch.Module.File.Service.FileService
             {
                 try
                 {
-                    file.CopyTo(fileStream);
+                    await file.CopyToAsync(fileStream);
                     return new SuccessDataResult<FileInfo>(fileInfo);
                 }
                 catch (Exception ex)

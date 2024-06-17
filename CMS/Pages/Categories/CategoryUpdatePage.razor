@@ -21,7 +21,7 @@
 
 @code {
     [Parameter] public object CategoryId { get; set; }
-    Category Category;
+    public Category Category { get; set; }
     bool _isLoading = false;
 
     protected async override void OnInitialized()
@@ -33,7 +33,10 @@
         //    return;
         //}
 
-        Category = result.Data;
+        Category = new Category
+        {
+            Name = "Test"
+        };
     }
 
     private async Task Save()

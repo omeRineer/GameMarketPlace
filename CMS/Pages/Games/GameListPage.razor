@@ -9,11 +9,14 @@
     <div class="col-xl-3">
         <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<GameAddPage>("Oyun Ekle",
                                            null,
-                                           new DialogOptions{Width = "600px"} )) />
+                                           new DialogOptions{Width = "800px"} )) />
 
         <RadzenButton Icon="edit" Click=@(args => DialogService.Open<GameUpdatePage>("Oyun Düzenle")) />
         <RadzenButton Icon="remove" Click=@Delete />
         <RadzenButton Icon="refresh" Click=@Refresh />
+        <RadzenButton Icon="collections" Click=@(args => base.DialogService.Open<GameGalleryPage>("Galeri",
+                                                 new Dictionary<string, object> { { "GameId", ((Game)SelectedItem).Id } },
+                                                 new DialogOptions{Width = "800px"} )) />
     </div>
 </div>
 

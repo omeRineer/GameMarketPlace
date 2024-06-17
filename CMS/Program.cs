@@ -13,6 +13,8 @@ builder.Services.AddSingleton<CategoryODataService>();
 builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddSingleton<GameODataService>();
 builder.Services.AddSingleton<GameService>();
+builder.Services.AddSingleton<MediaODataService>();
+builder.Services.AddSingleton<MediaService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddRadzenComponents();

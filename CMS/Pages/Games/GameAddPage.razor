@@ -1,5 +1,96 @@
-﻿<h3>GameAddPage</h3>
+﻿@inject CategoryODataService CategoryODataService
+@inject GameService GameService
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+<div class="row w-50">
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Oyun Adı:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenTextBox class="w-100" @bind-Value="newGame.Name" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Kategori:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown Data="categories"
+                            TValue="Guid"
+                            @bind-Value="newGame.CategoryId"
+                            TextProperty="Value"
+                            ValueProperty="Key"
+                            class="w-100"/>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Fiyat:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric class="w-100" TValue="decimal" @bind-Value="newGame.Price" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Açıklama:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenTextArea Rows="5" class="w-100" @bind-Value="newGame.Description" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Yayın Tarihi:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDatePicker class="w-100" TValue="DateTime" @bind-Value="newGame.ReleaseDate" DateFormat="dd.MM.yyyy HH:mm" />
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(_isLoading == false)" />
+        <RadzenButton Click="@((args) => DialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="İptal" Style="margin-bottom: 10px; width: 150px" />
+    </div>
+</div>
 
 @code {
+    bool _isLoading = false;
+    Dictionary<Guid, string> categories;
+    Game newGame = new Game();
 
+    protected async override Task OnInitializedAsync()
+    {
+        categories = (await CategoryODataService.GetListAsync(new ODataRequestParams
+        {
+            Select = "Id,Name"
+        })).Value.ToDictionary(k => k.Id, v => v.Name);
+
+
+    }
+
+    async Task Save()
+    {
+        _isLoading = true;
+        var result = await GameService.AddAsync(newGame);
+
+        if (!result.IsSuccessful)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
+            return;
+        }
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
+
+        DialogService.Close(true);
+        _isLoading = false;
+    }
 }

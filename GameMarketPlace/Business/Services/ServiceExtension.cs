@@ -18,6 +18,7 @@ namespace Business.Services
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+            services.AddScoped<IMediaService, MediaService>();
 
             services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IPermissionSe, GameService>();

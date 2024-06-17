@@ -14,13 +14,16 @@ namespace Core.Extensions
         public static ModelBuilder ProcessGroups(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProcessGroup>()
-                        .ToTable("ProcessGroups");
+                        .ToTable("ProcessGroups")
+                        .Property(p => p.Id).ValueGeneratedNever();
 
             modelBuilder.Entity<TypeLookup>()
-                        .ToTable("TypeLookups");
+                        .ToTable("TypeLookups")
+                        .Property(p => p.Id).ValueGeneratedNever();
 
             modelBuilder.Entity<StatusLookup>()
-                        .ToTable("StatusLookups");
+                        .ToTable("StatusLookups")
+                        .Property(p => p.Id).ValueGeneratedNever();
 
             return modelBuilder;
         }

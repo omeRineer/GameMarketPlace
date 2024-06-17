@@ -6,6 +6,7 @@ using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Dto.Category;
 using Entities.Dto.Game;
+using Entities.Enum.Type;
 using Entities.Main;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,12 +20,14 @@ namespace Business.Services.Concrete
     public class GameService : IGameService
     {
         readonly IGameRepository _gameRepository;
+        readonly IMediaRepository _mediaRepository;
         readonly IMapper _mapper;
 
-        public GameService(IGameRepository gameRepository, IMapper mapper)
+        public GameService(IGameRepository gameRepository, IMapper mapper, IMediaRepository mediaRepository)
         {
             _gameRepository = gameRepository;
             _mapper = mapper;
+            _mediaRepository = mediaRepository;
         }
 
         public async Task<IResult> AddAsync(Game entity)
@@ -61,6 +64,13 @@ namespace Business.Services.Concrete
             _gameRepository.Save();
 
             return new SuccessResult();
+        }
+
+        public async Task<IDataResult<Game>> GetByIdAsync(Guid id)
+        {
+            var entity = await _gameRepository.GetAsync(filter: f=> f.Id.Equals(id));
+
+            return new SuccessDataResult<Game>(entity);
         }
 
         public async Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id)

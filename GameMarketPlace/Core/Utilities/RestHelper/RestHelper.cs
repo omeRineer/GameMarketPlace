@@ -38,7 +38,7 @@ namespace Core.Utilities.RestHelper
 
 
         public static RestResponse<TResponse> Post<TRequest, TResponse>(RestRequestParameter restRequestParameter,
-                                                                        TRequest body,
+                                                                        TRequest body = null,
                                                                         Func<HttpRequestMessage, ValueTask> onBefore = null,
                                                                         Func<HttpResponseMessage, ValueTask> onAfter = null)
             where TRequest : class, new()
@@ -51,7 +51,7 @@ namespace Core.Utilities.RestHelper
             return response;
         }
         public static async Task<RestResponse<TResponse>> PostAsync<TRequest, TResponse>(RestRequestParameter restRequestParameter,
-                                                                                         TRequest body,
+                                                                                         TRequest body = default,
                                                                                          Func<HttpRequestMessage, ValueTask> onBefore = null,
                                                                                          Func<HttpResponseMessage, ValueTask> onAfter = null)
         {
@@ -90,6 +90,10 @@ namespace Core.Utilities.RestHelper
 
             request.OnBeforeRequest = onBefore;
             request.OnAfterRequest = onAfter;
+
+            if (restRequestParameter.Files.Any())
+                foreach (var file in restRequestParameter.Files)
+                    request.AddFile("File", file.Bytes, file.FileName, file.ContentType);
 
             return request;
         }

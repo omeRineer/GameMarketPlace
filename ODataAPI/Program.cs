@@ -15,6 +15,7 @@ static IEdmModel GetEdmModel()
     var oDataBuilder = new ODataConventionModelBuilder();
     oDataBuilder.EntitySet<Category>("Categories");
     oDataBuilder.EntitySet<Game>("Games");
+    oDataBuilder.EntitySet<Media>("Medias");
 
     return oDataBuilder.GetEdmModel();
 }
