@@ -1,0 +1,36 @@
+﻿@model List<Entities.Main.Game>
+
+<div class="section trending">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h6>Trendler</h6>
+                    <h2>Trend Oyunlar</h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="main-button">
+                    <a href="shop.html">Tüm Oyunlar</a>
+                </div>
+            </div>
+            @foreach (var trendGame in Model)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="item">
+                        <div class="thumb">
+                            <a href="product-details.html"><img src="https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png" alt=""></a>
+                        </div>
+                        <div class="down-content d-flex align-items-start flex-column">
+                            <span class="category">@trendGame.Category.Name</span>
+                            <h4>@trendGame.Name</h4>
+                            <span>@trendGame.Price TL</span>
+                            <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

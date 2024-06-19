@@ -1,0 +1,80 @@
+﻿
+@inject SliderContentService SliderContentService
+@inject SliderContentODataService SliderContentODataService
+@inject TypeLookupODataService TypeLookupODataService
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+<div class="row w-100">
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Slider Türü:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown Data="sliderTypes"
+                            ReadOnly="true"
+                            TValue="int"
+                            @bind-Value="SelectedSliderContent.SliderTypeId"
+                            TextProperty="Value"
+                            ValueProperty="Key"
+                            class="w-100" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Başlık:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenTextBox ReadOnly="true" class="w-100" @bind-Value="SelectedSliderContent.Header" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Link:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenTextBox ReadOnly="true" class="w-100" @bind-Value="SelectedSliderContent.To" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Aktif mi ?" />
+        </div>
+        <div class="col-md-8">
+            <RadzenCheckBox ReadOnly="true" class="w-100" @bind-Value="SelectedSliderContent.IsActive" />
+        </div>
+    </div>
+
+
+</div>
+
+@code {
+    bool _isLoading = false;
+    [Parameter] public Guid SliderContentId { get; set; }
+    SliderContent SelectedSliderContent;
+    Dictionary<int, string> sliderTypes;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        sliderTypes = (await TypeLookupODataService.GetListAsync(new ODataRequestParams
+        {
+            Select = "Id,Description",
+            Filter = $"ProcessGroupId eq {(int)Entities.Enum.ProcessGroupEnum.SliderType}"
+        })).Value.ToDictionary(k => k.Id, v => v.Description);
+
+        if (SliderContentId == null)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "İçerik bulunamadı!" });
+            return;
+        }
+
+        SelectedSliderContent = await SliderContentODataService.GetByIdAsync(SliderContentId);
+
+
+
+    }
+}

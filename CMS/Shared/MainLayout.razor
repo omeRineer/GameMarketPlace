@@ -10,16 +10,7 @@
             </RadzenStack>
         </RadzenHeader>
 
-        <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
-            <RadzenPanelMenu>
-                <RadzenPanelMenuItem Text="Dashboard" Icon="home"  />
-                <RadzenPanelMenuItem Text="Slider" Icon="view_carousel" />
-                <RadzenPanelMenuItem Text="Kategoriler" Path="categories" Icon="category" />
-                <RadzenPanelMenuItem Text="Oyunlar" Path="games"  Icon="games" />
-                <RadzenPanelMenuItem Text="Kullanıcılar" Icon="people" />
-                <RadzenPanelMenuItem Text="Roller" Icon="admin_panel_settings" />
-            </RadzenPanelMenu>
-        </RadzenSidebar>
+        
 
         <RadzenBody>
             <div class="rz-p-4">
@@ -29,5 +20,4 @@
     </RadzenLayout>
 
     @code {
-        bool sidebar1Expanded = true;
     }

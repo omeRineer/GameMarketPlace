@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete.GeneralSettings;
+using Core.Entities.Concrete.Menu;
 using Core.Entities.Concrete.ProcessGroups;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,6 +33,14 @@ namespace Core.Extensions
         {
             modelBuilder.Entity<GeneralSetting>()
                         .ToTable("GeneralSettings");
+
+            return modelBuilder;
+        }
+
+        public static ModelBuilder MenuItems(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Menu>()
+                        .ToTable("Menus");
 
             return modelBuilder;
         }

@@ -12,6 +12,7 @@ namespace MeArch.Module.File.Service
     public interface IFileService
     {
         Task<IDataResult<FileInfo>> UploadFileAsync(IFormFile file, FileOptionsParameter fileOptionsParameter);
+        Task<IDataResult<FileInfo>> UploadFileAsync(byte[] fileBytes, FileOptionsParameter fileOptionsParameter);
         IDataResult<FileInfo> GetFile(string fileName, string directory);
         //IDataResult<FileInfo> GetFileInfo(string fileName, string directory);
         //IDataResult<byte[]> DownloadFile(string fileName, string directory);

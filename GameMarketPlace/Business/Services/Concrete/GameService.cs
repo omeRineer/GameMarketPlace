@@ -68,7 +68,7 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<Game>> GetByIdAsync(Guid id)
         {
-            var entity = await _gameRepository.GetAsync(filter: f=> f.Id.Equals(id));
+            var entity = await _gameRepository.GetAsync(filter: f => f.Id.Equals(id));
 
             return new SuccessDataResult<Game>(entity);
         }
@@ -86,7 +86,7 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<List<Game>>> GetListAsync()
         {
-            var list = await _gameRepository.GetListAsync();
+            var list = await _gameRepository.GetListAsync(includes: i => i.Include(x => x.Category));
 
             return new SuccessDataResult<List<Game>>(list);
         }

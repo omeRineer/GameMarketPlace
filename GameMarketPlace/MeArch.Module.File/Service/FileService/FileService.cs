@@ -62,6 +62,25 @@ namespace MeArch.Module.File.Service.FileService
 
         }
 
+        public async Task<IDataResult<FileInfo>> UploadFileAsync(byte[] fileBytes, FileOptionsParameter fileOptionsParameter)
+        {
+            var destinationDirectory = $"{FileOptions.FilePath}/{fileOptionsParameter.Directory}";
+            var fullPath = $"{destinationDirectory}/{fileOptionsParameter.NameTemplate}";
+
+            if (!IO.Directory.Exists(destinationDirectory)) IO.Directory.CreateDirectory(destinationDirectory);
+
+            await IO.File.WriteAllBytesAsync(fullPath, fileBytes);
+
+            var fileInfo = new FileInfo
+            {
+                FullPath = fullPath,
+                FileName = fileOptionsParameter.NameTemplate,
+                Extension = IO.Path.GetExtension(fileOptionsParameter.NameTemplate)
+            };
+
+            return new SuccessDataResult<FileInfo>(fileInfo);
+        }
+
     }
 
     public partial class FileService

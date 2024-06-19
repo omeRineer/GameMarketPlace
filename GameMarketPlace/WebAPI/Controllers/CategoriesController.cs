@@ -1,5 +1,7 @@
 ﻿using Business.Services.Abstract;
+using Core.Utilities.ResultTool;
 using Entities.Dto.Category;
+using MeArch.Module.File.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Controllers.Base;
 
@@ -23,7 +25,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> DeleteAsync([FromBody]Guid id)
+        public async Task<IActionResult> DeleteAsync([FromBody] Guid id)
         {
             var result = await _categoryService.DeleteByIdAsync(id);
 
@@ -52,6 +54,33 @@ namespace WebAPI.Controllers
             var result = await _categoryService.GetByIdAsync(id);
 
             return Ok(result.Data);
+        }
+
+
+        [HttpPost("Upload")]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            var directory = "wwwroot/Main/GameImage";
+
+            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+
+            using (var fileStream = new FileStream($"{directory}/{Guid.NewGuid()}{file.GetExtension()}", FileMode.Create))
+            {
+                try
+                {
+                    await file.CopyToAsync(fileStream);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                finally
+                {
+                    fileStream.Close();
+                }
+            }
+
         }
     }
 }

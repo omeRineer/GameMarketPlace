@@ -17,6 +17,8 @@ namespace DataAccess
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ISystemRequirementRepository, SystemRequirementRepository>();
             services.AddScoped<IMediaRepository, MediaRepository>();
+            services.AddScoped<ISliderContentRepository, SliderContentRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
 
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IUserRoleClaimRepository, UserRoleClaimRepository>();

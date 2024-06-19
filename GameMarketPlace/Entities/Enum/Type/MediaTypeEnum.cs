@@ -8,6 +8,8 @@ namespace Entities.Enum.Type
 {
     public enum MediaTypeEnum
     {
-        GameImage = ProcessGroupEnum.MediaType + 1
+        GameImage = ProcessGroupEnum.MediaType + 1,
+        SliderItemImage = ProcessGroupEnum.MediaType + 2,
+        SliderSideItemImage = ProcessGroupEnum.MediaType + 3
     }
 }

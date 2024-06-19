@@ -1,0 +1,100 @@
+﻿@page "/slidercontents"
+
+@inherits BaseDataPage<SliderContent>
+@inject SliderContentODataService SliderContentODataService
+@inject SliderContentService SliderContentService
+
+<h3>Oyunlar</h3>
+<div class="row">
+    <div class="col-xl-3">
+        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<SliderContentAddPage>("Slider İçeriği Ekle",
+                                           null,
+                                           new DialogOptions{Width = "600px"} )) />
+        <RadzenButton Icon="preview" Click=@(async args => await base.DialogService.OpenAsync<SliderContentDetailPage>("Galeri",
+                                                 new Dictionary<string, object> { { "SliderContentId", ((SliderContent)SelectedItem).Id } },
+                                                 new DialogOptions{Width = "600px"} )) />
+        <RadzenButton Icon="remove" Click=@Delete />
+        <RadzenButton Icon="refresh" Click=@Refresh />
+    </div>
+</div>
+
+
+
+<BaseDataGrid TItem="SliderContent"
+              IsLoading="IsLoading"
+              Data="Data"
+              @bind-SelectedItem="@SelectedItem"
+              LoadData="LoadData"
+              Count="Count"
+              Columns=@(new Dictionary<string, string>
+             {
+                 { "SliderType.Description", "Slider Tipi" },
+                 { "Header", "Başlık" },
+                 { "IsActive", "Akitiflik" },
+             }) />
+
+@code {
+    async Task LoadData(LoadDataArgs args)
+    {
+        IsLoading = true;
+        LastArgs = args;
+
+        var result = await SliderContentODataService.GetListAsync(new ODataRequestParams
+        {
+            Count = true,
+            Filter = args.Filter,
+            OrderBy = args.OrderBy,
+            Skip = args.Skip,
+            Top = args.Top,
+            Expand = "SliderType"
+        });
+
+        Data = result.Value.AsODataEnumerable();
+        Count = result.Count;
+
+        StateHasChanged();
+        IsLoading = false;
+    }
+
+    private async void Delete()
+    {
+        if (SelectedItem == null)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen bir oyun seçin!" });
+            return;
+
+        }
+
+        var isConfirm = await DialogService.Confirm("Silmek istediğinize emin misiniz?", "Uyarı", new ConfirmOptions { OkButtonText = "Evet", CancelButtonText = "Hayır" });
+        if (isConfirm != true)
+            return;
+
+        IsLoading = true;
+
+        var result = await SliderContentService.DeleteAsync(((SliderContent)SelectedItem).Id);
+        if (!result.IsSuccessful)
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
+
+        DialogService.Close(true);
+        Refresh();
+        IsLoading = false;
+    }
+
+    protected async override void Close(dynamic result)
+    {
+        if (result == true)
+        {
+            await LoadData(LastArgs);
+            StateHasChanged();
+        }
+    }
+
+    protected async override void Refresh()
+    {
+        base.Refresh();
+        await LoadData(LastArgs);
+        StateHasChanged();
+    }
+}

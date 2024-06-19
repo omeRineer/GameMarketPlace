@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services.Concrete
 {
@@ -29,9 +30,12 @@ namespace Business.Services.Concrete
             _gameService = gameService;
         }
 
-        public Task<IResult> AddAsync(Media entity)
+        public async Task<IResult> AddAsync(Media entity)
         {
-            throw new NotImplementedException();
+            await _mediaRepository.AddAsync(entity);
+            await _mediaRepository.SaveAsync();
+
+            return new SuccessResult();
         }
 
         public Task<IResult> DeleteAsync(Media entity)
@@ -47,6 +51,28 @@ namespace Business.Services.Concrete
         public Task<IDataResult<List<Media>>> GetListAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IDataResult<Media>> GetMediaByEntityId(Guid entityId)
+        {
+            var firstMedia = await _mediaRepository.GetAsync(f => f.EntityId == entityId);
+
+            return new SuccessDataResult<Media>(firstMedia);
+        }
+
+        public async Task<IDataResult<List<Media>>> GetMediaListByEntites(List<Guid> EntityIdList)
+        {
+            var mediaList = await _mediaRepository.GetListAsync(filter: f => EntityIdList.Contains(f.EntityId),
+                                                                includes: i => i.Include(x => x.MediaType));
+
+            return new SuccessDataResult<List<Media>>(mediaList);
+        }
+
+        public async Task<IDataResult<List<Media>>> GetMediaListByEntityId(Guid entityId)
+        {
+            var mediaList = await _mediaRepository.GetListAsync(f => f.EntityId == entityId);
+
+            return new SuccessDataResult<List<Media>>(mediaList);
         }
 
         public Task<IResult> UpdateAsync(Media entity)
@@ -73,8 +99,6 @@ namespace Business.Services.Concrete
                     MediaTypeId = (int)MediaTypeEnum.GameImage,
                     MediaPath = uploadResult.Data.FileName
                 });
-
-
             }
 
             await _mediaRepository.AddRangeAsync(mediaList);

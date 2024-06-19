@@ -91,7 +91,7 @@ namespace Core.Utilities.RestHelper
             request.OnBeforeRequest = onBefore;
             request.OnAfterRequest = onAfter;
 
-            if (restRequestParameter.Files.Any())
+            if (restRequestParameter.Files != null && restRequestParameter.Files.Count > 0)
                 foreach (var file in restRequestParameter.Files)
                     request.AddFile("File", file.Bytes, file.FileName, file.ContentType);
 

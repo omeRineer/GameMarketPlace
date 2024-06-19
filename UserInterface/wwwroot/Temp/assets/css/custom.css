@@ -1,0 +1,46 @@
+.carousel{
+    height: 40rem;
+}
+.carousel-inner{
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    height: 100%;
+}
+
+
+.header-cards{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.header-card{
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid transparent;
+    border-radius: 20px;
+    width: 100%;
+    height: 23%;
+    overflow: hidden;
+    transition: 0.2s;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-color: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5019257703081232) 0%);
+}
+.header-card:hover{
+    transform: scale(1.05);
+}
+.header-card-background{
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5019257703081232) 0%);
+}
+
+
+.circle-button{
+    border: 1px transparent;
+    border-radius: 100%;
+}
+

@@ -8,14 +8,21 @@ using Microsoft.OData.Edm;
 using Autofac;
 using Business.DependencyResolvers.Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.Entities.Concrete.ProcessGroups;
+using Core.Entities.Concrete.Menu;
 
 #region Edm Models
 static IEdmModel GetEdmModel()
 {
     var oDataBuilder = new ODataConventionModelBuilder();
+
     oDataBuilder.EntitySet<Category>("Categories");
     oDataBuilder.EntitySet<Game>("Games");
     oDataBuilder.EntitySet<Media>("Medias");
+    oDataBuilder.EntitySet<SystemRequirement>("SystemRequirements");
+    oDataBuilder.EntitySet<SliderContent>("SliderContents");
+    oDataBuilder.EntitySet<TypeLookup>("TypeLookups");
+    oDataBuilder.EntitySet<Menu>("Menu");
 
     return oDataBuilder.GetEdmModel();
 }

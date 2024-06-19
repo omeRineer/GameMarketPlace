@@ -13,11 +13,13 @@ namespace Core.Entities.DTO.Options
     }
     public class WebAPIOptions
     {
+        public string ApiUrl { get; set; }
         public string BaseUrl { get; set; }
     }
 
     public class ODataAPIOptions
     {
+        public string ApiUrl { get; set; }
         public string BaseUrl { get; set; }
     }
 }

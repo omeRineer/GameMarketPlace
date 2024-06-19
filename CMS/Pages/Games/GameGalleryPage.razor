@@ -27,7 +27,7 @@
     <div class="col-md-8">
         @if (SelectedMedia != null)
         {
-            <RadzenImage Path="@($"{Configuration.CoreConfiguration.WebApiUrl}/Main/GameImages/{GameId}/{SelectedMedia}")" class="w-100 h-100" />
+            <RadzenImage Style="max-width: 100%; max-height:100%" Path="@($"https://localhost:7075/Main/GameImage/{GameId}/{SelectedMedia}")" class="w-100 h-100" />
         }
     </div>
 </div>
@@ -84,7 +84,7 @@
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                await file.OpenReadStream().CopyToAsync(memoryStream);
+                await file.OpenReadStream(file.Size).CopyToAsync(memoryStream);
                 newMediaRequest.MediaList.Add(new Model.Media.MediaUploadFile
                 {
                     Bytes = memoryStream.ToArray(),

@@ -238,6 +238,42 @@ namespace DataAccess.Migrations
                     b.ToTable("Medias", (string)null);
                 });
 
+            modelBuilder.Entity("Entities.Main.SliderContent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Header")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("RecordState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SliderTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SliderTypeId");
+
+                    b.ToTable("SliderContents", (string)null);
+                });
+
             modelBuilder.Entity("Entities.Main.SystemRequirement", b =>
                 {
                     b.Property<Guid>("Id")
@@ -479,6 +515,17 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("MediaType");
+                });
+
+            modelBuilder.Entity("Entities.Main.SliderContent", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.ProcessGroups.TypeLookup", "SliderType")
+                        .WithMany()
+                        .HasForeignKey("SliderTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SliderType");
                 });
 
             modelBuilder.Entity("Entities.Main.SystemRequirement", b =>

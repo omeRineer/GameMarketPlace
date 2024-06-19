@@ -15,6 +15,11 @@ builder.Services.AddSingleton<GameODataService>();
 builder.Services.AddSingleton<GameService>();
 builder.Services.AddSingleton<MediaODataService>();
 builder.Services.AddSingleton<MediaService>();
+builder.Services.AddSingleton<SliderContentODataService>();
+builder.Services.AddSingleton<SliderContentService>();
+builder.Services.AddSingleton<TypeLookupODataService>();
+builder.Services.AddSingleton<MenuODataService>();
+builder.Services.AddSingleton<MenuService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddRadzenComponents();

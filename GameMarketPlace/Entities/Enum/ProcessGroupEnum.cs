@@ -10,7 +10,8 @@ namespace Entities.Enum
     {
         #region Type Lookup
 
-        MediaType = 100
+        MediaType = 100,
+        SliderType = 200,
 
         #endregion
     }

@@ -25,6 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
             modelBuilder.GeneralSettings();
             modelBuilder.ProcessGroups();
             modelBuilder.UserIdentity();
+            modelBuilder.MenuItems();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoreContext).Assembly);
         }

@@ -2,6 +2,7 @@
 using CMS.Services.Base;
 using Configuration;
 using Core.Utilities.RestHelper;
+using Entities.Enum.Type;
 using Entities.Main;
 using RestSharp;
 
@@ -13,7 +14,7 @@ namespace CMS.Services.Master
             => await RestHelper.PostAsync<object, object>(new RestRequestParameter
             {
                 BaseUrl = $"{CoreConfiguration.WebApiUrl}/medias/uploadmedia",
-                QueryParameters = new Dictionary<string, object> { { "EntityId", mediaUploadModel.EntityId } },
+                QueryParameters = new Dictionary<string, object> { { "EntityId", mediaUploadModel.EntityId }, { "MediaTypeId", (int)MediaTypeEnum.GameImage } },
                 Files = mediaUploadModel.MediaList.Select(s => new RestFile
                 {
                     Bytes = s.Bytes,

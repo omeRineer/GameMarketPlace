@@ -9,9 +9,9 @@
     <div class="col-xl-3">
         <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<CategoryAddPage>("Kategori Ekle",
                                            null,
-                                           new DialogOptions{Width = "600px", Height = "600px"} )) />
+                                           new DialogOptions{Width = "600px"} )) />
 
-        <RadzenButton Icon="edit" Click=@(args => DialogService.Open<CategoryUpdatePage>("Kategori Düzenle",
+        <RadzenButton Icon="edit" Click=@(async args => await DialogService.OpenAsync<CategoryUpdatePage>("Kategori Düzenle",
                                           new Dictionary<string, object> { { "CategoryId", ((Category)SelectedItem).Id } },
                                           new DialogOptions{Width = "600px"})) />
         <RadzenButton Icon="remove" Click=@Delete />
