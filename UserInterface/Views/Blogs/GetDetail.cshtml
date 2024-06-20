@@ -1,0 +1,23 @@
+﻿@model Entities.Main.Blog
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="contact-page section p-5">
+    <div class="container w-50">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2>@Model.Header</h2>
+            </div>
+            <div>
+                <i class="fa-solid fa-eye"></i>  @Model.ReaderCount
+            </div>
+        </div>
+        <hr />
+
+        <div>
+            @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Content))
+        </div>
+    </div>
+</div>

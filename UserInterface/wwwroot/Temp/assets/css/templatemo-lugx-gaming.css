@@ -130,7 +130,6 @@ body {
 }
 
 .section {
-  margin-top: 120px;
 }
 
 .section-heading {
@@ -307,7 +306,6 @@ header{
 }
 
 .header-area {
-  position: absolute;
   background-color: rgb(34, 34, 34);
   height: 100px;
   align-items: center;
@@ -658,7 +656,7 @@ Banner Style
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 140px 0px;
+  padding: 50px 0px;
 }
 
 .main-banner .caption h6 {

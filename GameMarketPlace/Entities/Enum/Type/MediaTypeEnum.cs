@@ -10,6 +10,7 @@ namespace Entities.Enum.Type
     {
         GameImage = ProcessGroupEnum.MediaType + 1,
         SliderItemImage = ProcessGroupEnum.MediaType + 2,
-        SliderSideItemImage = ProcessGroupEnum.MediaType + 3
+        SliderSideItemImage = ProcessGroupEnum.MediaType + 3,
+        BlogCoverImage = ProcessGroupEnum.MediaType + 4
     }
 }

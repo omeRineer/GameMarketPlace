@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Business.ServiceModules
 {
@@ -35,24 +36,29 @@ namespace Business.ServiceModules
             services.AddMemoryCache();
             services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = true,
-                        ValidateIssuer = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateLifetime = true,
+            services
+                  .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                  .AddCookie(opts =>
+                  {
+                      opts.Cookie.Name = $"GameStore.Token";   // todo : değiştirin.
+                      opts.AccessDeniedPath = "/AccessDenied";
+                      opts.LoginPath = "/Auth/Login";
+                      opts.SlidingExpiration = true;
+                  })
+                  .AddJwtBearer(options =>
+                  {
+                      options.RequireHttpsMetadata = false;
+                      options.SaveToken = true;
+                      options.TokenValidationParameters = new TokenValidationParameters
+                      {
+                          ValidateIssuer = false,
+                          ValidateAudience = false,
+                          ValidateLifetime = true,
+                          ValidateIssuerSigningKey = true,
+                          IssuerSigningKey = SecurityKeyHelper.GetSecurityKey(CoreConfiguration.TokenOptions.SecurityKey)
+                      };
+                  });
 
-                        ValidIssuer = CoreConfiguration.TokenOptions.Issuer,
-                        ValidAudience = CoreConfiguration.TokenOptions.Audience,
-                        IssuerSigningKey = SecurityKeyHelper.GetSecurityKey(CoreConfiguration.TokenOptions.SecurityKey)
-
-                    };
-                });
-
-            var deg = CoreConfiguration.APIOptions;
             services.AddTokenService(options =>
             {
                 options.Audience = CoreConfiguration.TokenOptions.Audience;

@@ -13,7 +13,7 @@ namespace Core.Entities.Concrete.Menu
         public string Code { get; set; }
         public string Title { get; set; }
         public int? Priority { get; set; }
-        public string To { get; set; }
+        public string? Path { get; set; }
         public string Icon { get; set; }
 
         public Menu ParentMenu { get; set; }

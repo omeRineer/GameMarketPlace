@@ -3,23 +3,37 @@
 
 <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
     <RadzenPanelMenu>
-        <RadzenPanelMenuItem Text="Dashboard" Icon="home" />
-        <RadzenPanelMenuItem Text="Slider" Path="slidercontents" Icon="view_carousel" />
-        <RadzenPanelMenuItem Text="Kategoriler" Path="categories" Icon="category" />
-        <RadzenPanelMenuItem Text="Oyunlar" Path="games" Icon="games" />
-        <RadzenPanelMenuItem Text="Kullanıcılar" Icon="people" />
-        <RadzenPanelMenuItem Text="Roller" Icon="admin_panel_settings" />
+        @if (menuItems != null && menuItems.Count() > 0)
+        {
+            @foreach (var menuItem in menuItems.Where(f => f.ParentMenuId == null).OrderBy(o => o.Priority).ToList())
+            {
+                <RadzenPanelMenuItem Text="@($"{menuItem.Code} {menuItem.Title}")" Icon="@menuItem.Icon" Path="@menuItem.Path">
+
+                    @if (menuItems.Any(e => e.ParentMenuId == menuItem.Id))
+                    {
+                        @foreach (var childMenuItem in menuItems.Where(f => f.ParentMenuId == menuItem.Id).OrderBy(o => o.Priority).ToList())
+                        {
+                            <RadzenPanelMenuItem Text="@($"{childMenuItem.Code} {childMenuItem.Title}")" Icon="@childMenuItem.Icon" Path="@childMenuItem.Path"></RadzenPanelMenuItem>
+                        }
+                    }
+
+                </RadzenPanelMenuItem>
+            }
+        }
     </RadzenPanelMenu>
 </RadzenSidebar>
 
 @code {
     bool sidebar1Expanded = true;
-    IEnumerable<Menu> menuList;
+    IEnumerable<Menu> menuItems;
 
     protected async override Task OnInitializedAsync()
     {
-        var result = await MenuODataService.GetListAsync(new ODataRequestParams());
+        var result = await MenuODataService.GetListAsync(new ODataRequestParams
+        {
+            Expand = "ParentMenu"
+        });
 
-        menuList = result.Value.AsODataEnumerable();
+        menuItems = result.Value.AsODataEnumerable();
     }
 }

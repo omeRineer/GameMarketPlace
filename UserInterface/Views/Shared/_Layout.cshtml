@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/UserInterface.styles.css" asp-append-version="true" />
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
@@ -14,11 +12,11 @@
     <title>Game Store</title>
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="Temp/assets/css/custom.css">
-    <link rel="stylesheet" href="Temp/assets/css/fontawesome.css">
-    <link rel="stylesheet" href="Temp/assets/css/templatemo-lugx-gaming.css">
-    <link rel="stylesheet" href="Temp/assets/css/owl.css">
-    <link rel="stylesheet" href="Temp/assets/css/animate.css">
+    <link rel="stylesheet" href="~/Temp/assets/css/custom.css">
+    <link rel="stylesheet" href="~/Temp/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="~/Temp/assets/css/templatemo-lugx-gaming.css">
+    <link rel="stylesheet" href="~/Temp/assets/css/owl.css">
+    <link rel="stylesheet" href="~/Temp/assets/css/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 </head>
 <body>
@@ -32,19 +30,27 @@
             </div>
         </div>
     </div>
+
     <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
                         <a href="index.html" class="logo">
-                            <img src="Temp/assets/images/logo.png" alt="" style="width: 158px;">
+                            <img src="~/Temp/assets/images/logo.png" alt="" style="width: 158px;">
                         </a>
                         <ul class="nav">
-                            <li><a href="index.html">Ana Sayfa</a></li>
+                            <li><a href="/Home">Ana Sayfa</a></li>
                             <li><a href="shop.html">Oyunlar</a></li>
-                            <li><a href="product-details.html">Blog</a></li>
-                            <li><a href="#">Giriş Yap</a></li>
+                            <li><a href="/Blogs">Blog</a></li>
+                            @if (TempData["IsLogin"] == null)
+                            {
+                                <li><a href="/Auth/Login">Giriş Yap / Kayıt Ol</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Auth/Login">Çıkış Yap</a></li>
+                            }
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menü</span>
@@ -57,12 +63,12 @@
 
     @RenderBody()
 
-    <script src="Temp/vendor/jquery/jquery.min.js"></script>
-    <script src="Temp/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="Temp/assets/js/isotope.min.js"></script>
-    <script src="Temp/assets/js/owl-carousel.js"></script>
-    <script src="Temp/assets/js/counter.js"></script>
-    <script src="Temp/assets/js/custom.js"></script>
+    <script src="~/Temp/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Temp/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Temp/assets/js/isotope.min.js"></script>
+    <script src="~/Temp/assets/js/owl-carousel.js"></script>
+    <script src="~/Temp/assets/js/counter.js"></script>
+    <script src="~/Temp/assets/js/custom.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>

@@ -22,7 +22,8 @@ static IEdmModel GetEdmModel()
     oDataBuilder.EntitySet<SystemRequirement>("SystemRequirements");
     oDataBuilder.EntitySet<SliderContent>("SliderContents");
     oDataBuilder.EntitySet<TypeLookup>("TypeLookups");
-    oDataBuilder.EntitySet<Menu>("Menu");
+    oDataBuilder.EntitySet<Menu>("Menus");
+    oDataBuilder.EntitySet<Blog>("Blogs");
 
     return oDataBuilder.GetEdmModel();
 }
