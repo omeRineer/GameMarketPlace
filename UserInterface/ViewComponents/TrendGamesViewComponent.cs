@@ -1,24 +1,38 @@
 ﻿using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
+using Entities.Enum.Type;
 using Entities.Main;
 using Microsoft.AspNetCore.Mvc;
+using UserInterface.Models.Game;
 
 namespace UserInterface.ViewComponents
 {
     public class TrendGamesViewComponent : ViewComponent
     {
         readonly IGameService _gameService;
+        readonly IMediaService _mediaService;
 
-        public TrendGamesViewComponent(IGameService gameService)
+        public TrendGamesViewComponent(IGameService gameService, IMediaService mediaService)
         {
             _gameService = gameService;
+            _mediaService = mediaService;
         }
 
         public IViewComponentResult Invoke()
         {
             var trendGames = Task.Run<IDataResult<List<Game>>>(async () => await _gameService.GetListAsync()).Result.Data.Take(4);
+            var medias = Task.Run<IDataResult<List<Media>>>(async () => await _mediaService.GetMediaListByEntites(trendGames.Select(s => s.Id).ToList()));
 
-            return View(trendGames.ToList());
+            var result = trendGames.Select(s => new GameListViewModel
+            {
+                Id = s.Id,
+                CategoryName = s.Category.Name,
+                Name = s.Name,
+                Price = s.Price,
+                CoverPath = medias.Result.Data.FirstOrDefault(f => f.EntityId.Equals(s.Id) && f.MediaTypeId == (int)MediaTypeEnum.GameCoverImage)?.MediaPath
+            }).ToList();
+
+            return View(result);
         }
     }
 }

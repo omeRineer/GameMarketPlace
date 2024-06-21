@@ -1,4 +1,4 @@
-﻿@model List<Entities.Main.Game>
+﻿@model List<UserInterface.Models.Game.GameListViewModel>
 
 <div class="section trending mt-3">
     <div class="container">
@@ -19,10 +19,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="item">
                         <div class="thumb">
-                            <a href="product-details.html"><img src="https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png" alt=""></a>
+                            <a href="product-details.html"><img src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/GameCoverImage/{trendGame.Id}/{trendGame.CoverPath}")" alt=""></a>
                         </div>
                         <div class="down-content d-flex align-items-start flex-column">
-                            <span class="category">@trendGame.Category.Name</span>
+                            <span class="category">@trendGame.CategoryName</span>
                             <h4>@trendGame.Name</h4>
                             <span>@trendGame.Price TL</span>
                             <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>

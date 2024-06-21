@@ -12,7 +12,7 @@ namespace CMS.Services.Master
     public class GameService : BaseService<Game>
     {
         public async Task<RestResponse> UploadGameImagesAsync(UploadGameImagesModel uploadGameImagesModel)
-            => await RestHelper.PostAsync<object, object>(new RestRequestParameter
+            => await RestHelper.PostAsync<UploadGameImagesModel, object>(new RestRequestParameter
             {
                 BaseUrl = $"{CoreConfiguration.WebApiUrl}/games/uploadgameimages",
                 QueryParameters = new Dictionary<string, object> { { "EntityId", uploadGameImagesModel.EntityId } },
@@ -23,6 +23,13 @@ namespace CMS.Services.Master
                     Name = s.FileName
                 }).ToList()
             });
+
+        public async Task<RestResponse> CreateGameAsync(CreateGameModel createGameModel)
+            => await RestHelper.PostAsync<CreateGameModel, object>(new RestRequestParameter
+            {
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/games/creategame"
+            }, createGameModel);
+
         public async Task<RestResponse> AddAsync(Game game)
             => await AddAsync("/games/add", game);
 

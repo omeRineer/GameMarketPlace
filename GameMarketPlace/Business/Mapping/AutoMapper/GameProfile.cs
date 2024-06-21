@@ -16,6 +16,7 @@ namespace Business.Mapping.AutoMapper
             CreateMap<Game, GameAddDto>().ReverseMap();
             CreateMap<Game, GameEditDto>().ReverseMap();
             CreateMap<Game, GameDto>().ReverseMap();
+            CreateMap<Game, CreateGameDto>().ReverseMap();
         }
     }
 }

@@ -23,7 +23,20 @@
                             @bind-Value="newGame.CategoryId"
                             TextProperty="Value"
                             ValueProperty="Key"
-                            class="w-100"/>
+                            class="w-100" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Kategori:" />
+        </div>
+        <div class="col-md-8">
+            <BaseFileInput TModel="BaseModel.InputFile"
+                           FileType="image/*"
+                           ChooseText="Kapak Resmi Seçin"
+                           MaxFileCount="1"
+                           @bind-Model="newGame.Cover" />
         </div>
     </div>
 
@@ -65,7 +78,7 @@
 @code {
     bool _isLoading = false;
     Dictionary<Guid, string> categories;
-    Game newGame = new Game();
+    CreateGameModel newGame = new CreateGameModel();
 
     protected async override Task OnInitializedAsync()
     {
@@ -80,7 +93,7 @@
     async Task Save()
     {
         _isLoading = true;
-        var result = await GameService.AddAsync(newGame);
+        var result = await GameService.CreateGameAsync(newGame);
 
         if (!result.IsSuccessful)
         {

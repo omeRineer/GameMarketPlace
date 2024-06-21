@@ -20,14 +20,12 @@ namespace Business.Services.Concrete
         readonly IMediaRepository _mediaRepository;
         readonly IFileService _fileService;
         readonly NET.IHttpContextAccessor HttpContextAccessor;
-        readonly IGameService _gameService;
 
-        public MediaService(IMediaRepository mediaRepository, IFileService fileService, NET.IHttpContextAccessor httpContextAccessor, IGameService gameService)
+        public MediaService(IMediaRepository mediaRepository, IFileService fileService, NET.IHttpContextAccessor httpContextAccessor)
         {
             _mediaRepository = mediaRepository;
             _fileService = fileService;
             HttpContextAccessor = httpContextAccessor;
-            _gameService = gameService;
         }
 
         public async Task<IResult> AddAsync(Media entity)

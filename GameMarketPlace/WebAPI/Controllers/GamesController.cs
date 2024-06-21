@@ -62,8 +62,16 @@ namespace WebAPI.Controllers
                                   : BadRequest(result);
         }
 
+        [HttpPost("CreateGame")]
+        public async Task<IActionResult> CreateGameAsync(CreateGameDto createGameDto)
+        {
+            var result = await _gameService.CreateGameAsync(createGameDto);
+
+            return Result(result);
+        }
+
         [HttpPost("UploadGameImages")]
-        public async Task<IActionResult> UploadGameImages([FromQuery] GameImageUploadDto gameImageUploadDto)
+        public async Task<IActionResult> UploadGameImagesAsync([FromQuery] GameImageUploadDto gameImageUploadDto)
         {
             var result = await _gameService.UploadGameImagesAsync(gameImageUploadDto);
 
