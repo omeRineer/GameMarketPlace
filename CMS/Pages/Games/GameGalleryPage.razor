@@ -1,16 +1,16 @@
 ﻿@inject MediaODataService MediaODataService
-@inject MediaService MediaService
+@inject GameService GameService
 @inject DialogService DialogService
 @inject NotificationService NotificationService
 
 <div class="row mb-2">
     <div class="col-md-4">
-        <RadzenUpload Multiple="true"
-                      Change=@OnSelectFiles
-                      Accept="image/*"
-                      Icon="upload"
-                      class="w-100" />
-
+        <BaseFileInput TModel="List<BaseModel.InputFile>"
+                       FileType="image/*"
+                       IsMultiple="true"
+                       ChooseText="Resimleri Seçin"
+                       MaxFileCount="1"
+                       @bind-Model="UploadGameImagesModel.Images" />
     </div>
 </div>
 <div class="row">
@@ -42,13 +42,9 @@
 @code {
     [Parameter] public Guid GameId { get; set; }
     string SelectedMedia;
+    public UploadGameImagesModel UploadGameImagesModel = new UploadGameImagesModel();
     IEnumerable<Media> GameCollection;
-    List<FileInfo> MediaList = new List<FileInfo>();
     bool _isLoading = false;
-
-    protected async override Task OnInitializedAsync()
-    {
-    }
 
     async Task LoadData(LoadDataArgs args)
     {
@@ -65,35 +61,13 @@
         _isLoading = false;
     }
 
-    async Task OnSelectFiles(UploadChangeEventArgs args)
-    {
-        MediaList = args.Files.ToList();
-    }
-
     async Task Save()
     {
         _isLoading = true;
 
-        var newMediaRequest = new CMS.Model.Media.MediaUploadModel
-        {
-            EntityId = GameId,
-            MediaList = new List<Model.Media.MediaUploadFile>()
-        };
+        UploadGameImagesModel.EntityId = GameId;
 
-        foreach (var file in MediaList)
-        {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                await file.OpenReadStream(file.Size).CopyToAsync(memoryStream);
-                newMediaRequest.MediaList.Add(new Model.Media.MediaUploadFile
-                {
-                    Bytes = memoryStream.ToArray(),
-                    FileName = file.Name
-                });
-            }
-        }
-
-        var result = await MediaService.UploadMedia(newMediaRequest);
+        var result = await GameService.UploadGameImagesAsync(UploadGameImagesModel);
 
         if (!result.IsSuccessful)
         {

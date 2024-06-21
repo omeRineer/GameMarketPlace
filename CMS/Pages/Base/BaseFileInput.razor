@@ -1,0 +1,59 @@
+﻿@typeparam TModel where TModel : class, new()
+
+<RadzenUpload Change="OnSelectedFiles"
+              Multiple="IsMultiple"
+              Accept="@FileType"
+              Icon="upload"
+              ChooseText="@ChooseText"
+              MaxFileCount="MaxFileCount"
+              class="w-100" />
+
+
+@code {
+    [Parameter] public TModel Model { get; set; }
+    [Parameter] public int MaxFileCount { get; set; } = 1;
+    [Parameter] public string ChooseText { get; set; }
+    [Parameter] public bool IsMultiple { get; set; } = false;
+    [Parameter] public string FileType { get; set; }
+    [Parameter] public EventCallback<TModel> ModelChanged { get; set; }
+
+    List<BaseModel.InputFile> InputFiles;
+
+    async Task OnSelectedFiles(UploadChangeEventArgs args)
+    {
+        InputFiles = new List<BaseModel.InputFile>();
+
+        await Parallel.ForEachAsync(args.Files, async (file, ctoken) =>
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await file.OpenReadStream(file.Size).CopyToAsync(memoryStream);
+
+                var fileBytes = memoryStream.ToArray();
+
+                InputFiles.Add(new BaseModel.InputFile
+                {
+                    FileName = file.Name,
+                    Base64 = Convert.ToBase64String(fileBytes),
+                    Bytes = fileBytes,
+                    Size = file.Size,
+                    ContentType = file.ContentType
+                });
+            }
+        });
+
+        if (typeof(TModel).IsAssignableFrom(typeof(List<BaseModel.InputFile>)))
+            Model = (TModel)(object)InputFiles;
+        else if (typeof(TModel).IsAssignableFrom(typeof(BaseModel.InputFile)))
+            Model = (TModel)(object)InputFiles.First();
+
+        await ModelChange(Model);
+    }
+
+    async Task ModelChange(TModel item)
+    {
+        Model = item;
+        await ModelChanged.InvokeAsync(Model);
+    }
+
+}

@@ -13,12 +13,12 @@ namespace Entities.Dto
         public string? Header { get; set; }
         public string? To { get; set; }
         public bool IsActive { get; set; }
-        public SliderContentImage ImageFile { get; set; }
+        public SliderContentImage Image { get; set; }
     }
 
     public class SliderContentImage
     {
         public string FileName { get; set; }
-        public string Base64Image { get; set; }
+        public string Base64 { get; set; }
     }
 }

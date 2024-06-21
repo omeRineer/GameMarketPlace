@@ -16,7 +16,7 @@ namespace Entities.Dto.Blog
 
     public class BlogCreateCoverDto
     {
+        public string Base64 { get; set; }
         public string FileName { get; set; }
-        public string CoverBase64 { get; set; }
     }
 }

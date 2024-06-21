@@ -21,10 +21,10 @@ namespace DataAccess.Concrete.EntityFramework.General
         {
         }
 
-        public async Task<User> GetByUserNameAndPassword(string userName, string password) 
-            => await Table.SingleOrDefaultAsync(f => f.UserName == userName && f.Password == password);
+        public async Task<User> GetByUserNameAndPassword(string userName, string password)
+            => await Table.Include(i => i.UserRoleClaims).ThenInclude(i => i.RoleClaim).SingleOrDefaultAsync(f => f.UserName == userName && f.Password == password);
 
-        public async Task<bool> IsExistByUserNameAndPassword(string userName, string password) 
-            => await Table.AnyAsync(f=> f.UserName == userName && f.Password == password);
+        public async Task<bool> IsExistByUserNameAndPassword(string userName, string password)
+            => await Table.AnyAsync(f => f.UserName == userName && f.Password == password);
     }
 }

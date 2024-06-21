@@ -57,30 +57,5 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("Upload")]
-        public async Task<IActionResult> Upload(IFormFile file)
-        {
-            var directory = "wwwroot/Main/GameImage";
-
-            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
-
-            using (var fileStream = new FileStream($"{directory}/{Guid.NewGuid()}{file.GetExtension()}", FileMode.Create))
-            {
-                try
-                {
-                    await file.CopyToAsync(fileStream);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-                finally
-                {
-                    fileStream.Close();
-                }
-            }
-
-        }
     }
 }

@@ -3,43 +3,44 @@
 @inject BlogService BlogService
 @inject DialogService DialogService
 @inject NotificationService NotificationService
-
 <div class="row mb-2">
-    <div class="col-md-2 align-items-center d-flex">
-        <RadzenLabel Text="Başlık:" />
-    </div>
-    <div class="col-md-4">
-        <RadzenTextBox class="w-100" @bind-Value="newBlog.Header" />
-    </div>
+        <div class="col-md-2 align-items-center d-flex">
+            <RadzenLabel Text="Başlık:" />
+        </div>
+        <div class="col-md-4">
+            <RadzenTextBox class="w-100" @bind-Value="newBlog.Header" />
+        </div>
 
-    <div class="col-md-2 align-items-center d-flex">
-        <RadzenLabel Text="Yayın Durumu:" />
+        <div class="col-md-2 align-items-center d-flex">
+            <RadzenLabel Text="Yayın Durumu:" />
+        </div>
+        <div class="col-md-4">
+            <RadzenCheckBox @bind-Value="newBlog.Status" />
+        </div>
     </div>
-    <div class="col-md-4">
-        <RadzenCheckBox @bind-Value="newBlog.Status" />
-    </div>
-</div>
 
 <div class="row mb-2">
     <div class="col-md-2 align-items-center d-flex">
         <RadzenLabel Text="Kapak Fotoğrafı:" />
     </div>
     <div class="col-md-4">
-        <RadzenUpload Change=@OnSelectFiles
-                      Accept="image/*"
-                      Icon="upload"
-                      class="w-100" />
+        <BaseFileInput TModel="BaseModel.InputFile"
+                       FileType="image/*"
+                       IsMultiple="false"
+                       ChooseText="Kapak Resmi Seçin"
+                       MaxFileCount="1"
+                       @bind-Model="newBlog.Cover" />
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-2 align-items-center d-flex">
-        <RadzenLabel Text="İçerik:" />
+        <div class="col-md-2 align-items-center d-flex">
+            <RadzenLabel Text="İçerik:" />
+        </div>
+        <div class="col-md-10">
+            <RadzenHtmlEditor @bind-Value="newBlog.Content" style="height: 300px;" />
+        </div>
     </div>
-    <div class="col-md-10">
-        <RadzenHtmlEditor @bind-Value="newBlog.Content" style="height: 300px;" />
-    </div>
-</div>
 
 <div class="row mt-3">
     <div class="col-md-12">
@@ -74,18 +75,5 @@
 
         DialogService.Close(true);
         _isLoading = false;
-    }
-
-    async Task OnSelectFiles(UploadChangeEventArgs args)
-    {
-        var selectedFile = args.Files.First();
-        newBlog.Cover = new Model.Blog.BlogCreateFileModel
-        {
-            FileName = selectedFile.Name
-        };
-
-        using MemoryStream memoryStream = new MemoryStream();
-        await selectedFile.OpenReadStream(selectedFile.Size).CopyToAsync(memoryStream);
-        newBlog.Cover.CoverBase64 = Convert.ToBase64String(memoryStream.ToArray());
     }
 }

@@ -6,28 +6,35 @@ using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Dto.Category;
 using Entities.Dto.Game;
+using Entities.Dto.Media;
 using Entities.Enum.Type;
 using Entities.Main;
+using NET = Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeArch.Module.File.Service;
 
 namespace Business.Services.Concrete
 {
     public class GameService : IGameService
     {
         readonly IGameRepository _gameRepository;
+        readonly IFileService _fileService;
         readonly IMediaRepository _mediaRepository;
+        readonly NET.IHttpContextAccessor HttpContextAccessor;
         readonly IMapper _mapper;
 
-        public GameService(IGameRepository gameRepository, IMapper mapper, IMediaRepository mediaRepository)
+        public GameService(IGameRepository gameRepository, IMapper mapper, IMediaRepository mediaRepository, NET.IHttpContextAccessor httpContextAccessor, IFileService fileService)
         {
             _gameRepository = gameRepository;
             _mapper = mapper;
             _mediaRepository = mediaRepository;
+            HttpContextAccessor = httpContextAccessor;
+            _fileService = fileService;
         }
 
         public async Task<IResult> AddAsync(Game entity)
@@ -111,6 +118,33 @@ namespace Business.Services.Concrete
         public Task<IResult> UpdateAsyncDto(GameEditDto gameEditDto)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto)
+        {
+            var mediaList = new List<Media>();
+            foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
+            {
+                var newFileName = Guid.NewGuid().ToString();
+
+                var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
+                {
+                    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{gameImageUploadDto.EntityId}",
+                    NameTemplate = newFileName
+                });
+
+                mediaList.Add(new Media
+                {
+                    EntityId = gameImageUploadDto.EntityId,
+                    MediaTypeId = (int)MediaTypeEnum.GameImage,
+                    MediaPath = uploadResult.Data.FileName
+                });
+            }
+
+            await _mediaRepository.AddRangeAsync(mediaList);
+            await _mediaRepository.SaveAsync();
+
+            return new SuccessResult();
         }
     }
 }

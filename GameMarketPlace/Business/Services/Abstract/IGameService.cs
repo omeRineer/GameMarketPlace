@@ -11,6 +11,7 @@ namespace Business.Services.Abstract
 {
     public interface IGameService : IEntityService<Game, Guid>
     {
+        Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto);
         Task<IDataResult<List<GameDto>>> GetListAsyncDto();
         Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id);
         Task<IDataResult<Game>> GetByIdAsync(Guid id);

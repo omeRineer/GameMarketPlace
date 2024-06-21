@@ -36,27 +36,13 @@ namespace Business.ServiceModules
             services.AddMemoryCache();
             services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 
-            services
-                  .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                   .AddCookie(opts =>
                   {
-                      opts.Cookie.Name = $"GameStore.Token";   // todo : değiştirin.
+                      opts.Cookie.Name = $"GameStore.Token"; 
                       opts.AccessDeniedPath = "/AccessDenied";
                       opts.LoginPath = "/Auth/Login";
                       opts.SlidingExpiration = true;
-                  })
-                  .AddJwtBearer(options =>
-                  {
-                      options.RequireHttpsMetadata = false;
-                      options.SaveToken = true;
-                      options.TokenValidationParameters = new TokenValidationParameters
-                      {
-                          ValidateIssuer = false,
-                          ValidateAudience = false,
-                          ValidateLifetime = true,
-                          ValidateIssuerSigningKey = true,
-                          IssuerSigningKey = SecurityKeyHelper.GetSecurityKey(CoreConfiguration.TokenOptions.SecurityKey)
-                      };
                   });
 
             services.AddTokenService(options =>

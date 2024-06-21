@@ -44,7 +44,7 @@ namespace Business.Services.Concrete
             await _blogRepository.SaveAsync();
 
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(blogCreateDto.Cover.FileName)}";
-            var fileBytes = Convert.FromBase64String(blogCreateDto.Cover.CoverBase64);
+            var fileBytes = Convert.FromBase64String(blogCreateDto.Cover.Base64);
 
             await _mediaService.AddAsync(new Media
             {

@@ -46,8 +46,8 @@ namespace Business.Services.Concrete
             await _sliderContentRepository.AddAsync(entity);
             await _sliderContentRepository.SaveAsync();
 
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(sliderContentCreateDto.ImageFile.FileName)}";
-            var fileBytes = Convert.FromBase64String(sliderContentCreateDto.ImageFile.Base64Image);
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(sliderContentCreateDto.Image.FileName)}";
+            var fileBytes = Convert.FromBase64String(sliderContentCreateDto.Image.Base64);
             var sliderType = (SliderTypeEnum)Enum.ToObject(typeof(SliderTypeEnum), sliderContentCreateDto.SliderTypeId);
             var mediaType = sliderType == SliderTypeEnum.SliderItem ? MediaTypeEnum.SliderItemImage : MediaTypeEnum.SliderSideItemImage;
 

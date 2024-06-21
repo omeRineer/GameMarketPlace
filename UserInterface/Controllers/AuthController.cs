@@ -1,18 +1,23 @@
 ﻿using Business.Services.Abstract;
 using Entities.Dto.Auth.Login;
 using Entities.Dto.Auth.Register;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace UserInterface.Controllers
-{   
+{
     public class AuthController : Controller
     {
         readonly IAuthService _authService;
+        readonly IUserService _userService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IUserService userService)
         {
             _authService = authService;
+            _userService = userService;
         }
 
         public IActionResult Login()
@@ -23,12 +28,25 @@ namespace UserInterface.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(UserLoginRequest userLoginRequest)
         {
-            var result = await _authService.LoginAsync(userLoginRequest);
+            var userResult = await _userService.GetByLoginModelAsync(userLoginRequest);
 
-            if(!result.Success)
-                return Unauthorized();
+            if (!userResult.Success)
+                return Unauthorized(userResult);
 
-            Response.Cookies.Append("GameStore.Token", $"Bearer {result.Data.Token}");
+            var user = userResult.Data;
+            List<Claim> userClaims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                new Claim(ClaimTypes.MobilePhone, user.Phone),
+                new Claim(ClaimTypes.Role, user.UserRoleClaims.First().RoleClaim.Name)
+            };
+            var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                                          new ClaimsPrincipal(claimsIdentity));
 
             return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
@@ -51,9 +69,11 @@ namespace UserInterface.Controllers
         }
 
         [Authorize]
-        public IActionResult Test()
+        public async Task<IActionResult> LogOut()
         {
-            return View();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

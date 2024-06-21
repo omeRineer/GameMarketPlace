@@ -1,6 +1,7 @@
 ﻿using Business.Services.Abstract;
 using Entities.Dto.Category;
 using Entities.Dto.Game;
+using Entities.Dto.Media;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Controllers.Base;
@@ -59,6 +60,14 @@ namespace WebAPI.Controllers
 
             return result.Success ? Ok(result)
                                   : BadRequest(result);
+        }
+
+        [HttpPost("UploadGameImages")]
+        public async Task<IActionResult> UploadGameImages([FromQuery] GameImageUploadDto gameImageUploadDto)
+        {
+            var result = await _gameService.UploadGameImagesAsync(gameImageUploadDto);
+
+            return Result(result);
         }
     }
 }
