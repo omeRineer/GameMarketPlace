@@ -1,7 +1,7 @@
 ﻿using Core.Business;
 using Core.Utilities.ResultTool;
-using Entities.Dto;
 using Entities.Main;
+using Entities.Models.SliderContent;
 using System;
 using System.Collections.Generic;
 using System.Linq;

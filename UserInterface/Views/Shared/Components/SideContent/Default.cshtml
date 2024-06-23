@@ -1,0 +1,16 @@
+﻿
+@foreach (var sliderItem in ViewBag.SideSliderItems)
+{
+    <div class="header-card" style="background-image: url('@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), sliderItem.Image.MediaType.Id)}/{sliderItem.Id}/{sliderItem.Image.MediaPath}")');">
+        <div class="header-card-background">
+            <div class="d-flex align-items-start h-100 flex-column">
+                <h5 class="text-light">@sliderItem.Header</h5>
+                <p class="text-light">Blog</p>
+                @if (!string.IsNullOrEmpty(sliderItem.To))
+                {
+                    <a href="@sliderItem.To" class="small text-light mt-auto">Detaya Git</a>
+                }
+            </div>
+        </div>
+    </div>
+}

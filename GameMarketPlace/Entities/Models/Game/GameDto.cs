@@ -1,6 +1,7 @@
 ﻿using Entities.Dto.Category;
 using Entities.Dto.SystemRequirement;
 using System;
+using System.Collections.Generic;
 
 namespace Entities.Dto.Game
 {

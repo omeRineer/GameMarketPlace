@@ -103,7 +103,7 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<Game>> GetByIdAsync(Guid id)
         {
-            var entity = await _gameRepository.GetAsync(filter: f => f.Id.Equals(id));
+            var entity = await _gameRepository.GetAsync(filter: f => f.Id.Equals(id), includes: i => i.Include(x => x.Category).Include(x => x.SystemRequirements));
 
             return new SuccessDataResult<Game>(entity);
         }
@@ -168,6 +168,8 @@ namespace Business.Services.Concrete
                     MediaPath = uploadResult.Data.FileName
                 });
             }
+
+            await _mediaService.AddMediaListAsync(mediaList);
 
             return new SuccessResult();
         }

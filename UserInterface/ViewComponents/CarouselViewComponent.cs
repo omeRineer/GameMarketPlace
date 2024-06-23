@@ -35,19 +35,7 @@ namespace UserInterface.ViewComponents
                                                      })
                                                      .ToList();
 
-            ViewBag.SideSliderItems = sliderContents.Result.Data.Where(f => f.SliderTypeId == (int)SliderTypeEnum.SliderSideItem)
-                                                         .OrderByDescending(o => o.EditDate)
-                                                         .Take(5)
-                                                         .Select(s => new
-                                                         {
-                                                             Id = s.Id,
-                                                             SliderType = s.SliderType,
-                                                             Header = s.Header,
-                                                             To = s.To,
-                                                             IsActive = s.IsActive,
-                                                             Image = sliderMedias.Result.Data.FirstOrDefault(f => f.EntityId == s.Id)
-                                                         })
-                                                         .ToList();
+            
 
             return View();
         }

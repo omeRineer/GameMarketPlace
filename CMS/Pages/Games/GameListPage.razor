@@ -77,7 +77,10 @@
 
         var result = await GameService.DeleteAsync(((Game)SelectedItem).Id);
         if (!result.IsSuccessful)
+        {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
+            return;
+        }
 
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
 

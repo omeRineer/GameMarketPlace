@@ -3,10 +3,10 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@await Component.InvokeAsync("Carousel")
+@(await Component.InvokeAsync<UserInterface.ViewComponents.MainBannerViewComponent>())
 
-@await Component.InvokeAsync("Features")
+@(await Component.InvokeAsync<UserInterface.ViewComponents.FeaturesViewComponent>())
 
-@await Component.InvokeAsync("TrendGames")
+@(await Component.InvokeAsync<UserInterface.ViewComponents.TrendGamesViewComponent>())
 
 @*await Component.InvokeAsync("MostPlayed")*@

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Dto.Game;
 using Entities.Main;
+using Entities.Models.Game.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,16 @@ namespace Business.Mapping.AutoMapper
     {
         public GameProfile()
         {
+            #region Backend
             CreateMap<Game, GameAddDto>().ReverseMap();
             CreateMap<Game, GameEditDto>().ReverseMap();
             CreateMap<Game, GameDto>().ReverseMap();
             CreateMap<Game, CreateGameDto>().ReverseMap();
+            #endregion
+
+            #region View Models
+            CreateMap<Game, GameDetailViewModel>().ReverseMap();
+            #endregion
         }
     }
 }

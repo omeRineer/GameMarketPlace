@@ -1,6 +1,6 @@
 ﻿using Business.Services.Abstract;
-using Entities.Dto;
 using Entities.Main;
+using Entities.Models.SliderContent;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Controllers.Base;

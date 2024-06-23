@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync([FromBody]Guid id)
         {
             var result = await _gameService.DeleteByIdAsync(id);
 

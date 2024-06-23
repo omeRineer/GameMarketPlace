@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using MeArch.Module.File.Service;
 using Entities.Enum.Type;
-using Entities.Dto;
 using AutoMapper;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Entities.Models.SliderContent;
 
 namespace Business.Services.Concrete
 {

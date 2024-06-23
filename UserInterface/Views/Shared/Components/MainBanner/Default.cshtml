@@ -1,0 +1,12 @@
+﻿<div class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 header-cards">
+                @(await Component.InvokeAsync<UserInterface.ViewComponents.SideContentViewComponent>())
+            </div>
+            <div class="col-md-8">
+                @(await Component.InvokeAsync<UserInterface.ViewComponents.CarouselViewComponent>())
+            </div>
+        </div>
+    </div>
+</div>

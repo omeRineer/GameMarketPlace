@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Core.Entities.Abstract;
 
 namespace Business.Services.Concrete
 {
@@ -31,6 +32,14 @@ namespace Business.Services.Concrete
         public async Task<IResult> AddAsync(Media entity)
         {
             await _mediaRepository.AddAsync(entity);
+            await _mediaRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> AddMediaListAsync(List<Media> mediaList)
+        {
+            await _mediaRepository.AddRangeAsync(mediaList);
             await _mediaRepository.SaveAsync();
 
             return new SuccessResult();
@@ -68,7 +77,7 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<List<Media>>> GetMediaListByEntityId(Guid entityId)
         {
-            var mediaList = await _mediaRepository.GetListAsync(f => f.EntityId == entityId);
+            var mediaList = await _mediaRepository.GetListAsync(f => f.EntityId == entityId, includes: i => i.Include(x => x.MediaType));
 
             return new SuccessDataResult<List<Media>>(mediaList);
         }

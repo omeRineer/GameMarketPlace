@@ -20,12 +20,13 @@ namespace UserInterface.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var trendGames = Task.Run<IDataResult<List<Game>>>(async () => await _gameService.GetListAsync()).Result.Data.Take(4);
+            var trendGames = Task.Run<IDataResult<List<Game>>>(async () => await _gameService.GetListAsync()).Result.Data;
             var medias = Task.Run<IDataResult<List<Media>>>(async () => await _mediaService.GetMediaListByEntites(trendGames.Select(s => s.Id).ToList()));
 
             var result = trendGames.Select(s => new GameListViewModel
             {
                 Id = s.Id,
+                CategoryId = s.CategoryId,
                 CategoryName = s.Category.Name,
                 Name = s.Name,
                 Price = s.Price,
