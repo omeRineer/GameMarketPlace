@@ -6,6 +6,7 @@ using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Dto.Category;
 using Entities.Main;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -69,7 +70,7 @@ namespace Business.Services.Concrete
 
         public async Task<IDataResult<List<Category>>> GetListAsync()
         {
-            var list = await _categoryRepository.GetListAsync();
+            var list = await _categoryRepository.GetListAsync(includes: i => i.Include(x => x.Games));
 
             return new SuccessDataResult<List<Category>>(list);
         }

@@ -5,64 +5,70 @@
 @inject DialogService DialogService
 @inject NotificationService NotificationService
 
-    <RadzenCard>
-        <div class="row">
-            <div class="col-md-4 align-items-center d-flex">
-                <RadzenLabel Text="Kategori Adı:" />
-            </div>
-            <div class="col-md-8">
-                <RadzenTextBox @bind-Value="Category.Name" />
-            </div>
+<RadzenCard>
+    <div class="row">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Kategori Adı:" />
         </div>
-    </RadzenCard>
-
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(_isLoading == false)" />
-            <RadzenButton Click="@((args) => DialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="İptal" Style="margin-bottom: 10px; width: 150px" />
+        <div class="col-md-8">
+            <RadzenTextBox @bind-Value="Category.Name" />
         </div>
     </div>
+</RadzenCard>
 
-    @code {
-        [Parameter] public object CategoryId { get; set; }
-        Category? Category;
-        bool _isLoading = false;
+<div class="row mt-3">
+    <div class="col-md-12">
+        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(_isLoading == false)" />
+        <RadzenButton Click="@((args) => DialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="İptal" Style="margin-bottom: 10px; width: 150px" />
+    </div>
+</div>
 
-        protected async override Task OnInitializedAsync()
+@code {
+    [Parameter] public object CategoryId { get; set; }
+    Category? Category;
+    bool _isLoading = false;
+
+
+
+    protected override void OnInitialized()
+    {
+        var result = Core.Utilities.RestHelper.RestHelper.Get<Category>(new Core.Utilities.RestHelper.RestRequestParameter
         {
-            var result = await CategoryODataService.GetByIdAsync((Guid)CategoryId);
-            if (result == null)
-            {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Kategori bulunamadı!" });
-                return;
-            }
+            BaseUrl = $"{Configuration.CoreConfiguration.WebApiUrl}/Categories/GetCategory/{CategoryId}"
+        });
 
-            Category = result;
 
-            await base.OnInitializedAsync();
+        if (result == null)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Kategori bulunamadı!" });
+            return;
         }
 
-        private async Task Save()
-        {
-            _isLoading = true;
-            if (string.IsNullOrEmpty(Category.Name))
-            {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen Kategori Adı Giriniz" });
-                return;
-            }
-
-            var result = await CategoryService.UpdateAsync(Category);
-
-            if (!result.IsSuccessful)
-            {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.StatusCode.ToString() });
-                _isLoading = false;
-                return;
-            }
-
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
-
-            DialogService.Close(true);
-            _isLoading = false;
-        }
+        Category = result.Data;
     }
+
+
+    private async Task Save()
+    {
+        _isLoading = true;
+        if (string.IsNullOrEmpty(Category.Name))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen Kategori Adı Giriniz" });
+            return;
+        }
+
+        var result = await CategoryService.UpdateAsync(Category);
+
+        if (!result.IsSuccessful)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.StatusCode.ToString() });
+            _isLoading = false;
+            return;
+        }
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
+
+        DialogService.Close(true);
+        _isLoading = false;
+    }
+}

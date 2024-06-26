@@ -9,16 +9,16 @@ namespace Core.Utilities.ServiceTools
 {
     public static class StaticServiceProvider
     {
-        private static IServiceProvider ServiceProvider { get; set; }
-        public static IServiceProvider CreateInstance(IServiceCollection services)
+        private static IServiceScopeFactory ServiceScopeFactory { get; set; }
+        public static void CreateInstance(IServiceScopeFactory serviceScopeFactory)
         {
-            ServiceProvider = services.BuildServiceProvider();
-            return ServiceProvider;
+            ServiceScopeFactory = serviceScopeFactory;
         }
 
         public static TService GetService<TService>()
         {
-            return ServiceProvider.GetService<TService>();
+            var serviceScope = ServiceScopeFactory.CreateScope();
+            return serviceScope.ServiceProvider.GetService<TService>();
         }
     }
 }

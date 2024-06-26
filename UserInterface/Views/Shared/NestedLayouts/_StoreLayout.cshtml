@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "_StoreLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="list-group">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <li class="list-group-item"><a href="/Games/GameListByCategoryId/@category.Id">@category.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+

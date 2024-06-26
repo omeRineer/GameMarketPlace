@@ -1,52 +1,98 @@
 ﻿@model Entities.Models.Game.ViewModels.GameDetailViewModel
 
-<div class="single-product section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        @foreach (var gameMedia in Model.GameMedias)
-                        {
+<div class="p-3">
+    <div class="single-product section mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="carouselExampleIndicators" style="height:25rem;" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            @foreach (var gameMedia in Model.GameMedias)
+                            {
 
-                            <div class="carousel-item @(Model.GameMedias[0] == gameMedia ? "active" : null)">
-                                <img class="d-block w-100"
-                                     src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), Entities.Enum.Type.MediaTypeEnum.GameImage)}/{Model.Id}/{gameMedia.MediaPath}")" alt="First slide">
-                            </div>
+                                <div class="carousel-item @(Model.GameMedias[0] == gameMedia ? "active" : null)">
+                                    <img class="d-block w-100"
+                                         src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), Entities.Enum.Type.MediaTypeEnum.GameImage)}/{Model.Id}/{gameMedia.MediaPath}")" alt="First slide">
+                                </div>
 
-                        }
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                    <h4>@Model.Name</h4>
+                    <ul class="mb-3 text-black game-features">
+                        <li>
+                            <span>Oyun Id:</span>
+                            <span>@Model.Id</span>
+                        </li>
+                        <li>
+                            <span>Kategori:</span>
+                            <span>
+                                <a href="#">@Model.Category.Name</a>
+                            </span>
+                        </li>
+                        <li>
+                            <span>Yayınlanma Tarihi:</span>
+                            <span>@Model.ReleaseDate.ToShortDateString()</span>
+                        </li>
+                        <li>
+                            <span>Fiyat:</span>
+                            <span class="price">@Model.Price TL</span>
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-secondary" asp-action="Buy" asp-controller="Games"><i class="fa fa-shopping-bag"></i> Satın Al</button>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="sep"></div>
                 </div>
             </div>
-            <div class="col-lg-6 align-self-center">
-                <h4>@Model.Name</h4>
-                <ul class="mb-3">
-                    <li><span>Oyun Id:</span> @Model.Id</li>
-                    <li><span>Kategori:</span> <a href="#">@Model.Category.Name</a></li>
-                    <li><span>Yayınlanma Tarihi:</span> @Model.ReleaseDate</li>
-                    <li><span>Açıklama</span> @Model.Description</li>
-                </ul>
-                <span class="price">@Model.Price</span>
-                <form id="qty" action="#">
-                    <button type="submit"><i class="fa fa-shopping-bag"></i> Sepete Ekle</button>
-                </form>
+        </div>
+    </div>
 
-            </div>
-            <div class="col-lg-12">
-                <div class="sep"></div>
+
+    <div class="more-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-content">
+                        <div class="row">
+                            <div class="nav-wrapper ">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Açıklama</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Sistem Gereksinimleri</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Description))
+                                </div>
+                                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

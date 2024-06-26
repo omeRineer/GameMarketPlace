@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MeArch.Module.Security.Model.Dto;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Business.ServiceModules
 {
@@ -36,10 +39,28 @@ namespace Business.ServiceModules
             services.AddMemoryCache();
             services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
 
+            services.AddTransient<CurrentUser>(i =>
+            {
+                var httpContextAccessor = i.GetService<IHttpContextAccessor>();
+                var user = httpContextAccessor.HttpContext?.User;
+
+                if (user != null && user.Identity.IsAuthenticated)
+                    return new CurrentUser
+                    {
+                        Id = int.Parse(user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.NameIdentifier).Value),
+                        Name = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Name).Value,
+                        Phone = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.MobilePhone).Value,
+                        Role = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Role).Value,
+                        IsAuthenticated = user.Identity.IsAuthenticated
+                    };
+
+                return new CurrentUser();
+            });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                   .AddCookie(opts =>
                   {
-                      opts.Cookie.Name = $"GameStore.Token"; 
+                      opts.Cookie.Name = $"GameStore.Token";
                       opts.AccessDeniedPath = "/AccessDenied";
                       opts.LoginPath = "/Auth/Login";
                       opts.SlidingExpiration = true;

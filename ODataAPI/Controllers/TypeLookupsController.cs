@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete.ProcessGroups;
+﻿using AutoMapper;
+using Core.Entities.Concrete.ProcessGroups;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace ODataAPI.Controllers
 {
     public class TypeLookupsController : BaseODataController<TypeLookup, int>
     {
-        public TypeLookupsController(DbContext context) : base(context)
+        public TypeLookupsController(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

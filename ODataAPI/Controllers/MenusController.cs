@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete.Menu;
+﻿using AutoMapper;
+using Core.Entities.Concrete.Menu;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace ODataAPI.Controllers
 {
     public class MenusController : BaseODataController<Menu, Guid>
     {
-        public MenusController(DbContext context) : base(context)
+        public MenusController(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

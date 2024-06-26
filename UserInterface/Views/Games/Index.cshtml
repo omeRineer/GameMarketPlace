@@ -1,7 +1,7 @@
 ﻿@model List<UserInterface.Models.Game.GameListViewModel>
 
 @{
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/NestedLayouts/_StoreLayout.cshtml";
 }
 
 <div class="section trending mt-3">
@@ -9,10 +9,10 @@
         <div class="row trending-box">
             @foreach (var game in Model)
             {
-                <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv">
+                <div class="col-lg-4 col-md-6 align-self-center mb-30 trending-items adv">
                     <div class="item">
                         <div class="thumb">
-                            <a href="product-details.html"><img src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/GameCoverImage/{game.Id}/{game.CoverPath}")" alt=""></a>
+                            <a href="product-details.html"><img class="cover-image" src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/GameCoverImage/{game.Id}/{game.CoverPath}")" alt=""></a>
                         </div>
                         <div class="down-content">
                             <span class="category">@game.CategoryName</span>

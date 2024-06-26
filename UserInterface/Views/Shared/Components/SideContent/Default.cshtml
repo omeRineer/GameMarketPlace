@@ -1,7 +1,7 @@
 ﻿
 @foreach (var sliderItem in ViewBag.SideSliderItems)
 {
-    <div class="header-card" style="background-image: url('@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), sliderItem.Image.MediaType.Id)}/{sliderItem.Id}/{sliderItem.Image.MediaPath}")');">
+    <div class="header-card" style="background-attachment:local;background-image: url('@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), sliderItem.Image.MediaType.Id)}/{sliderItem.Id}/{sliderItem.Image.MediaPath}")');">
         <div class="header-card-background">
             <div class="d-flex align-items-start h-100 flex-column">
                 <h5 class="text-light">@sliderItem.Header</h5>

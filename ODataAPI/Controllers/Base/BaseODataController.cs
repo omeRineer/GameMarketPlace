@@ -1,4 +1,6 @@
-﻿using Core.Entities.Abstract;
+﻿using AutoMapper;
+using Core.Entities.Abstract;
+using Core.Entities.DTO.Base;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Main;
 using Microsoft.AspNetCore.Mvc;
@@ -11,32 +13,75 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ODataAPI.Controllers.Base
 {
-    public class BaseODataController<TEntity, TKey> : ODataController
-        where TEntity : class, IEntity, new()
+    public abstract class BaseODataController<TEntity, TKey> : ODataController
+        where TEntity : BaseEntity<TKey>, IEntity, new()
     {
+        private readonly IMapper _mapper;
         protected readonly DbContext Context;
+        protected readonly DbSet<TEntity> Table;
 
-        public BaseODataController(DbContext context)
+        public BaseODataController(DbContext context, IMapper mapper)
         {
             Context = context;
+            _mapper = mapper;
+            Table = Context.Set<TEntity>();
         }
 
         [EnableQuery]
-        public IQueryable<TEntity> Get()
+        public virtual IQueryable<TEntity> Get()
         {
-            var query = Context.Set<TEntity>()
-                               .AsQueryable();
+            var query = Table.AsQueryable();
 
             return query;
         }
 
         [EnableQuery]
-        public TEntity Get([FromRoute] TKey key)
+        public virtual TEntity Get([FromRoute] TKey key)
         {
-            var query = Context.Set<TEntity>()
-                               .Find(key);
+            var query = Table.Find(key);
 
             return query;
+        }
+
+        protected virtual IActionResult Post<TODataModel>(TODataModel model)
+            where TODataModel: class, IODataModel
+        {
+            var entity = _mapper.Map<TEntity>(model);
+
+            Table.Add(entity);
+
+            Context.SaveChanges();
+
+            return Ok();
+        }
+
+        //protected virtual IActionResult Put<TODataModel>(TKey key, TODataModel model)
+        //    where TODataModel : class, IODataModel
+        //{
+        //    if (!Table.Any(a => a.Id.Equals(key)))
+        //        return NotFound();
+
+        //    var entity = Table.Single(f => f.Id.Equals(key));
+        //    var modifiedEntity = _mapper.Map(model, entity);
+
+        //    Table.Update(modifiedEntity);
+
+        //    Context.SaveChanges();
+
+        //    return Ok();
+        //}
+
+        protected virtual IActionResult Delete(TKey key)
+        {
+            var entity = Table.SingleOrDefault(f => f.Id.Equals(key));
+
+            if (entity == null)
+                return NotFound();
+
+            Table.Remove(entity);
+            Context.SaveChanges();
+
+            return Ok();
         }
     }
 }

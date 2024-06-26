@@ -8,16 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Templates\Email\CodeValidationTemplate.cshtml" />
-	  <None Remove="Templates\Email\WelcomeTemplate.cshtml" />
+	  <None Remove="Templates\Email\CampaignTemplate.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Templates\Email\CodeValidationTemplate.cshtml">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	    <CustomToolNamespace></CustomToolNamespace>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Templates\Email\WelcomeTemplate.cshtml">
+	  <EmbeddedResource Include="Templates\Email\CampaignTemplate.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>

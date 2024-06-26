@@ -1,4 +1,5 @@
-﻿using Entities.Main;
+﻿using AutoMapper;
+using Entities.Main;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace ODataAPI.Controllers
 {
     public class SliderContentsController : BaseODataController<SliderContent, Guid>
     {
-        public SliderContentsController(DbContext context) : base(context)
+        public SliderContentsController(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

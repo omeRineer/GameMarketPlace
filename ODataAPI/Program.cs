@@ -10,6 +10,7 @@ using Business.DependencyResolvers.Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Core.Entities.Concrete.ProcessGroups;
 using Core.Entities.Concrete.Menu;
+using System.Text.Json.Serialization;
 
 #region Edm Models
 static IEdmModel GetEdmModel()

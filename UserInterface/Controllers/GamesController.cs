@@ -5,6 +5,7 @@ using Entities.Enum.Type;
 using Entities.Main;
 using Entities.Models.Game.ViewModels;
 using Entities.Models.Media.ViewModels;
+using MeArch.Module.Security.Model.Dto;
 using Microsoft.AspNetCore.Mvc;
 using UserInterface.Models.Game;
 
@@ -14,20 +15,26 @@ namespace UserInterface.Controllers
     {
         readonly IGameService _gameService;
         readonly IMediaService _mediaService;
+        readonly ICategoryService _categoryService;
         readonly IMapper _mapper;
+        readonly CurrentUser _currentUser;
 
-        public GamesController(IGameService gameService, IMediaService mediaService, IMapper mapper)
+        public GamesController(IGameService gameService, IMediaService mediaService, IMapper mapper, CurrentUser currentUser, ICategoryService categoryService)
         {
             _gameService = gameService;
             _mediaService = mediaService;
             _mapper = mapper;
+            _currentUser = currentUser;
+            _categoryService = categoryService;
         }
 
         public async Task<IActionResult> Index()
         {
+            var categories = await _categoryService.GetListAsync();
             var trendGames = await _gameService.GetListAsync();
             var medias = await _mediaService.GetMediaListByEntites(trendGames.Data.Select(s => s.Id).ToList());
 
+            ViewBag.Categories = categories.Data;
             var result = trendGames.Data.Select(s => new GameListViewModel
             {
                 Id = s.Id,
@@ -48,7 +55,7 @@ namespace UserInterface.Controllers
 
             var gameMedias = await _mediaService.GetMediaListByEntityId(id);
 
-            gameViewModel.GameMedias = gameMedias.Data.Select(s => new MediaViewModel
+            gameViewModel.GameMedias = gameMedias.Data.Where(f => f.MediaTypeId == (int)MediaTypeEnum.GameImage).Select(s => new MediaViewModel
             {
                 EntityId = s.EntityId,
                 MediaPath = s.MediaPath,
