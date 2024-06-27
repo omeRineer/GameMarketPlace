@@ -7,7 +7,7 @@ namespace CMS.Services.OData
 {
     public class MenuODataService : BaseODataService<Menu>
     {
-        public async Task<ODataServiceResult<Menu>> GetListAsync(ODataRequestParams requestParams)
+        public async Task<IEnumerable<Menu>> GetListAsync(ODataRequestParams requestParams)
             => await GetListAsync("menus", requestParams);
 
         public async Task<Menu> GetByIdAsync(Guid id)

@@ -17,7 +17,14 @@
                         <div class="down-content">
                             <span class="category">@game.CategoryName</span>
                             <h4>@game.Name</h4>
-                            <a href="/Games/GetDetail/@game.Id"><i class="fa fa-shopping-bag"></i></a>
+                            @if (!UserInterface.Controllers.UserGames.Games.Any(x => x.Id == game.Id))
+                            {
+                                <a href="/Games/GetDetail/@game.Id"><i class="fa fa-shopping-bag"></i></a>
+                            }
+                            else
+                            {
+                                <span class="text-success">Alındı</span>
+                            }
                         </div>
                     </div>
                 </div>

@@ -37,7 +37,11 @@ namespace Business.ServiceModules
                             builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
 
             services.AddMemoryCache();
-            services.AddAutoMapper(typeof(BusinessServiceModule).Assembly);
+            services.AddAutoMapper(opt =>
+            {
+                opt.AddGlobalIgnore("CreateDate");
+                opt.AddGlobalIgnore("EditDate");
+            }, typeof(BusinessServiceModule).Assembly);
 
             services.AddTransient<CurrentUser>(i =>
             {
@@ -51,6 +55,7 @@ namespace Business.ServiceModules
                         Name = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Name).Value,
                         Phone = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.MobilePhone).Value,
                         Role = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Role).Value,
+                        Email = user.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Email).Value,
                         IsAuthenticated = user.Identity.IsAuthenticated
                     };
 

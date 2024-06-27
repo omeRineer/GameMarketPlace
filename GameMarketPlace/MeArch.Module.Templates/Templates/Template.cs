@@ -13,6 +13,7 @@ namespace MeArch.Module.Templates
             public const string CodeValidationTemplate = "Email.CodeValidationTemplate";
             public const string WelcomeTemplate = "Email.WelcomeTemplate";
             public const string CampaignTemplate = "Email.CampaignTemplate";
+            public const string GameInvoiceTemplate = "Email.GameInvoiceTemplate";
         }
     }
 }

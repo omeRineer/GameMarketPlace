@@ -1432,7 +1432,7 @@ Single Page Style
 }
 
 .single-product ul li span {
-  width: 120px;
+  width: 49%;
   display: inline-block;
   color: #aaa;
 }

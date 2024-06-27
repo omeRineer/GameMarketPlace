@@ -1,5 +1,6 @@
 ﻿using Configuration;
 using Core.Utilities.RestHelper;
+using Core.Utilities.ResultTool.APIResult;
 using Entities.Main;
 using Newtonsoft.Json;
 using Radzen;
@@ -29,7 +30,7 @@ namespace CMS.Services.Base
             HttpClient = new HttpClient();
         }
 
-        protected async Task<ODataServiceResult<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
+        protected async Task<IEnumerable<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
         {
             var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{path}");
             var oDataUri = uri.GetODataUri(requestParams.Filter,
@@ -44,8 +45,7 @@ namespace CMS.Services.Base
 
             var response = await HttpClient.SendAsync(httpRequestMessage);
 
-            return await response.ReadAsync<ODataServiceResult<TEntity>>();
-
+            return await response.ReadAsync<IEnumerable<TEntity>>();
         }
 
         protected async Task<TEntity> GetByIdAsync(string path)
@@ -57,20 +57,6 @@ namespace CMS.Services.Base
             var response = await HttpClient.SendAsync(httpRequestMessage);
 
             return await response.ReadAsync<TEntity>();
-
-        }
-
-        protected async Task<RestResponse> AddAsync(Category category)
-        {
-            var httpContent = new StringContent(JsonConvert.SerializeObject(category));
-
-
-            var response = await RestHelper.PostAsync<Category, object>(new RestRequestParameter
-            {
-                BaseUrl = $"{CoreConfiguration.ODataApiUrl}/odata/categories/add"
-            }, category);
-
-            return response;
 
         }
     }

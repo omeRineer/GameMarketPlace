@@ -7,7 +7,7 @@ namespace CMS.Services.OData
 {
     public class TypeLookupODataService : BaseODataService<TypeLookup>
     {
-        public async Task<ODataServiceResult<TypeLookup>> GetListAsync(ODataRequestParams requestParams)
+        public async Task<IEnumerable<TypeLookup>> GetListAsync(ODataRequestParams requestParams)
             => await GetListAsync("typelookups", requestParams);
 
         public async Task<TypeLookup> GetByIdAsync(Guid id)

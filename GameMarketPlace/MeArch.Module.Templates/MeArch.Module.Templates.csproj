@@ -9,10 +9,14 @@
 
 	<ItemGroup>
 	  <None Remove="Templates\Email\CampaignTemplate.cshtml" />
+	  <None Remove="Templates\Email\GameInvoiceTemplate.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Templates\Email\CampaignTemplate.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Templates\Email\GameInvoiceTemplate.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>

@@ -85,7 +85,7 @@
         categories = (await CategoryODataService.GetListAsync(new ODataRequestParams
         {
             Select = "Id,Name"
-        })).Value.ToDictionary(k => k.Id, v => v.Name);
+        })).ToDictionary(k => k.Id, v => v.Name);
 
 
     }

@@ -11,6 +11,7 @@ using Autofac.Extensions.DependencyInjection;
 using Core.Entities.Concrete.ProcessGroups;
 using Core.Entities.Concrete.Menu;
 using System.Text.Json.Serialization;
+using Core.Utilities.ResultTool.APIResult;
 
 #region Edm Models
 static IEdmModel GetEdmModel()
@@ -45,7 +46,7 @@ builder.Services.AddControllers()
                 .AddOData(options =>
                 {
                     options.EnableQueryFeatures();
-                    options.AddRouteComponents("odata", GetEdmModel());
+                    //options.AddRouteComponents("odata", GetEdmModel());
                 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

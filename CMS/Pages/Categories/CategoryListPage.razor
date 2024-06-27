@@ -50,8 +50,8 @@
             Top = args.Top
         });
 
-        Data = result.Value.AsODataEnumerable();
-        Count = result.Count;
+        Data = result.AsODataEnumerable();
+        Count = result.Count();
 
         StateHasChanged();
         IsLoading = false;

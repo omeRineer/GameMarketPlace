@@ -1,4 +1,6 @@
-﻿using DataAccess.Concrete.EntityFramework.General;
+﻿using Core.DataAccess;
+using DataAccess.Concrete.EntityFramework.General;
+using Entities.Main;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

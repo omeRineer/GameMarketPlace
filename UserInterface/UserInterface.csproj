@@ -1,23 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PreserveCompilationReferences>true</PreserveCompilationReferences>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="wwwroot\Temp\.vscode\settings.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="wwwroot\Temp\.vscode\settings.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AngularJS.Core" Version="1.8.2" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AngularJS.Core" Version="1.8.2" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GameMarketPlace\Business\Business.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\GameMarketPlace\Business\Business.csproj" />
+	</ItemGroup>
 
 </Project>

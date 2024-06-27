@@ -21,6 +21,7 @@ namespace Business.Mapping.AutoMapper
 
             #region ODataModel
             CreateMap<Category, CategoryCreateODataModel>().ReverseMap();
+            CreateMap<Category, CategoryUpdateODataModel>().ReverseMap();
             #endregion
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ODataAPI.Controllers.Base;
 
-namespace ODataAPI.Controllers
+namespace ODataAPI.Controllers.Core
 {
     public class MenusController : BaseODataController<Menu, Guid>
     {

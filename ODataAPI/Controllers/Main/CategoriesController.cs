@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using ODataAPI.Controllers.Base;
 
-namespace ODataAPI.Controllers
+namespace ODataAPI.Controllers.Main
 {
     public class CategoriesController : BaseODataController<Category, Guid>
     {
@@ -16,11 +16,11 @@ namespace ODataAPI.Controllers
         {
         }
 
-        //[HttpPost("Post")]
-        //public IActionResult Post([FromBody] CategoryCreateODataModel model) => base.Post(model);
-        //[HttpPut] 
-        //public IActionResult Put([FromBody] CategoryUpdateODataModel model) => Ok();
-        //[HttpDelete] 
-        //public IActionResult Delete([FromBody] CategoryCreateODataModel model) => base.Post(model);
+        [HttpPost]
+        public IActionResult Post([FromBody] CategoryCreateODataModel model) => base.Post(model);
+        [HttpPut]
+        public IActionResult Put([FromBody] CategoryUpdateODataModel model) => base.Put(model.id, model);
+        [HttpDelete]
+        public IActionResult Delete([FromBody] Guid key) => base.Delete(key);
     }
 }

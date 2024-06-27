@@ -81,7 +81,7 @@
         {
             Select = "Id,Description",
             Filter = $"ProcessGroupId eq {(int)Entities.Enum.ProcessGroupEnum.SliderType}"
-        })).Value.ToDictionary(k => k.Id, v => v.Description);
+        })).ToDictionary(k => k.Id, v => v.Description);
     }
 
     async Task Save()

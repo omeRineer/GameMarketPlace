@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatura</title>
+</head>
+<body>
+    <table width="600" border="0" cellpadding="0" cellspacing="0" style="border:1px solid #ccc; margin:auto; padding:20px;">
+        <tr>
+            <td style="text-align:center;">
+                <h2>Oyun Satın Alma Faturası</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Merhaba <strong>@Model.Name</strong>,</p>
+                <p>Teşekkür ederiz! Aşağıda satın almış olduğunuz oyunla ilgili faturanız yer almaktadır.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3>Fatura Detayları:</h3>
+                <p><strong>Sipariş Numarası:</strong> @Guid.NewGuid().ToString()</p>
+                <p><strong>Tarih:</strong> @DateTime.Now</p>
+                <p><strong>Ürün:</strong> @Model.Game</p>
+                <p><strong>Platform:</strong> Game Store</p>
+                <p><strong>Fiyat:</strong> @Model.Price TL</p>
+                <p><strong>Ödeme Yöntemi:</strong> Kredi Kartı</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Satın aldığınız oyunla ilgili herhangi bir sorunuz olursa, lütfen bizimle iletişime geçmekten çekinmeyin.</p>
+                <p>İyi oyunlar dileriz!</p>
+                <p>Saygılarımızla,</p>
+                <p><strong>Game Store</strong></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

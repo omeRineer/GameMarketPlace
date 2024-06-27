@@ -6,7 +6,7 @@ namespace CMS.Services.OData
 {
     public class SliderContentODataService : BaseODataService<SliderContent>
     {
-        public async Task<ODataServiceResult<SliderContent>> GetListAsync(ODataRequestParams requestParams)
+        public async Task<IEnumerable<SliderContent>> GetListAsync(ODataRequestParams requestParams)
             => await GetListAsync("slidercontents", requestParams);
 
         public async Task<SliderContent> GetByIdAsync(Guid id)

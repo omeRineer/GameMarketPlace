@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ODataAPI.Controllers.Base;
 
-namespace ODataAPI.Controllers
+namespace ODataAPI.Controllers.Main
 {
     public class MediasController : BaseODataController<Media, Guid>
     {

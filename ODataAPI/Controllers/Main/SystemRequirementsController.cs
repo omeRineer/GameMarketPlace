@@ -3,7 +3,7 @@ using Entities.Main;
 using Microsoft.EntityFrameworkCore;
 using ODataAPI.Controllers.Base;
 
-namespace ODataAPI.Controllers
+namespace ODataAPI.Controllers.Main
 {
     public class SystemRequirementsController : BaseODataController<SystemRequirement, Guid>
     {
