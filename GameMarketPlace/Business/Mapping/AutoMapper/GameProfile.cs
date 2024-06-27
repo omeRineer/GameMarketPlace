@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Entities.Dto.Game;
 using Entities.Main;
+using Entities.Models.Game.Dto;
 using Entities.Models.Game.ViewModels;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Entities.Dto.SystemRequirement;
 using Entities.Main;
+using Entities.Models.SystemRequirement.Dto;
 using Entities.Models.SystemRequirement.ViewModels;
 
 namespace Business.Mapping.AutoMapper

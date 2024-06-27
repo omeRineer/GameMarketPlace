@@ -1,12 +1,10 @@
 ﻿using Business.Services.Abstract;
-using Entities.Dto.Category;
-using Entities.Dto.Game;
-using Entities.Dto.Media;
+using Entities.Models.Game.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Controllers.Base;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers.Main
 {
     public class GamesController : BaseController
     {
@@ -36,7 +34,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> DeleteAsync([FromBody]Guid id)
+        public async Task<IActionResult> DeleteAsync([FromBody] Guid id)
         {
             var result = await _gameService.DeleteByIdAsync(id);
 

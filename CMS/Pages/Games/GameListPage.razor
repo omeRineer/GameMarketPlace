@@ -53,8 +53,8 @@
             Expand = "Category"
         });
 
-        Data = result.AsODataEnumerable();
-        Count = result.Count();
+        Data = result.Value.AsODataEnumerable();
+        Count = result.Count;
 
         StateHasChanged();
         IsLoading = false;

@@ -7,11 +7,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="appsettings.json" />
+	  <None Remove="appsettings.Development.json" />
+	  <None Remove="appsettings.Local.json" />
+	  <None Remove="appsettings.Production.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="appsettings.json">
+	  <Content Include="appsettings.Development.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="appsettings.Local.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="appsettings.Production.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>

@@ -1,18 +1,20 @@
-﻿using Configuration;
-using Hangfire;
+﻿using BackgroundJobs.Extensions;
+using Core.ServiceModules;
 using HangFire.Configuring;
+using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Configuration;
 
-namespace BackgroundJobs.Extensions
+namespace BackgroundJobs.Modules
 {
-    public static class ServiceCollectionExtensions
+    public class BackgroundServicesModule : IServiceModule
     {
-        public static void AddSchedulerJobs(this IServiceCollection services)
+        public void Load(IServiceCollection services)
         {
             services.AddScoped<IGeneralSchedulerService, GeneralSchedulerService>();
 

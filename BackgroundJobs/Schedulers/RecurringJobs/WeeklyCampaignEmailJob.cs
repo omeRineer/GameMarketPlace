@@ -25,7 +25,7 @@ namespace BackgroundJobs.Schedulers.RecurringJobs
         public WeeklyCampaignEmailJob()
         {
             _userRepository = StaticServiceProvider.GetService<IUserRepository>();
-            _emailService = StaticServiceProvider.GetService<IEmailService>(); ;
+            _emailService = StaticServiceProvider.GetService<IEmailService>();
         }
 
         public async Task Run()

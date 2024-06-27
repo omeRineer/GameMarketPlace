@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Entities.Dto.Category;
 using Entities.Main;
+using Entities.Models.Category.Dto;
 using Entities.Models.Category.ODataModels;
 using Entities.Models.Category.ViewModels;
 

@@ -4,8 +4,6 @@ using Core.Business.BaseService;
 using Core.DataAccess;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Dto.Category;
-using Entities.Dto.Game;
 using Entities.Dto.Media;
 using Entities.Enum.Type;
 using Entities.Main;
@@ -18,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MeArch.Module.File.Service;
 using System.IO;
+using Entities.Models.Game.Dto;
 
 namespace Business.Services.Concrete
 {

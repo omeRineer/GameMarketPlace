@@ -60,16 +60,7 @@ namespace Business.ServiceModules
                     };
 
                 return new CurrentUser();
-            });
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                  .AddCookie(opts =>
-                  {
-                      opts.Cookie.Name = $"GameStore.Token";
-                      opts.AccessDeniedPath = "/AccessDenied";
-                      opts.LoginPath = "/Auth/Login";
-                      opts.SlidingExpiration = true;
-                  });
+            });            
 
             services.AddTokenService(options =>
             {

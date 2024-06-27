@@ -1,11 +1,11 @@
 ﻿using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
-using Entities.Dto.Category;
+using Entities.Models.Category.Dto;
 using MeArch.Module.File.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Controllers.Base;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers.Main
 {
     public class CategoriesController : BaseController
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Dto.Category
+namespace Entities.Models.Category.Dto
 {
     public record CategoryDto(Guid Id, string Name);
     public record CategoryAddDto(string Name);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models.SliderContent
+namespace Entities.Models.SliderContent.Dto
 {
     public class SliderContentCreateDto
     {

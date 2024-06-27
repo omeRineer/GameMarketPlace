@@ -1,4 +1,5 @@
 ﻿using Core.Entities.DTO.Options;
+using Core.Utilities.ServiceTools;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Configuration
         static CoreConfiguration()
         {
             Configuration = new ConfigurationBuilder()
-                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
                                 .Build();
         }
 

@@ -13,7 +13,7 @@ using Entities.Enum.Type;
 using AutoMapper;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
-using Entities.Models.SliderContent;
+using Entities.Models.SliderContent.Dto;
 
 namespace Business.Services.Concrete
 {

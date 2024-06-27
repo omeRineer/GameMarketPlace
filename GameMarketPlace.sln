@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ODataAPI", "ODataAPI\ODataA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{B41BD3ED-6CFF-4829-BD06-D8D419D362AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundJobs", "BackgroundJobs\BackgroundJobs.csproj", "{17BD3276-7583-4E1B-A3A5-8B8074A2BA48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundJobs", "BackgroundJobs\BackgroundJobs.csproj", "{17BD3276-7583-4E1B-A3A5-8B8074A2BA48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

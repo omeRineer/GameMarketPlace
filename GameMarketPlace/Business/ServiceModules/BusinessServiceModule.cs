@@ -1,4 +1,6 @@
 ﻿using Business.Services;
+using Business.Services.Abstract;
+using Business.Services.Concrete;
 using Configuration;
 using Core.ServiceModules;
 using DataAccess;
@@ -26,7 +28,21 @@ namespace Business.ServiceModules
 
         public void Load(IServiceCollection services)
         {
-            services.AddServices();
+            services.AddScoped<IAuthService, AuthService>();
+
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+            services.AddScoped<IMediaService, MediaService>();
+            services.AddScoped<ISliderContentService, SliderContentService>();
+            services.AddScoped<IMenuService, MenuService>();
+
+            services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IPermissionSe, GameService>();
+            //services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+            //services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+            //services.AddScoped<ISystemRequirementService, SystemRequirementService>();
         }
     }
 }

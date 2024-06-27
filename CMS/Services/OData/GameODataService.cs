@@ -6,7 +6,7 @@ namespace CMS.Services.OData
 {
     public class GameODataService : BaseODataService<Game>
     {
-        public async Task<IEnumerable<Game>> GetListAsync(ODataRequestParams requestParams)
+        public async Task<ODataServiceResult<Game>> GetListAsync(ODataRequestParams requestParams)
             => await GetListAsync("games", requestParams);
 
         public async Task<Game> GetByIdAsync(Guid id)

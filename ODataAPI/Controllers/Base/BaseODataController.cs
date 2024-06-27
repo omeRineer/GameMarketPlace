@@ -14,7 +14,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ODataAPI.Controllers.Base
 {
-    [Route("odata/[controller]")]
     public abstract class BaseODataController<TEntity, TKey> : ODataController
         where TEntity : BaseEntity<TKey>, IEntity, new()
     {
@@ -30,7 +29,6 @@ namespace ODataAPI.Controllers.Base
         }
 
         [EnableQuery]
-        [HttpGet]
         public IQueryable<TEntity> Get()
         {
             var query = Table.AsQueryable();
@@ -39,7 +37,6 @@ namespace ODataAPI.Controllers.Base
         }
 
         [EnableQuery]
-        [HttpGet("{key}")]
         public TEntity Get([FromRoute] TKey key)
         {
             var query = Table.Find(key);

@@ -55,7 +55,7 @@
             Filter = $"EntityId eq {GameId} and MediaTypeId eq {(int)Entities.Enum.Type.MediaTypeEnum.GameImage}"
         });
 
-        GameCollection = result.AsODataEnumerable();
+        GameCollection = result.Value.AsODataEnumerable();
 
         StateHasChanged();
         _isLoading = false;

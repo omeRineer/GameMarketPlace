@@ -1,11 +1,10 @@
 ﻿using Core.Business;
 using Core.Utilities.ResultTool;
-using Entities.Dto.Category;
 using Entities.Main;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Entities.Dto.Game;
+using Entities.Models.Game.Dto;
 
 namespace Business.Services.Abstract
 {

@@ -4,6 +4,7 @@ using Business.DependencyResolvers.Autofac;
 using Business.ServiceModules;
 using Core.Extensions;
 using Core.ServiceModules;
+using DataAccess.ServiceModules;
 using MeArch.Module.Email.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

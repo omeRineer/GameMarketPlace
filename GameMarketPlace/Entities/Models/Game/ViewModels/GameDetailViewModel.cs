@@ -1,6 +1,4 @@
-﻿using Entities.Dto.Category;
-using Entities.Dto.SystemRequirement;
-using Entities.Models.Category.ViewModels;
+﻿using Entities.Models.Category.ViewModels;
 using Entities.Models.Media.ViewModels;
 using Entities.Models.SystemRequirement.ViewModels;
 using System;

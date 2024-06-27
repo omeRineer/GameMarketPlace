@@ -5,6 +5,7 @@ using Business.DependencyResolvers.Autofac;
 using Business.ServiceModules;
 using Core.Extensions;
 using Core.ServiceModules;
+using DataAccess.ServiceModules;
 using MeArch.Module.Email.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,8 @@ builder.Services.AddServiceModules(new IServiceModule[]
 {
     new BusinessServiceModule(builder.Configuration),
     new MeArchitectureServiceModule(),
-    new RepositoryServiceModule()
+    new RepositoryServiceModule(),
+    new CookieAuthenticationServiceModule()
 });
 
 // Add services to the container.

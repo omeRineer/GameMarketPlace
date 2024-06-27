@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 namespace Entities.Models.Category.ODataModels
 {
     public record CategoryCreateODataModel(string name) : IODataModel;
-    public record CategoryUpdateODataModel(Guid id, string name) : IODataModel;
+    public record CategoryUpdateODataModel(string name) : IODataModel;
 }

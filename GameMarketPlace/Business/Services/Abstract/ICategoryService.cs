@@ -1,7 +1,7 @@
 ﻿using Core.Business;
 using Core.Utilities.ResultTool;
-using Entities.Dto.Category;
 using Entities.Main;
+using Entities.Models.Category.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
