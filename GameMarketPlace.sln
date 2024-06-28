@@ -45,11 +45,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{B41BD3ED-6CF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundJobs", "BackgroundJobs\BackgroundJobs.csproj", "{17BD3276-7583-4E1B-A3A5-8B8074A2BA48}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Video", "Video", "{87112B59-FF3D-4D17-AA4C-79FBBAF2040E}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\OneDrive\Masaüstü\Bitirme.mkv = ..\..\..\OneDrive\Masaüstü\Bitirme.mkv
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
