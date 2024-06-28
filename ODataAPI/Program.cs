@@ -46,7 +46,7 @@ builder.Services.AddControllers()
                 .AddOData(options =>
                 {
                     options.EnableQueryFeatures();
-                    //options.AddRouteComponents("odata", GetEdmModel());
+                    options.AddRouteComponents("odata", GetEdmModel());
                 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

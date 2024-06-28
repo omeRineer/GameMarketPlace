@@ -52,7 +52,7 @@ namespace UserInterface.Controllers
             var medias = await _mediaService.GetMediaListByEntites(trendGames.Data.Select(s => s.Id).ToList());
 
             ViewBag.Categories = categories.Data;
-            var result = trendGames.Data.Select(s => new GameListViewModel
+            var result = trendGames.Data.OrderByDescending(o => o.CreateDate).Select(s => new GameListViewModel
             {
                 Id = s.Id,
                 CategoryId = s.CategoryId,
@@ -95,7 +95,7 @@ namespace UserInterface.Controllers
             await _emailService.SendAsync(new MeArch.Module.Email.Model.MailMessage
             {
                 Subject = "Fatura Maili",
-                Body = await RazorEngine.CompileRenderAsync(Template.Email.GameInvoiceTemplate, new { Name = CurrentUser.Name, Game = game.Name, Price = game.Price}),
+                Body = await RazorEngine.CompileRenderAsync(Template.Email.GameInvoiceTemplate, new { Name = CurrentUser.Name, Game = game.Name, Price = game.Price }),
                 BodyType = MailBodyTypeEnum.HTML,
                 From = new MailboxAddress(CoreConfiguration.EmailOptions.From, CoreConfiguration.EmailOptions.UserName),
                 To = new List<MailboxAddress>

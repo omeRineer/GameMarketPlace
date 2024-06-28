@@ -1,6 +1,5 @@
 ﻿using Configuration;
 using Core.Utilities.RestHelper;
-using Core.Utilities.ResultTool.APIResult;
 using Entities.Main;
 using Newtonsoft.Json;
 using Radzen;
@@ -30,7 +29,7 @@ namespace CMS.Services.Base
             HttpClient = new HttpClient();
         }
 
-        protected async Task<IEnumerable<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
+        protected async Task<ODataServiceResult<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
         {
             var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{path}");
             var oDataUri = uri.GetODataUri(requestParams.Filter,
@@ -45,7 +44,7 @@ namespace CMS.Services.Base
 
             var response = await HttpClient.SendAsync(httpRequestMessage);
 
-            return await response.ReadAsync<IEnumerable<TEntity>>();
+            return await response.ReadAsync<ODataServiceResult<TEntity>>();
         }
 
         protected async Task<TEntity> GetByIdAsync(string path)

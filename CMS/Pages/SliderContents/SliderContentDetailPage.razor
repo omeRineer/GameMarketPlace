@@ -64,7 +64,7 @@
         {
             Select = "Id,Description",
             Filter = $"ProcessGroupId eq {(int)Entities.Enum.ProcessGroupEnum.SliderType}"
-        })).ToDictionary(k => k.Id, v => v.Description);
+        })).Value.ToDictionary(k => k.Id, v => v.Description);
 
         if (SliderContentId == null)
         {
