@@ -58,9 +58,9 @@ namespace Business.Services.Concrete
                 return isExistEmailResult;
 
             User user = _mapper.Map<User>(request);
-            var userCreateResult = await _userService.AddAsync(user);
+            //var userCreateResult = await _userService.AddAsync(user);
 
-            return userCreateResult;
+            return new SuccessResult();
         }
 
 

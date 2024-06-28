@@ -24,42 +24,7 @@ namespace Business.Services.Concrete
             _mapper = mapper;
         }
 
-        public async Task<IResult> AddAsyncDto(CategoryAddDto categoryAddDto)
-        {
-            var entity = _mapper.Map<Category>(categoryAddDto);
-
-            await _categoryRepository.AddAsync(entity);
-            await _categoryRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> AddAsync(Category entity)
-        {
-            await _categoryRepository.AddAsync(entity);
-            await _categoryRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> DeleteAsync(Category entity)
-        {
-            _categoryRepository.Delete(entity);
-            await _categoryRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> DeleteAsyncDto(CategoryDeleteDto categoryDeleteDto)
-        {
-            var entity = await _categoryRepository.GetAsync(x => x.Equals(categoryDeleteDto));
-            _categoryRepository.Delete(entity);
-            await _categoryRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IDataResult<CategoryDto>> GetByIdAsyncDto(Guid id)
+        public async Task<IDataResult<CategoryDto>> GetByIdAsync(Guid id)
         {
             var entity = await _categoryRepository.GetAsync(x => x.Id.Equals(id));
 
@@ -68,32 +33,7 @@ namespace Business.Services.Concrete
             return new SuccessDataResult<CategoryDto>(result);
         }
 
-        public async Task<IDataResult<List<Category>>> GetListAsync()
-        {
-            var list = await _categoryRepository.GetListAsync(includes: i => i.Include(x => x.Games));
-
-            return new SuccessDataResult<List<Category>>(list);
-        }
-
-        public async Task<IResult> UpdateAsync(Category entity)
-        {
-            _categoryRepository.Update(entity);
-            await _categoryRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> UpdateAsyncDto(CategoryUpdateDto categoryUpdateDto)
-        {
-            var mapEntity = _mapper.Map<Category>(categoryUpdateDto);
-
-            _categoryRepository.Update(mapEntity);
-            await _categoryRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IDataResult<List<CategoryDto>>> GetListAsyncDto()
+        public async Task<IDataResult<List<CategoryDto>>> GetListAsync()
         {
             var list = await _categoryRepository.GetListAsync();
 
@@ -110,13 +50,6 @@ namespace Business.Services.Concrete
             await _categoryRepository.SaveAsync();
 
             return new SuccessResult();
-        }
-
-        public async Task<IDataResult<Category>> GetByIdAsync(Guid id)
-        {
-            var entity = await _categoryRepository.GetAsync(x => x.Id.Equals(id));
-
-            return new SuccessDataResult<Category>(entity);
         }
     }
 }

@@ -28,12 +28,6 @@ namespace Core.DataAccess
         Task AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
-        //Task DeleteAsync(TEntity entity);
-        //Task DeleteRangeAsync(IEnumerable<TEntity> entities);
-
-        //Task UpdateAsync(TEntity entity);
-        //Task UpdateRangeAsync(IEnumerable<TEntity> entities);
-
         Task ExecuteSqlAsync(string query, params object[] parameters);
 
         Task SaveAsync();

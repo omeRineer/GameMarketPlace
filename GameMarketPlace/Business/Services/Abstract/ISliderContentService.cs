@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business.Services.Abstract
 {
-    public interface ISliderContentService : IEntityService<SliderContent, Guid>
+    public interface ISliderContentService
     {
         Task<IResult> CreateSliderContentAsync(SliderContentCreateDto sliderContentCreateDto);
         Task<IDataResult<List<SliderContent>>> GetSliderContentByIsActive();

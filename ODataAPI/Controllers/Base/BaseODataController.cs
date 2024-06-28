@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.OData.Results;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
+using ODataAPI.Filters;
 
 namespace ODataAPI.Controllers.Base
 {
@@ -28,8 +29,17 @@ namespace ODataAPI.Controllers.Base
             Table = Context.Set<TEntity>();
         }
 
+        #region Read Actions
+        [EnableQueryCached]
+        public virtual IEnumerable<TEntity> GetFromCached()
+        {
+            var data = Table.ToList();
+
+            return data;
+        }
+
         [EnableQuery]
-        public IQueryable<TEntity> Get()
+        public virtual IQueryable<TEntity> Get()
         {
             var query = Table.AsQueryable();
 
@@ -37,15 +47,18 @@ namespace ODataAPI.Controllers.Base
         }
 
         [EnableQuery]
-        public TEntity Get([FromRoute] TKey key)
+        public virtual TEntity Get([FromRoute] TKey key)
         {
             var query = Table.Find(key);
 
             return query;
         }
+        #endregion
 
+
+        #region Write Actions
         protected IActionResult Post<TODataModel>(TODataModel model)
-            where TODataModel : class, IODataModel
+    where TODataModel : class, IODataModel
         {
             var entity = _mapper.Map<TEntity>(model);
 
@@ -84,5 +97,7 @@ namespace ODataAPI.Controllers.Base
 
             return Ok();
         }
+
+        #endregion
     }
 }

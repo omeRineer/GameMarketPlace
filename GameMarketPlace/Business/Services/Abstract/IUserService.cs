@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business.Services.Abstract
 {
-    public interface IUserService : IEntityService<User, int>
+    public interface IUserService
     {
         Task<IDataResult<List<RoleClaim>>> GetUserRoleClaimsAsync(int userId);
         Task<IDataResult<User>> GetByLoginModelAsync(UserLoginRequest request);

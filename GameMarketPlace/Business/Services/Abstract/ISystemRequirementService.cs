@@ -4,7 +4,7 @@ using System;
 
 namespace Business.Services.Abstract
 {
-    public interface ISystemRequirementService : IEntityService<SystemRequirement, Guid>
+    public interface ISystemRequirementService
     {
     }
 }

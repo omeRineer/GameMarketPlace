@@ -18,7 +18,7 @@ namespace WebAPI.Controllers.Main
         [HttpPost("Create")]
         public async Task<IActionResult> Create(BlogCreateDto blogCreateDto)
         {
-            var result = await _blogService.Create(blogCreateDto);
+            var result = await _blogService.CreateAsync(blogCreateDto);
 
             return Result(result);
         }

@@ -32,7 +32,9 @@ namespace Core.Extensions
         public static ModelBuilder GeneralSettings(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GeneralSetting>()
-                        .ToTable("GeneralSettings");
+                        .ToTable("GeneralSettings")
+                        .Property(p => p.IsCached).HasDefaultValue(false);
+
 
             return modelBuilder;
         }

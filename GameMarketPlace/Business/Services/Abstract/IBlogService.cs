@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace Business.Services.Abstract
 {
-    public interface IBlogService : IEntityService<Blog, Guid>
+    public interface IBlogService
     {
-        Task<IDataResult<Blog>> GetById(Guid id);
-        Task<IResult> Create(BlogCreateDto blogCreateDto);
+        Task<IResult> CreateAsync(BlogCreateDto blogCreateDto)
     }
 }

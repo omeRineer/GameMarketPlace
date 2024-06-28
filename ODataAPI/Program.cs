@@ -12,6 +12,8 @@ using Core.Entities.Concrete.ProcessGroups;
 using Core.Entities.Concrete.Menu;
 using System.Text.Json.Serialization;
 using Core.Utilities.ResultTool.APIResult;
+using Core.Utilities.ServiceTools;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 #region Edm Models
 static IEdmModel GetEdmModel()
@@ -53,7 +55,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
+StaticServiceProvider.CreateInstance(app.Services.GetService<IServiceScopeFactory>());
 
 if (app.Environment.IsDevelopment())
 {

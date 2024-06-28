@@ -46,23 +46,24 @@ namespace Business.Services.Concrete
             await _sliderContentRepository.AddAsync(entity);
             await _sliderContentRepository.SaveAsync();
 
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(sliderContentCreateDto.Image.FileName)}";
-            var fileBytes = Convert.FromBase64String(sliderContentCreateDto.Image.Base64);
-            var sliderType = (SliderTypeEnum)Enum.ToObject(typeof(SliderTypeEnum), sliderContentCreateDto.SliderTypeId);
-            var mediaType = sliderType == SliderTypeEnum.SliderItem ? MediaTypeEnum.SliderItemImage : MediaTypeEnum.SliderSideItemImage;
+            // TODO : Queueda yapılacak
+            //var fileName = $"{Guid.NewGuid()}{Path.GetExtension(sliderContentCreateDto.Image.FileName)}";
+            //var fileBytes = Convert.FromBase64String(sliderContentCreateDto.Image.Base64);
+            //var sliderType = (SliderTypeEnum)Enum.ToObject(typeof(SliderTypeEnum), sliderContentCreateDto.SliderTypeId);
+            //var mediaType = sliderType == SliderTypeEnum.SliderItem ? MediaTypeEnum.SliderItemImage : MediaTypeEnum.SliderSideItemImage;
 
-            await _mediaService.AddAsync(new Media
-            {
-                EntityId = entity.Id,
-                MediaTypeId = (int)mediaType,
-                MediaPath = fileName
-            });
+            //await _mediaService.AddAsync(new Media
+            //{
+            //    EntityId = entity.Id,
+            //    MediaTypeId = (int)mediaType,
+            //    MediaPath = fileName
+            //});
 
-            await _fileService.UploadFileAsync(fileBytes, new MeArch.Module.File.Model.FileOptionsParameter
-            {
-                Directory = $"{Enum.GetName(typeof(MediaTypeEnum), mediaType)}/{entity.Id}",
-                NameTemplate = fileName
-            });
+            //await _fileService.UploadFileAsync(fileBytes, new MeArch.Module.File.Model.FileOptionsParameter
+            //{
+            //    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), mediaType)}/{entity.Id}",
+            //    NameTemplate = fileName
+            //});
 
             return new SuccessResult();
         }

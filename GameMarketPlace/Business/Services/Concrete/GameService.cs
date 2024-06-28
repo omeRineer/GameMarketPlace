@@ -37,24 +37,6 @@ namespace Business.Services.Concrete
             _mediaService = mediaService;
         }
 
-        public async Task<IResult> AddAsync(Game entity)
-        {
-            await _gameRepository.AddAsync(entity);
-            await _gameRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> AddAsyncDto(GameAddDto gameAddDto)
-        {
-            var entity = _mapper.Map<Game>(gameAddDto);
-
-            await _gameRepository.AddAsync(entity);
-            await _gameRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
         public async Task<IResult> CreateGameAsync(CreateGameDto createGameDto)
         {
             var entity = _mapper.Map<Game>(createGameDto);
@@ -62,30 +44,24 @@ namespace Business.Services.Concrete
             await _gameRepository.AddAsync(entity);
             await _gameRepository.SaveAsync();
 
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(createGameDto.Cover.FileName)}";
-            var fileBytes = Convert.FromBase64String(createGameDto.Cover.Base64);
-            var media = new Media
-            {
-                EntityId = entity.Id,
-                MediaTypeId = (int)MediaTypeEnum.GameCoverImage,
-                MediaPath = fileName
-            };
-            await _mediaService.AddAsync(media);
+
+            // TODO : Queueda yapılacak
+            //var fileName = $"{Guid.NewGuid()}{Path.GetExtension(createGameDto.Cover.FileName)}";
+            //var fileBytes = Convert.FromBase64String(createGameDto.Cover.Base64);
+            //var media = new Media
+            //{
+            //    EntityId = entity.Id,
+            //    MediaTypeId = (int)MediaTypeEnum.GameCoverImage,
+            //    MediaPath = fileName
+            //};
+            //await _mediaService.AddAsync(media);
 
 
-            await _fileService.UploadFileAsync(fileBytes, new MeArch.Module.File.Model.FileOptionsParameter
-            {
-                Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameCoverImage)}/{entity.Id}",
-                NameTemplate = fileName
-            });
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> DeleteAsync(Game entity)
-        {
-            _gameRepository.Delete(entity);
-            await _gameRepository.SaveAsync();
+            //await _fileService.UploadFileAsync(fileBytes, new MeArch.Module.File.Model.FileOptionsParameter
+            //{
+            //    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameCoverImage)}/{entity.Id}",
+            //    NameTemplate = fileName
+            //});
 
             return new SuccessResult();
         }
@@ -107,24 +83,6 @@ namespace Business.Services.Concrete
             return new SuccessDataResult<Game>(entity);
         }
 
-        public async Task<IDataResult<GameDto>> GetByIdAsyncDto(Guid id)
-        {
-            var entity = await _gameRepository.GetAsync(filter: x => x.Id.Equals(id),
-                                                        includes: i => i.Include(x => x.Category)
-                                                                        .Include(x => x.SystemRequirements));
-
-            var result = _mapper.Map<GameDto>(entity);
-
-            return new SuccessDataResult<GameDto>(result);
-        }
-
-        public async Task<IDataResult<List<Game>>> GetListAsync()
-        {
-            var list = await _gameRepository.GetListAsync(includes: i => i.Include(x => x.Category));
-
-            return new SuccessDataResult<List<Game>>(list);
-        }
-
         public async Task<IDataResult<List<GameDto>>> GetListAsyncDto()
         {
             var list = await _gameRepository.GetListAsync(includes: i => i.Include(x => x.Category)
@@ -140,11 +98,6 @@ namespace Business.Services.Concrete
             await _gameRepository.SaveAsync();
 
             return new SuccessResult();
-        }
-
-        public Task<IResult> UpdateAsyncDto(GameEditDto gameEditDto)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto)

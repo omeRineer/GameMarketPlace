@@ -17,7 +17,7 @@ namespace UserInterface.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var blogs = await _blogService.GetListAsync();
+            //var blogs = await _blogService.GetListAsync();
             var coverMedias = await _mediaService.GetMediaListByEntites(blogs.Data.Select(s => s.Id).ToList());
 
             var result = blogs.Data.Select(s => new BlogListViewModel

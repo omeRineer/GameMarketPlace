@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business.Services.Abstract
 {
-    public interface IMediaService : IEntityService<Media, Guid>
+    public interface IMediaService
     {
         Task<IResult> AddMediaListAsync(List<Media> mediaList);
         Task<IResult> UploadMedia(MediaUploadDto mediaUploadDto);
