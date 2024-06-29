@@ -1,25 +1,51 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Business.DependencyResolvers.Autofac;
+using Business.ServiceModules;
+using Core.Extensions;
+using Core.ServiceModules;
+using DataAccess.ServiceModules;
+using MeArch.Module.Email.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            .ConfigureContainer<ContainerBuilder>(container => container.RegisterModule<AutofacDependencyResolversModule>());
+
+builder.Services.AddServiceModules(new IServiceModule[]
+{
+    new BusinessServiceModule(builder.Configuration),
+    new MeArchitectureServiceModule(),
+    new RepositoryServiceModule()
+});
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
+
+
+#region Host Build
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+#endregion
+
