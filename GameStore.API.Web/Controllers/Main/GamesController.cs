@@ -2,9 +2,9 @@
 using Entities.Models.Game.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Controllers.Base;
+using GameStore.API.Web.Controllers.Base;
 
-namespace WebAPI.Controllers.Main
+namespace GameStore.API.Web.Controllers.Main
 {
     public class GamesController : BaseController
     {
@@ -15,65 +15,6 @@ namespace WebAPI.Controllers.Main
             _gameService = gameService;
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> AddAsync(GameAddDto gameAddDto)
-        {
-            var result = await _gameService.AddAsyncDto(gameAddDto);
-
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
-        }
-
-        [HttpPost("Update")]
-        public async Task<IActionResult> UpdateAsync(GameEditDto gameEditDto)
-        {
-            var result = await _gameService.UpdateAsyncDto(gameEditDto);
-
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
-        }
-
-        [HttpPost("Delete")]
-        public async Task<IActionResult> DeleteAsync([FromBody] Guid id)
-        {
-            var result = await _gameService.DeleteByIdAsync(id);
-
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
-        }
-
-        [HttpGet("GetGames")]
-        public async Task<IActionResult> GetGamesAsync()
-        {
-            var result = await _gameService.GetListAsyncDto();
-
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
-        }
-
-        [HttpGet("GetGame/{id}")]
-        public async Task<IActionResult> GetGameAsync(Guid id)
-        {
-            var result = await _gameService.GetByIdAsyncDto(id);
-
-            return result.Success ? Ok(result)
-                                  : BadRequest(result);
-        }
-
-        [HttpPost("CreateGame")]
-        public async Task<IActionResult> CreateGameAsync(CreateGameDto createGameDto)
-        {
-            var result = await _gameService.CreateGameAsync(createGameDto);
-
-            return Result(result);
-        }
-
-        [HttpPost("UploadGameImages")]
-        public async Task<IActionResult> UploadGameImagesAsync([FromQuery] GameImageUploadDto gameImageUploadDto)
-        {
-            var result = await _gameService.UploadGameImagesAsync(gameImageUploadDto);
-
-            return Result(result);
-        }
+        
     }
 }

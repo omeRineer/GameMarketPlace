@@ -3,9 +3,9 @@ using Entities.Dto.Auth.Login;
 using Entities.Dto.Auth.Register;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Controllers.Base;
+using GameStore.API.Web.Controllers.Base;
 
-namespace WebAPI.Controllers.Auth
+namespace GameStore.API.Web.Controllers.Auth
 {
     public class AuthController : BaseController
     {

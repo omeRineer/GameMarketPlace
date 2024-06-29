@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI.Controllers.Base;
+using GameStore.API.Web.Controllers.Base;
 
-namespace WebAPI.Controllers.Main
+namespace GameStore.API.Web.Controllers.Main
 {
     public class SystemRequirementsController : BaseController
     {

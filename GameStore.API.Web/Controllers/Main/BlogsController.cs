@@ -1,10 +1,9 @@
 ﻿using Business.Services.Abstract;
-using Entities.Dto.Blog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Controllers.Base;
+using GameStore.API.Web.Controllers.Base;
 
-namespace WebAPI.Controllers.Main
+namespace GameStore.API.Web.Controllers.Main
 {
     public class BlogsController : BaseController
     {
@@ -15,12 +14,5 @@ namespace WebAPI.Controllers.Main
             _blogService = blogService;
         }
 
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create(BlogCreateDto blogCreateDto)
-        {
-            var result = await _blogService.CreateAsync(blogCreateDto);
-
-            return Result(result);
-        }
     }
 }

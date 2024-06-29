@@ -3,7 +3,7 @@ using Core.Utilities.ResultTool.APIResult;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers.Base
+namespace GameStore.API.Web.Controllers.Base
 {
     [Route("webapi/[controller]")]
     [ApiController]

@@ -2,9 +2,9 @@
 using Entities.Dto.Media;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Controllers.Base;
+using GameStore.API.Web.Controllers.Base;
 
-namespace WebAPI.Controllers.Main
+namespace GameStore.API.Web.Controllers.Main
 {
     public class MediasController : BaseController
     {
@@ -15,12 +15,6 @@ namespace WebAPI.Controllers.Main
             _mediaService = mediaService;
         }
 
-        [HttpPost("UploadMedia")]
-        public async Task<IActionResult> UploadMedia([FromQuery] MediaUploadDto mediaUploadDto)
-        {
-            var result = await _mediaService.UploadMedia(mediaUploadDto);
-
-            return Result(result);
-        }
+       
     }
 }
