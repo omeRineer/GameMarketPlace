@@ -1,0 +1,39 @@
+﻿
+@model List<BlogListViewModel>
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="section trending mt-3">
+    <div class="container">
+        <div class="row trending-box">
+            @foreach (var blogItem in Model)
+            {
+                <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv">
+                    <div class="item">
+                        <div class="thumb">
+                            <a href="/Blogs/@blogItem.Id"><img src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), Entities.Enum.Type.MediaTypeEnum.BlogCoverImage)}/{(blogItem.CoverPath != null ? blogItem.CoverPath : "blog.png")}")" alt=""></a>
+                            <span class="price"><i class="fa-solid fa-eye"></i>  @blogItem.ReaderCount</span>
+                        </div>
+                        <div class="down-content">
+                            <h4>@blogItem.Header</h4>
+                            <a href="/Blogs/GetDetail/@blogItem.Id"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    <li><a href="#"> &lt; </a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a class="is_active" href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#"> &gt; </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

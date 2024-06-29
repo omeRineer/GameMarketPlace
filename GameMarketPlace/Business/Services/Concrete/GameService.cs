@@ -66,40 +66,6 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
-        public async Task<IResult> DeleteByIdAsync(Guid id)
-        {
-            var entity = await _gameRepository.GetAsync(f => f.Id.Equals(id));
-
-            _gameRepository.Delete(entity);
-            _gameRepository.Save();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IDataResult<Game>> GetByIdAsync(Guid id)
-        {
-            var entity = await _gameRepository.GetAsync(filter: f => f.Id.Equals(id), includes: i => i.Include(x => x.Category).Include(x => x.SystemRequirements));
-
-            return new SuccessDataResult<Game>(entity);
-        }
-
-        public async Task<IDataResult<List<GameDto>>> GetListAsyncDto()
-        {
-            var list = await _gameRepository.GetListAsync(includes: i => i.Include(x => x.Category)
-                                                                          .Include(x => x.SystemRequirements));
-            var result = _mapper.Map<List<GameDto>>(list);
-
-            return new SuccessDataResult<List<GameDto>>(result);
-        }
-
-        public async Task<IResult> UpdateAsync(Game entity)
-        {
-            _gameRepository.Update(entity);
-            await _gameRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
         public async Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto)
         {
             var mediaList = new List<Media>();
@@ -121,7 +87,7 @@ namespace Business.Services.Concrete
                 });
             }
 
-            await _mediaService.AddMediaListAsync(mediaList);
+            //await _mediaService.AddMediaListAsync(mediaList);
 
             return new SuccessResult();
         }

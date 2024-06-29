@@ -12,7 +12,5 @@ namespace Business.Services.Abstract
 {
     public interface ISliderContentService
     {
-        Task<IResult> CreateSliderContentAsync(SliderContentCreateDto sliderContentCreateDto);
-        Task<IDataResult<List<SliderContent>>> GetSliderContentByIsActive();
     }
 }

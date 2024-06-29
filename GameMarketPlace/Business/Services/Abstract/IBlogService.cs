@@ -1,7 +1,7 @@
 ﻿using Core.Business;
 using Core.Utilities.ResultTool;
-using Entities.Dto.Blog;
 using Entities.Main;
+using Entities.Models.Blog.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,6 @@ namespace Business.Services.Abstract
 {
     public interface IBlogService
     {
-        Task<IResult> CreateAsync(BlogCreateDto blogCreateDto)
+        Task<IResult> CreateAsync(CreateBlogRequest createBlogRequest);
     }
 }

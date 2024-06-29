@@ -29,64 +29,6 @@ namespace Business.Services.Concrete
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IResult> AddAsync(Media entity)
-        {
-            await _mediaRepository.AddAsync(entity);
-            await _mediaRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public async Task<IResult> AddMediaListAsync(List<Media> mediaList)
-        {
-            await _mediaRepository.AddRangeAsync(mediaList);
-            await _mediaRepository.SaveAsync();
-
-            return new SuccessResult();
-        }
-
-        public Task<IResult> DeleteAsync(Media entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IResult> DeleteByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IDataResult<List<Media>>> GetListAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IDataResult<Media>> GetMediaByEntityId(Guid entityId)
-        {
-            var firstMedia = await _mediaRepository.GetAsync(f => f.EntityId == entityId);
-
-            return new SuccessDataResult<Media>(firstMedia);
-        }
-
-        public async Task<IDataResult<List<Media>>> GetMediaListByEntites(List<Guid> EntityIdList)
-        {
-            var mediaList = await _mediaRepository.GetListAsync(filter: f => EntityIdList.Contains(f.EntityId),
-                                                                includes: i => i.Include(x => x.MediaType));
-
-            return new SuccessDataResult<List<Media>>(mediaList);
-        }
-
-        public async Task<IDataResult<List<Media>>> GetMediaListByEntityId(Guid entityId)
-        {
-            var mediaList = await _mediaRepository.GetListAsync(f => f.EntityId == entityId, includes: i => i.Include(x => x.MediaType));
-
-            return new SuccessDataResult<List<Media>>(mediaList);
-        }
-
-        public Task<IResult> UpdateAsync(Media entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IResult> UploadMedia(MediaUploadDto mediaUploadDto)
         {
             var mediaList = new List<Media>();

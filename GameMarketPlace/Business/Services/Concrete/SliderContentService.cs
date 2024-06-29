@@ -34,10 +34,6 @@ namespace Business.Services.Concrete
             _mapper = mapper;
         }
 
-        public Task<IResult> AddAsync(SliderContent entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<IResult> CreateSliderContentAsync(SliderContentCreateDto sliderContentCreateDto)
         {
@@ -68,32 +64,5 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
-        public Task<IResult> DeleteAsync(SliderContent entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IResult> DeleteByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IDataResult<List<SliderContent>>> GetListAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IDataResult<List<SliderContent>>> GetSliderContentByIsActive()
-        {
-            var result = await _sliderContentRepository.GetListAsync(filter: f => f.IsActive,
-                                                                     includes: i => i.Include(x => x.SliderType));
-
-            return new SuccessDataResult<List<SliderContent>>(result);
-        }
-
-        public Task<IResult> UpdateAsync(SliderContent entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

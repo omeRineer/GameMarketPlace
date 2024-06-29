@@ -1,0 +1,103 @@
+﻿
+@inject SliderContentService SliderContentService
+@inject TypeLookupODataService TypeLookupODataService
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+<div class="row w-100">
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Slider Türü:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown Data="sliderTypes"
+                            TValue="int"
+                            @bind-Value="newSliderContent.SliderTypeId"
+                            TextProperty="Value"
+                            ValueProperty="Key"
+                            class="w-100" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Başlık:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenTextBox class="w-100" @bind-Value="newSliderContent.Header" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Link:" />
+        </div>
+        <div class="col-md-8">
+            <RadzenTextBox class="w-100" @bind-Value="newSliderContent.To" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Resim:" />
+        </div>
+        <div class="col-md-8">
+            <BaseFileInput TModel="BaseModel.InputFile"
+                           FileType="image/*"
+                           ChooseText="Resim Seçin"
+                           MaxFileCount="1"
+                           @bind-Model="newSliderContent.Image" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <RadzenLabel Text="Aktif mi ?" />
+        </div>
+        <div class="col-md-8">
+            <RadzenCheckBox @bind-Value="newSliderContent.IsActive" />
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(_isLoading == false)" />
+        <RadzenButton Click="@((args) => DialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="İptal" Style="margin-bottom: 10px; width: 150px" />
+    </div>
+</div>
+
+@code {
+    bool _isLoading = false;
+    SliderContentCreateModel newSliderContent = new SliderContentCreateModel();
+    Dictionary<int, string> sliderTypes;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        sliderTypes = (await TypeLookupODataService.GetListAsync(new ODataRequestParams
+        {
+            Select = "Id,Description",
+            Filter = $"ProcessGroupId eq {(int)Entities.Enum.ProcessGroupEnum.SliderType}"
+        })).Value.ToDictionary(k => k.Id, v => v.Description);
+    }
+
+    async Task Save()
+    {
+        _isLoading = true;
+        var result = await SliderContentService.CreateSliderContentAsync(newSliderContent);
+
+        if (!result.IsSuccessful)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
+            return;
+        }
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
+
+        DialogService.Close(true);
+        _isLoading = false;
+    }
+}

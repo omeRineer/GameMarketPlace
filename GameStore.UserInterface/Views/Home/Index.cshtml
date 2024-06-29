@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@(await Component.InvokeAsync<MainBannerViewComponent>())
+
+@(await Component.InvokeAsync<FeaturesViewComponent>())
+
+@(await Component.InvokeAsync<TrendGamesViewComponent>())
+
+@*await Component.InvokeAsync("MostPlayed")*@

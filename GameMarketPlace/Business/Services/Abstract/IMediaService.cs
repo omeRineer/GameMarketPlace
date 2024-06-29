@@ -12,10 +12,5 @@ namespace Business.Services.Abstract
 {
     public interface IMediaService
     {
-        Task<IResult> AddMediaListAsync(List<Media> mediaList);
-        Task<IResult> UploadMedia(MediaUploadDto mediaUploadDto);
-        Task<IDataResult<Media>> GetMediaByEntityId(Guid entityId);
-        Task<IDataResult<List<Media>>> GetMediaListByEntityId(Guid entityId);
-        Task<IDataResult<List<Media>>> GetMediaListByEntites(List<Guid> EntityIdList);
     }
 }

@@ -1,0 +1,104 @@
+﻿@page "/blogs"
+
+@inherits BaseDataPage<Blog>
+@inject BlogODataService BlogODataService
+@inject BlogService BlogService
+
+<h3>Bloglar</h3>
+<div class="row">
+    <div class="col-xl-3">
+        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<BlogAddPage>("Blog Ekle",
+                                           null,
+                                           new DialogOptions{Width = "1000px"} )) />
+
+        <RadzenButton Icon="edit" Click=@(async args => await DialogService.OpenAsync<BlogAddPage>("Blog Düzenle",
+                                          new Dictionary<string, object> { { "CategoryId", ((Blog)SelectedItem).Id } },
+                                          new DialogOptions{Width = "600px"})) />
+        <RadzenButton Icon="remove" Click=@Delete />
+        <RadzenButton Icon="refresh" Click=@Refresh />
+    </div>
+</div>
+
+
+
+<BaseDataGrid TItem="Blog"
+              IsLoading="IsLoading"
+              Data="Data"
+              @bind-SelectedItem="@SelectedItem"
+              LoadData="LoadData"
+              Count="Count"
+              Columns=@(new Dictionary<string, string>
+             {
+                 { "Header", "Başlık" },
+                 { "ReaderCount", "Okunma Sayısı" },
+                 { "CreateDate", "Oluşturulma Tarihi" },
+                 { "EditDate", "Son Güncellenme Tarihi" },
+                 { "Status", "Yayın Durumu" }
+             }) />
+
+@code {
+
+    async Task LoadData(LoadDataArgs args)
+    {
+        IsLoading = true;
+        LastArgs = args;
+
+        var result = await BlogODataService.GetListAsync(new ODataRequestParams
+        {
+            Count = true,
+            Filter = args.Filter,
+            OrderBy = args.OrderBy,
+            Skip = args.Skip,
+            Top = args.Top
+        });
+
+        Data = result.Value.AsODataEnumerable();
+        Count = result.Count;
+
+        StateHasChanged();
+        IsLoading = false;
+    }
+
+    private async void Delete()
+    {
+        if (SelectedItem == null)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen bir blog seçin!" });
+            return;
+
+        }
+
+        var isConfirm = await DialogService.Confirm("Silmek istediğinize emin misiniz?", "Uyarı", new ConfirmOptions { OkButtonText = "Evet", CancelButtonText = "Hayır" });
+        if (isConfirm != true)
+            return;
+
+        IsLoading = true;
+
+        var result = await BlogService.DeleteAsync(((Blog)SelectedItem).Id);
+        if (!result.IsSuccessful)
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.ErrorMessage });
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
+
+        DialogService.Close(true);
+        Refresh();
+        IsLoading = false;
+    }
+
+    protected async override void Close(dynamic result)
+    {
+        if (result == true)
+        {
+            await LoadData(LastArgs);
+            StateHasChanged();
+        }
+    }
+
+    protected async override void Refresh()
+    {
+        base.Refresh();
+        await LoadData(LastArgs);
+        StateHasChanged();
+    }
+
+}

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Entities.Dto.Blog;
 using Entities.Main;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ namespace Business.Mapping.AutoMapper
     {
         public BlogProfile()
         {
-            CreateMap<BlogCreateDto, Blog>().ReverseMap();
         }
     }
 }

@@ -3,9 +3,9 @@ using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Dto;
-using Entities.Dto.Blog;
 using Entities.Enum.Type;
 using Entities.Main;
+using Entities.Models.Blog.Rest;
 using MeArch.Module.File.Service;
 using System;
 using System.Collections.Generic;
@@ -31,9 +31,9 @@ namespace Business.Services.Concrete
             _fileService = fileService;
         }
 
-        public async Task<IResult> CreateAsync(BlogCreateDto blogCreateDto)
+        public async Task<IResult> CreateAsync(CreateBlogRequest createBlogRequest)
         {
-            var entity = _mapper.Map<Blog>(blogCreateDto);
+            var entity = _mapper.Map<Blog>(createBlogRequest);
             entity.GeneratedId();
 
             await _blogRepository.AddAsync(entity);

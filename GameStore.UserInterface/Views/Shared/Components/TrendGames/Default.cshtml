@@ -1,0 +1,39 @@
+﻿@model List<GameListViewModel>
+
+<div class="section trending mt-5">
+    <div class="container">
+        @foreach (var category in Model.GroupBy(g => new { Id = g.CategoryId, Name = g.CategoryName }).Take(4))
+        {
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>Popüler @category.Key.Name</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="main-button">
+                        <a href="shop.html">Tüm Oyunlar</a>
+                    </div>
+                </div>
+                @foreach (var game in Model.Where(f => f.CategoryId == category.Key.Id).Take(4))
+                {
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item">
+                            <div class="thumb">
+                                <a href="product-details.html"><img class="cover-image" src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/GameCoverImage/{game.Id}/{game.CoverPath}")" alt=""></a>
+                            </div>
+                            <div class="down-content d-flex align-items-start flex-column">
+                                <span class="category">@game.CategoryName</span>
+                                <h4>@game.Name</h4>
+                                <span>@game.Price TL</span>
+                                <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+
+    </div>
+</div>

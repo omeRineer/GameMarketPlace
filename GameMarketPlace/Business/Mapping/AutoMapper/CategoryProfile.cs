@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Main;
-using Entities.Models.Category.Dto;
 using Entities.Models.Category.ODataModels;
+using Entities.Models.Category.Rest;
 using Entities.Models.Category.ViewModels;
 
 namespace Business.Mapping.AutoMapper
@@ -10,9 +10,6 @@ namespace Business.Mapping.AutoMapper
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryAddDto>().ReverseMap();
-            CreateMap<Category, CategoryUpdateDto>().ReverseMap();
-            CreateMap<Category, CategoryDto>().ReverseMap();
 
 
             #region View Models

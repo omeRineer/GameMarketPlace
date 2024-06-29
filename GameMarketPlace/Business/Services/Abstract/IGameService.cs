@@ -10,7 +10,5 @@ namespace Business.Services.Abstract
 {
     public interface IGameService
     {
-        Task<IResult> CreateGameAsync(CreateGameDto createGameDto);
-        Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto);
     }
 }
