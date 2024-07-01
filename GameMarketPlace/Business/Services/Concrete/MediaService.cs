@@ -29,26 +29,34 @@ namespace Business.Services.Concrete
             HttpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<IResult> CreateAsync(Media media)
+        {
+            await _mediaRepository.AddAsync(media);
+            await _mediaRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
+
         public async Task<IResult> UploadMedia(MediaUploadDto mediaUploadDto)
         {
             var mediaList = new List<Media>();
-            foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
-            {
-                var newFileName = Guid.NewGuid().ToString();
+            //foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
+            //{
+            //    var newFileName = Guid.NewGuid().ToString();
 
-                var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
-                {
-                    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{mediaUploadDto.EntityId}",
-                    NameTemplate = newFileName
-                });
+            //    var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
+            //    {
+            //        Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{mediaUploadDto.EntityId}",
+            //        NameTemplate = newFileName
+            //    });
 
-                mediaList.Add(new Media
-                {
-                    EntityId = mediaUploadDto.EntityId,
-                    MediaTypeId = (int)MediaTypeEnum.GameImage,
-                    MediaPath = uploadResult.Data.FileName
-                });
-            }
+            //    mediaList.Add(new Media
+            //    {
+            //        EntityId = mediaUploadDto.EntityId,
+            //        MediaTypeId = (int)MediaTypeEnum.GameImage,
+            //        MediaPath = uploadResult.Data.FileName
+            //    });
+            //}
 
             await _mediaRepository.AddRangeAsync(mediaList);
             await _mediaRepository.SaveAsync();

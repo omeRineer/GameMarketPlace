@@ -33,9 +33,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackgroundServices", "Backg
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{B41BD3ED-6CFF-4829-BD06-D8D419D362AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.BackgroundJobs", "GameStore.BackgroundJobs\GameStore.BackgroundJobs.csproj", "{110B4A14-802A-4F92-A55F-2ACAED13F236}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.BackgroundJobs", "GameStore.BackgroundJobs\GameStore.BackgroundJobs.csproj", "{110B4A14-802A-4F92-A55F-2ACAED13F236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.HangFire", "GameStore.HangFire\GameStore.HangFire.csproj", "{B34F5A64-5EFA-45B0-98E1-98C78700B3CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.HangFire", "GameStore.HangFire\GameStore.HangFire.csproj", "{B34F5A64-5EFA-45B0-98E1-98C78700B3CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.Cms", "GameStore.Cms\GameStore.Cms.csproj", "{3D6FAD39-A141-4129-B37A-F94A4E90EA2C}"
 EndProject
@@ -43,7 +43,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.UserInterface", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.API.OData", "GameStore.API.OData\GameStore.API.OData.csproj", "{711E1161-5D5F-45F1-80A3-DEB2FFEEBAD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.API.Web", "GameStore.API.Web\GameStore.API.Web.csproj", "{49C41FA3-D9A4-4998-AE0B-25638E1840ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.API.Web", "GameStore.API.Web\GameStore.API.Web.csproj", "{49C41FA3-D9A4-4998-AE0B-25638E1840ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enterprise", "Enterprise", "{94265220-76F7-4FFB-85D0-9014819ABCEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.Enterprise.Consumer", "GameStore.Enterprise.Consumer\GameStore.Enterprise.Consumer.csproj", "{A88B8717-EBD7-4973-87C6-C189159DC485}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.Enterprise.Shared", "GameStore.Enterprise.Shared\GameStore.Enterprise.Shared.csproj", "{19134E24-DA5C-4E47-AE10-5DED7AC1F153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +121,14 @@ Global
 		{49C41FA3-D9A4-4998-AE0B-25638E1840ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49C41FA3-D9A4-4998-AE0B-25638E1840ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49C41FA3-D9A4-4998-AE0B-25638E1840ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A88B8717-EBD7-4973-87C6-C189159DC485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A88B8717-EBD7-4973-87C6-C189159DC485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A88B8717-EBD7-4973-87C6-C189159DC485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A88B8717-EBD7-4973-87C6-C189159DC485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19134E24-DA5C-4E47-AE10-5DED7AC1F153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19134E24-DA5C-4E47-AE10-5DED7AC1F153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19134E24-DA5C-4E47-AE10-5DED7AC1F153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19134E24-DA5C-4E47-AE10-5DED7AC1F153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +146,9 @@ Global
 		{6A03A4F8-EA30-4B10-AAD2-23A181ACF4F2} = {4BD8A932-8F52-4273-9F2F-DAA4D06547AE}
 		{711E1161-5D5F-45F1-80A3-DEB2FFEEBAD7} = {964CD9CD-B605-4594-9534-D1F8E7279A95}
 		{49C41FA3-D9A4-4998-AE0B-25638E1840ED} = {964CD9CD-B605-4594-9534-D1F8E7279A95}
+		{94265220-76F7-4FFB-85D0-9014819ABCEF} = {B918A163-6EC3-401A-83E1-2E6DAD04AC74}
+		{A88B8717-EBD7-4973-87C6-C189159DC485} = {94265220-76F7-4FFB-85D0-9014819ABCEF}
+		{19134E24-DA5C-4E47-AE10-5DED7AC1F153} = {94265220-76F7-4FFB-85D0-9014819ABCEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C7D685B-61A7-466B-B2FF-D843C0AEA10F}

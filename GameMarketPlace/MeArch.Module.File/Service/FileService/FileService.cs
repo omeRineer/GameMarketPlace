@@ -22,47 +22,7 @@ namespace MeArch.Module.File.Service.FileService
             FileOptions = options.Value;
         }
 
-        public async Task<IDataResult<FileInfo>> UploadFileAsync(Http.IFormFile file, FileOptionsParameter fileOptionsParameter)
-        {
-            var businessRules = BusinessTool.Run(ExtensionValidate(file.GetExtension()));
-            if (!businessRules.Success) return new ErrorDataResult<FileInfo>(businessRules.Message);
-
-            var fileInfo = CreateFileInfo(file, fileOptionsParameter);
-            using (var fileStream = new IO.FileStream(fileInfo.FullPath, IO.FileMode.Create))
-            {
-                try
-                {
-                    await file.CopyToAsync(fileStream);
-                    return new SuccessDataResult<FileInfo>(fileInfo);
-                }
-                catch (Exception ex)
-                {
-                    return new ErrorDataResult<FileInfo>(message: ex.Message);
-                }
-                finally
-                {
-                    fileStream.Close();
-                }
-            }
-        }
-
-        public IDataResult<FileInfo> GetFile(string fileName, string directory)
-        {
-            var fullPath = $"{FileOptions.FilePath}/{directory}/{fileName}";
-
-            var businessRules = BusinessTool.Run(IsFileExist(fullPath));
-            if (!businessRules.Success) return new ErrorDataResult<FileInfo>(businessRules.Message);
-
-            return new SuccessDataResult<FileInfo>(new FileInfo
-            {
-                FullPath = fullPath,
-                FileName = fileName,
-                Extension = IO.Path.GetExtension(fileName)
-            });
-
-        }
-
-        public async Task<IDataResult<FileInfo>> UploadFileAsync(byte[] fileBytes, FileOptionsParameter fileOptionsParameter)
+        public async Task<IResult> UploadFileAsync(byte[] fileBytes, FileOptionsParameter fileOptionsParameter)
         {
             var destinationDirectory = $"{FileOptions.FilePath}/{fileOptionsParameter.Directory}";
             var fullPath = $"{destinationDirectory}/{fileOptionsParameter.NameTemplate}";
@@ -71,60 +31,7 @@ namespace MeArch.Module.File.Service.FileService
 
             await IO.File.WriteAllBytesAsync(fullPath, fileBytes);
 
-            var fileInfo = new FileInfo
-            {
-                FullPath = fullPath,
-                FileName = fileOptionsParameter.NameTemplate,
-                Extension = IO.Path.GetExtension(fileOptionsParameter.NameTemplate)
-            };
-
-            return new SuccessDataResult<FileInfo>(fileInfo);
-        }
-
-    }
-
-    public partial class FileService
-    {
-        private FileInfo CreateFileInfo(Http.IFormFile file, FileOptionsParameter fileOptionsParameter)
-        {
-            var extension = file.GetExtension().ToUpper();
-            var fileName = CreateFileName(file, extension, fileOptionsParameter);
-            var destinationDirectory = $"{FileOptions.FilePath}/{fileOptionsParameter.Directory}";
-
-            if (!IO.Directory.Exists(destinationDirectory)) IO.Directory.CreateDirectory(destinationDirectory);
-
-            var fullPath = $"{destinationDirectory}/{fileName}";
-
-            return new Model.FileInfo
-            {
-                FullPath = fullPath,
-                FileName = fileName,
-                Extension = extension
-            };
-        }
-
-        private IResult ExtensionValidate(string extension)
-        {
-            if (!FileOptions.Extensions.Contains(extension.ToUpper())) return new ErrorResult("Geçersiz Uzantı");
-
             return new SuccessResult();
-        }
-
-        private IResult IsFileExist(string fullPath)
-        {
-            var isExist = IO.File.Exists(fullPath);
-
-            if (!isExist) return new ErrorResult("Dosya Bulunamadı");
-
-            return new SuccessResult();
-        }
-
-        private string CreateFileName(Http.IFormFile file, string extension, FileOptionsParameter fileOptionsParameter)
-        {
-            var fileName = !string.IsNullOrEmpty(fileOptionsParameter.NameTemplate) ? $"{fileOptionsParameter.NameTemplate}{extension}"
-                                                                                   : $"{file.FileName}";
-
-            return fileName;
         }
     }
 }

@@ -19,13 +19,6 @@ namespace Business.ServiceModules
 {
     public class BusinessServiceModule : IServiceModule
     {
-        private readonly IConfiguration Configuration;
-
-        public BusinessServiceModule(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public void Load(IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();

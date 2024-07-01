@@ -68,24 +68,24 @@ namespace Business.Services.Concrete
 
         public async Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto)
         {
-            var mediaList = new List<Media>();
-            foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
-            {
-                var newFileName = Guid.NewGuid().ToString();
+            //var mediaList = new List<Media>();
+            //foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
+            //{
+            //    var newFileName = Guid.NewGuid().ToString();
 
-                var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
-                {
-                    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{gameImageUploadDto.EntityId}",
-                    NameTemplate = newFileName
-                });
+            //    var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
+            //    {
+            //        Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{gameImageUploadDto.EntityId}",
+            //        NameTemplate = newFileName
+            //    });
 
-                mediaList.Add(new Media
-                {
-                    EntityId = gameImageUploadDto.EntityId,
-                    MediaTypeId = (int)MediaTypeEnum.GameImage,
-                    MediaPath = uploadResult.Data.FileName
-                });
-            }
+            //    mediaList.Add(new Media
+            //    {
+            //        EntityId = gameImageUploadDto.EntityId,
+            //        MediaTypeId = (int)MediaTypeEnum.GameImage,
+            //        MediaPath = uploadResult.Data.FileName
+            //    });
+            //}
 
             //await _mediaService.AddMediaListAsync(mediaList);
 

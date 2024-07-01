@@ -83,6 +83,8 @@ namespace Business.ServiceModules
             {
                 options.FilePath = CoreConfiguration.FileOptions.FilePath;
                 options.Extensions = CoreConfiguration.FileOptions.Extensions;
+                options.Assembly = CoreConfiguration.FileOptions.Assembly;
+                options.RequestPath = CoreConfiguration.FileOptions.RequestPath;
             });
 
         }

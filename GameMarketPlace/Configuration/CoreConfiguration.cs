@@ -25,6 +25,7 @@ namespace Configuration
         public static TokenOptions TokenOptions { get => Configuration.GetSection("TokenOptions").Get<TokenOptions>(); }
         public static FileOptions FileOptions { get => Configuration.GetSection("FileOptions").Get<FileOptions>(); }
         public static APIOptions APIOptions { get => Configuration.GetSection("APIOptions").Get<APIOptions>(); }
+        public static MassTransitOptions MassTransitOptions { get => Configuration.GetSection("MassTransitOptions").Get<MassTransitOptions>(); }
 
         #region Silinecek
         public static string ODataApiUrl { get => "https://localhost:7227/odata"; }
