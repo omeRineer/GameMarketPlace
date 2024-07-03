@@ -23,30 +23,13 @@ namespace Business.Services.Concrete
     {
         readonly IBlogRepository _blogRepository;
         readonly IMapper _mapper;
-        readonly IMediaService _mediaService;
-        readonly IFileService _fileService;
         readonly IBus _bus;
 
-        public BlogService(IBlogRepository blogRepository, IMapper mapper, IMediaService mediaService, IFileService fileService, IBus bus)
+        public BlogService(IBlogRepository blogRepository, IMapper mapper, IBus bus)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;
-            _mediaService = mediaService;
-            _fileService = fileService;
             _bus = bus;
-        }
-
-        public async Task<IResult> BusDemo(MA.File file)
-        {
-            var bytes = Convert.FromBase64String(file.Base64);
-
-            await _fileService.UploadFileAsync(bytes, new MeArch.Module.File.Model.FileOptionsParameter
-            {
-                Directory = "Test",
-                NameTemplate = file.FileName
-            });
-
-            return new SuccessResult();
         }
 
         public async Task<IResult> CreateAsync(CreateBlogRequest createBlogRequest)
@@ -55,8 +38,45 @@ namespace Business.Services.Concrete
             entity.GeneratedId();
 
             await _blogRepository.AddAsync(entity);
+            await _blogRepository.SaveAsync();
 
-            // TODO : Queue da dosya ekleme işlemi
+            await _bus.Publish(new MediaUploadMessage
+            {
+                MediaType = MediaTypeEnum.BlogCoverImage,
+                Base64 = createBlogRequest.Cover.Base64,
+                EntityId = entity.Id,
+                FileName = createBlogRequest.Cover.GenerateFileName(),
+            });
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> DeleteAsync(Guid id)
+        {
+            var entity = await _blogRepository.GetAsync(f => f.Id == id);
+
+            _blogRepository.Delete(entity);
+            _blogRepository.Save();
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> UpdateAsync(UpdateBlogRequest updateBlogRequest)
+        {
+            var entity = await _blogRepository.GetAsync(f => f.Id == updateBlogRequest.Id);
+            var mappedEntity = _mapper.Map(updateBlogRequest, entity);
+
+            _blogRepository.Update(entity);
+            _blogRepository.Save();
+
+            if (updateBlogRequest.Cover != null)
+                await _bus.Publish(new MediaUploadMessage
+                {
+                    MediaType = MediaTypeEnum.BlogCoverImage,
+                    Base64 = updateBlogRequest.Cover.Base64,
+                    EntityId = entity.Id,
+                    FileName = updateBlogRequest.Cover.GenerateFileName(),
+                });
 
             return new SuccessResult();
         }

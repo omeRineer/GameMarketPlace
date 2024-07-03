@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Main;
+using Entities.Models.Blog.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace Business.Mapping.AutoMapper
     {
         public BlogProfile()
         {
+            #region Rest
+            CreateMap<CreateBlogRequest, Blog>();
+            CreateMap<UpdateBlogRequest, Blog>();
+            #endregion
         }
     }
 }

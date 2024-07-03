@@ -12,6 +12,6 @@ namespace Business.Services.Abstract
 {
     public interface ICategoryService
     {
-
+        Task<IResult> CreateAsync(CreateCategoryRequest request);
     }
 }

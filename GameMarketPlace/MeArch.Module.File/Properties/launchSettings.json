@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "DataAccess": {
+    "MeArch.Module.File": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:64309;http://localhost:64310"
+      "applicationUrl": "https://localhost:51469;http://localhost:51471"
     }
   }
 }

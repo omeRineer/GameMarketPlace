@@ -24,7 +24,7 @@ namespace MeArch.Module.File.Service.FileService
 
         public async Task<IResult> UploadFileAsync(byte[] fileBytes, FileOptionsParameter fileOptionsParameter)
         {
-            var destinationDirectory = $"{FileOptions.FilePath}/{fileOptionsParameter.Directory}";
+            var destinationDirectory = $"{fileOptionsParameter.Directory}";
             var fullPath = $"{destinationDirectory}/{fileOptionsParameter.NameTemplate}";
 
             if (!IO.Directory.Exists(destinationDirectory)) IO.Directory.CreateDirectory(destinationDirectory);

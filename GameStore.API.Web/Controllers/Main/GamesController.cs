@@ -15,6 +15,12 @@ namespace GameStore.API.Web.Controllers.Main
             _gameService = gameService;
         }
 
-        
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateAsync(CreateGameRequest request)
+        {
+            var result = await _gameService.CreateAsync(request);
+
+            return Result(result);
+        }
     }
 }

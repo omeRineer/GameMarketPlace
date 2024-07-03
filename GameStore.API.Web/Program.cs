@@ -2,15 +2,16 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
 using Business.ServiceModules;
+using Configuration;
 using Core.Extensions;
 using Core.ServiceModules;
 using DataAccess.ServiceModules;
 using MeArch.Module.Email.Extensions;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .ConfigureContainer<ContainerBuilder>(container => container.RegisterModule<AutofacDependencyResolversModule>());
 
@@ -42,7 +43,10 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(CoreConfiguration.RootPath)
+});
 
 app.UseAuthorization();
 

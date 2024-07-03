@@ -10,5 +10,6 @@ namespace Business.Services.Abstract
 {
     public interface IGameService
     {
+        Task<IResult> CreateAsync(CreateGameRequest request);
     }
 }

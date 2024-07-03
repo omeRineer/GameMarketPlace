@@ -24,6 +24,14 @@ namespace Business.Services.Concrete
             _mapper = mapper;
         }
 
-       
+        public async Task<IResult> CreateAsync(CreateCategoryRequest request)
+        {
+            var entity = _mapper.Map<Category>(request);
+
+            await _categoryRepository.AddAsync(entity);
+            await _categoryRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
     }
 }

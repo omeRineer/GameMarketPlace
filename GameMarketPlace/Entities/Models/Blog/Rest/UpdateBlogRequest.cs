@@ -1,16 +1,14 @@
 ﻿using Core.Entities.DTO.File;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace Entities.Models.Blog.Rest
 {
-    public class CreateBlogRequest
+    public class UpdateBlogRequest
     {
+        public Guid Id { get; set; }
         public string Header { get; set; }
         public string Content { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
         public File Cover { get; set; }
     }
 }

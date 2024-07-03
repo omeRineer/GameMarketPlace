@@ -17,7 +17,7 @@ namespace Core.Entities.DTO.File
 
         public string GenerateFileName()
         {
-            FileName = $"{Guid.NewGuid}{Extension}";
+            FileName = $"{Guid.NewGuid()}{Extension}";
             return FileName;
         }
     }

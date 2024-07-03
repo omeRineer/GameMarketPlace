@@ -13,6 +13,7 @@ namespace Business.Services.Abstract
     public interface IBlogService
     {
         Task<IResult> CreateAsync(CreateBlogRequest createBlogRequest);
-        Task<IResult> BusDemo(File file);
+        Task<IResult> UpdateAsync(UpdateBlogRequest updateBlogRequest);
+        Task<IResult> DeleteAsync(Guid id);
     }
 }

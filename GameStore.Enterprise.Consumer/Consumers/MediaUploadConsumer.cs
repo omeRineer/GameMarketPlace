@@ -1,4 +1,6 @@
 ﻿using Business.Services.Abstract;
+using Configuration;
+using Entities.Enum.Type;
 using GameStore.Enterprise.Shared.Models;
 using MassTransit;
 using MeArch.Module.File.Service;
@@ -16,11 +18,27 @@ namespace GameStore.Enterprise.Consumer.Consumers
             _fileService = fileService;
         }
 
-        public Task Consume(ConsumeContext<MediaUploadMessage> context)
+        public async Task Consume(ConsumeContext<MediaUploadMessage> context)
         {
+            var message = context.Message;
 
+            var byteData = Convert.FromBase64String(message.Base64);
 
-            return Task.CompletedTask;
+            var fileUploadResult = await _fileService.UploadFileAsync(byteData, new MeArch.Module.File.Model.FileOptionsParameter
+            {
+                Directory = $"{CoreConfiguration.RootPath}/{Enum.GetName(typeof(MediaTypeEnum), message.MediaType)}",
+                NameTemplate = message.FileName
+            });
+
+            if (!fileUploadResult.Success)
+                throw new Exception("File Upload Exception");
+
+            await _mediaService.CreateAsync(new Entities.Main.Media
+            {
+                MediaTypeId = (int)message.MediaType,
+                MediaPath = message.FileName,
+                EntityId = message.EntityId
+            });
         }
     }
 }

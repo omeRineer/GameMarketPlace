@@ -17,51 +17,40 @@ using System.Threading.Tasks;
 using MeArch.Module.File.Service;
 using System.IO;
 using Entities.Models.Game.Dto;
+using MassTransit;
+using GameStore.Enterprise.Shared.Models;
 
 namespace Business.Services.Concrete
 {
     public class GameService : IGameService
     {
         readonly IGameRepository _gameRepository;
-        readonly IFileService _fileService;
-        readonly IMediaService _mediaService;
         readonly NET.IHttpContextAccessor HttpContextAccessor;
         readonly IMapper _mapper;
+        readonly IBus _bus;
 
-        public GameService(IGameRepository gameRepository, IMapper mapper, NET.IHttpContextAccessor httpContextAccessor, IFileService fileService, IMediaService mediaService)
+        public GameService(IGameRepository gameRepository, IMapper mapper, NET.IHttpContextAccessor httpContextAccessor, IBus bus)
         {
             _gameRepository = gameRepository;
             _mapper = mapper;
             HttpContextAccessor = httpContextAccessor;
-            _fileService = fileService;
-            _mediaService = mediaService;
+            _bus = bus;
         }
 
-        public async Task<IResult> CreateGameAsync(CreateGameDto createGameDto)
+        public async Task<IResult> CreateAsync(CreateGameRequest request)
         {
-            var entity = _mapper.Map<Game>(createGameDto);
+            var entity = _mapper.Map<Game>(request);
 
             await _gameRepository.AddAsync(entity);
             await _gameRepository.SaveAsync();
 
-
-            // TODO : Queueda yapılacak
-            //var fileName = $"{Guid.NewGuid()}{Path.GetExtension(createGameDto.Cover.FileName)}";
-            //var fileBytes = Convert.FromBase64String(createGameDto.Cover.Base64);
-            //var media = new Media
-            //{
-            //    EntityId = entity.Id,
-            //    MediaTypeId = (int)MediaTypeEnum.GameCoverImage,
-            //    MediaPath = fileName
-            //};
-            //await _mediaService.AddAsync(media);
-
-
-            //await _fileService.UploadFileAsync(fileBytes, new MeArch.Module.File.Model.FileOptionsParameter
-            //{
-            //    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameCoverImage)}/{entity.Id}",
-            //    NameTemplate = fileName
-            //});
+            await _bus.Publish(new MediaUploadMessage
+            {
+                Base64 = request.Cover.Base64,
+                EntityId = entity.Id,
+                FileName = request.Cover.GenerateFileName(),
+                MediaType = MediaTypeEnum.GameCoverImage
+            });
 
             return new SuccessResult();
         }
