@@ -1,7 +1,6 @@
 ﻿using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Dto.Media;
 using Entities.Enum.Type;
 using Entities.Main;
 using MeArch.Module.File.Service;

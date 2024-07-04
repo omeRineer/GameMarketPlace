@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240704232159_mig_Notification")]
+    partial class mig_Notification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,15 +55,10 @@ namespace DataAccess.Migrations
                     b.Property<bool>("RecordState")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SettingTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SettingTypeId");
 
                     b.ToTable("GeneralSettings", (string)null);
                 });
@@ -634,17 +631,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Core.Entities.Concrete.GeneralSettings.GeneralSetting", b =>
-                {
-                    b.HasOne("Core.Entities.Concrete.ProcessGroups.TypeLookup", "SettingType")
-                        .WithMany()
-                        .HasForeignKey("SettingTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SettingType");
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.Menu.Menu", b =>

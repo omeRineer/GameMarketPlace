@@ -4,7 +4,6 @@ using Core.Business.BaseService;
 using Core.DataAccess;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Dto.Media;
 using Entities.Enum.Type;
 using Entities.Main;
 using NET = Microsoft.AspNetCore.Http;

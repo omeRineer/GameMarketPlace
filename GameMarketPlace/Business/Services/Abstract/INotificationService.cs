@@ -11,7 +11,6 @@ namespace Business.Services.Abstract
 {
     public interface INotificationService
     {
-        Task<IResult> PublishAsync(string title, NotificationTypeEnum notificationType, object content);
         Task<IResult> CreateAsync(CreateNotificationRequest createNotificationRequest);
     }
 }

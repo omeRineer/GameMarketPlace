@@ -1,9 +1,6 @@
 ﻿using MA = Core.Entities.Concrete.Notification;
 using Core.Utilities.ResultTool;
 using Core.Utilities.ServiceTools;
-using Entities.Enum.Type;
-using Entities.Models.Notification.Rest;
-using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,17 +8,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.Enum.Type;
+using GameStore.Enterprise.Shared.MessageModels;
 
-namespace Business.Notification
+namespace Business.Helpers
 {
     public static class NotificationHelper
     {
-        readonly static DbContext Context;
         readonly static IBus Bus;
 
         static NotificationHelper()
         {
-            Context = StaticServiceProvider.GetService<DbContext>();
             Bus = StaticServiceProvider.GetService<IBus>();
         }
 
@@ -33,12 +30,6 @@ namespace Business.Notification
                 Title = title,
                 Content = content
             });
-        }
-
-        private static async Task CreateAsync(MA.Notification notification)
-        {
-            await Context.Set<MA.Notification>().AddAsync(notification);
-            await Context.SaveChangesAsync();
         }
     }
 }

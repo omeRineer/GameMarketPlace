@@ -2,6 +2,7 @@
 using Core.Entities.Concrete.GeneralSettings;
 using Core.Extensions;
 using DataAccess.Concrete.EntityFramework.EntityConfigurations;
+using Entities.Enum;
 using Entities.Main;
 using MeArch.Module.Security.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

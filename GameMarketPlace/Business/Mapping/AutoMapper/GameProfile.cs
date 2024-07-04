@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Main;
-using Entities.Models.Game.Dto;
+using Entities.Models.Game.Rest;
 using Entities.Models.Game.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,6 @@ namespace Business.Mapping.AutoMapper
         public GameProfile()
         {
             #region Backend
-            CreateMap<Game, GameAddDto>().ReverseMap();
-            CreateMap<Game, GameEditDto>().ReverseMap();
-            CreateMap<Game, GameDto>().ReverseMap();
             CreateMap<Game, CreateGameRequest>().ReverseMap();
             #endregion
 

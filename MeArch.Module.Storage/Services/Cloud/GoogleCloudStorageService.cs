@@ -11,9 +11,9 @@ namespace MeArch.Module.Storage.Services.Cloud
 {
     public class GoogleCloudStorageService : IStorageService
     {
-        public Task<IResult> UploadAsync(byte[] binaryFile, string fileName, FileStorageUploadOptions options)
-        {
-            
-        }
+        //public Task<IResult> UploadAsync(byte[] binaryFile, string fileName, FileStorageUploadOptions options)
+        //{
+        //    return new SuccessResult();
+        //}
     }
 }

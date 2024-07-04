@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities.GeneratorTool
+namespace Core.Utilities.Helpers
 {
     public static class Generator
     {
-        
+
     }
 }

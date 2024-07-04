@@ -13,7 +13,8 @@ namespace Core.Entities.Concrete.Notification
         public string TicketNumber { get; set; }
         public int TypeId { get; set; }
         public string Title { get; set; }
-        public object Content { get; set; }
+        public string Content { get; set; }
+        public bool IsRead { get; set; }
 
         public TypeLookup Type { get; set; }
     }

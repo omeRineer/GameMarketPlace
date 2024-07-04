@@ -26,7 +26,6 @@
 	<ItemGroup>
 		<Folder Include="Controllers\Base\" />
 		<Folder Include="Controllers\Main\" />
-		<Folder Include="wwwroot\" />
 	</ItemGroup>
 
 	<ItemGroup>

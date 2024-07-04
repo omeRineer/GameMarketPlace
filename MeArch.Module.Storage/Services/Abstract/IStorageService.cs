@@ -10,6 +10,6 @@ namespace MeArch.Module.Storage.Services.Abstract
 {
     public interface IStorageService
     {
-        Task<IResult> UploadAsync(byte[] binaryFile, string fileName, FileStorageUploadOptions options);
+        //Task<IResult> UploadAsync(byte[] binaryFile, string fileName, FileStorageUploadOptions options);
     }
 }

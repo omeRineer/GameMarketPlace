@@ -22,6 +22,7 @@ namespace DataAccess.ServiceModules
             services.AddScoped<IMenuRepository, MenuRepository>();
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<IBackgroundJobRepository, BackgroundJobRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IUserRoleClaimRepository, UserRoleClaimRepository>();

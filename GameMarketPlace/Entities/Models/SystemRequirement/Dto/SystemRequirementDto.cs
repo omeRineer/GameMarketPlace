@@ -1,5 +1,4 @@
-﻿using Entities.Models.Game.Dto;
-using System;
+﻿using System;
 
 namespace Entities.Models.SystemRequirement.Dto
 {
@@ -8,7 +7,7 @@ namespace Entities.Models.SystemRequirement.Dto
         public Guid Id { get; set; }
         public int SystemRequirementTypeId { get; set; }
         public string SystemRequirementTypeName { get; set; }
-        public GameDto Game { get; set; }
+        //public GameDto Game { get; set; }
         public string OS { get; set; }
         public string Processor { get; set; }
         public string Ram { get; set; }

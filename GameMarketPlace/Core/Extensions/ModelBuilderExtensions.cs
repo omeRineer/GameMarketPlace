@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,7 +52,8 @@ namespace Core.Extensions
         public static ModelBuilder Notifications(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Notification>()
-                        .ToTable("Notifications");
+                        .ToTable("Notifications")
+                        .Property(p => p.IsRead).HasDefaultValue(false);
 
             return modelBuilder;
         }

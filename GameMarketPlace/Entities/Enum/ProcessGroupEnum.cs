@@ -12,7 +12,9 @@ namespace Entities.Enum
 
         MediaType = 100,
         SliderType = 200,
-        NotificationType = 300
+        NotificationType = 300,
+        SettingType = 400,
+
         #endregion
     }
 }

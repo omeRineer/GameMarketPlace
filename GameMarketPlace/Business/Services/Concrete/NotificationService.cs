@@ -1,4 +1,6 @@
-﻿using Business.Services.Abstract;
+﻿using AutoMapper;
+using Business.Services.Abstract;
+using MA = Core.Entities.Concrete.Notification;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Enum.Type;
@@ -13,14 +15,24 @@ namespace Business.Services.Concrete
 {
     public class NotificationService : INotificationService
     {
-        public Task<IResult> CreateAsync(CreateNotificationRequest createNotificationRequest)
+        readonly INotificationRepository _notificationRepository;
+        readonly IMapper _mapper;
+
+        public NotificationService(INotificationRepository notificationRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _notificationRepository = notificationRepository;
+            _mapper = mapper;
         }
 
-        public Task<IResult> PublishAsync(string title, NotificationTypeEnum notificationType, object content)
+        public async Task<IResult> CreateAsync(CreateNotificationRequest createNotificationRequest)
         {
-            throw new NotImplementedException();
+            var mappedEntity = _mapper.Map<MA.Notification>(createNotificationRequest);
+
+            await _notificationRepository.AddAsync(mappedEntity);
+            await _notificationRepository.SaveAsync();
+
+            return new SuccessResult();
         }
+
     }
 }
