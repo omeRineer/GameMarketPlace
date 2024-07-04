@@ -26,6 +26,7 @@ namespace DataAccess.Concrete.EntityFramework
             modelBuilder.ProcessGroups();
             modelBuilder.UserIdentity();
             modelBuilder.MenuItems();
+            modelBuilder.Notifications();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CoreContext).Assembly);
         }
@@ -54,12 +55,12 @@ namespace DataAccess.Concrete.EntityFramework
                     case EntityState.Detached: break;
                     case EntityState.Unchanged: break;
                     case EntityState.Deleted: break;
-                    case EntityState.Modified: 
-                        data.Entity.EditDate = DateTime.Now; 
+                    case EntityState.Modified:
+                        data.Entity.EditDate = DateTime.Now;
                         break;
-                    case EntityState.Added: 
+                    case EntityState.Added:
                         data.Entity.CreateDate = DateTime.Now;
-                        data.Entity.EditDate = DateTime.Now; 
+                        data.Entity.EditDate = DateTime.Now;
                         break;
                 }
             }

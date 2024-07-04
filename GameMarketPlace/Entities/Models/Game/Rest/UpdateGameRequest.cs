@@ -1,14 +1,11 @@
 ﻿using Core.Entities.DTO.File;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.Models.Game.Dto
+namespace Entities.Models.Game.Rest
 {
-    public class CreateGameRequest
+    public class UpdateGameRequest
     {
+        public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
         public int? DeveloperId { get; set; }
         public int? DistributorId { get; set; }

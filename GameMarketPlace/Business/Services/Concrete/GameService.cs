@@ -16,9 +16,10 @@ using System.Text;
 using System.Threading.Tasks;
 using MeArch.Module.File.Service;
 using System.IO;
-using Entities.Models.Game.Dto;
+using Entities.Models.Game.Rest;
 using MassTransit;
-using GameStore.Enterprise.Shared.Models;
+using GameStore.Enterprise.Shared.MessageModels;
+using Entities.Models.Blog.Rest;
 
 namespace Business.Services.Concrete
 {
@@ -44,7 +45,7 @@ namespace Business.Services.Concrete
             await _gameRepository.AddAsync(entity);
             await _gameRepository.SaveAsync();
 
-            await _bus.Publish(new MediaUploadMessage
+            await _bus.Publish(new UploadMediaMessage
             {
                 Base64 = request.Cover.Base64,
                 EntityId = entity.Id,
@@ -55,28 +56,32 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
-        public async Task<IResult> UploadGameImagesAsync(GameImageUploadDto gameImageUploadDto)
+        public async Task<IResult> DeleteAsync(Guid id)
         {
-            //var mediaList = new List<Media>();
-            //foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
-            //{
-            //    var newFileName = Guid.NewGuid().ToString();
+            var entity = await _gameRepository.GetAsync(f => f.Id == id);
 
-            //    var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
-            //    {
-            //        Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{gameImageUploadDto.EntityId}",
-            //        NameTemplate = newFileName
-            //    });
+            await _gameRepository.DeleteAsync(entity);
+            await _gameRepository.SaveAsync();
 
-            //    mediaList.Add(new Media
-            //    {
-            //        EntityId = gameImageUploadDto.EntityId,
-            //        MediaTypeId = (int)MediaTypeEnum.GameImage,
-            //        MediaPath = uploadResult.Data.FileName
-            //    });
-            //}
+            return new SuccessResult();
+        }
 
-            //await _mediaService.AddMediaListAsync(mediaList);
+        public async Task<IResult> UpdateAsync(UpdateGameRequest updateGameRequest)
+        {
+            var entity = await _gameRepository.GetAsync(f => f.Id == updateGameRequest.Id);
+            var mappedEntity = _mapper.Map(updateGameRequest, entity);
+
+            await _gameRepository.UpdateAsync(entity);
+            await _gameRepository.SaveAsync();
+
+            if (updateGameRequest.Cover != null)
+                await _bus.Publish(new UploadMediaMessage
+                {
+                    MediaType = MediaTypeEnum.GameCoverImage,
+                    Base64 = updateGameRequest.Cover.Base64,
+                    EntityId = entity.Id,
+                    FileName = updateGameRequest.Cover.GenerateFileName()
+                });
 
             return new SuccessResult();
         }

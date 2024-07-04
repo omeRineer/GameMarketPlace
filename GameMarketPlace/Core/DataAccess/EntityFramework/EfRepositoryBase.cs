@@ -26,10 +26,12 @@ namespace Core.DataAccess.EntityFramework
 
         #region Sync
         public TEntity Get(Expression<Func<TEntity, bool>> filter,
-                           Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+                           Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
+                           bool isTracking = true)
         {
             IQueryable<TEntity> query = Table.AsQueryable();
 
+            if (!isTracking) query = query.AsNoTracking();
             if (includes != null) query = includes(query);
 
             return query.FirstOrDefault(filter);
@@ -38,10 +40,12 @@ namespace Core.DataAccess.EntityFramework
         public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null,
                                     Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
                                     Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                    PaginationParameter? paginationParameter = null)
+                                    PaginationParameter? paginationParameter = null,
+                                    bool isTracking = true)
         {
             IQueryable<TEntity> query = Table.AsQueryable();
 
+            if (!isTracking) query = query.AsNoTracking();
             if (filter != null) query = query.Where(filter);
             if (includes != null) query = includes(query);
             if (orderBy != null) query = orderBy(query);
@@ -109,10 +113,15 @@ namespace Core.DataAccess.EntityFramework
 
 
         #region Async
-        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, PaginationParameter? paginationParameter = null)
+        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null,
+                                                      Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
+                                                      Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                                      PaginationParameter? paginationParameter = null,
+                                                      bool isTracking = true)
         {
             IQueryable<TEntity> query = Table.AsQueryable();
 
+            if (!isTracking) query = query.AsNoTracking();
             if (filter != null) query = query.Where(filter);
             if (includes != null) query = includes(query);
             if (orderBy != null) query = orderBy(query);
@@ -130,10 +139,13 @@ namespace Core.DataAccess.EntityFramework
             return await query.ToDictionaryAsync(key, value);
         }
 
-        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter,
+                                            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
+                                            bool isTracking = true)
         {
             IQueryable<TEntity> query = Table.AsQueryable();
 
+            if (!isTracking) query = query.AsNoTracking();
             if (includes != null) query = includes(query);
 
             return await query.FirstOrDefaultAsync(filter);
@@ -163,7 +175,35 @@ namespace Core.DataAccess.EntityFramework
             await _context.SaveChangesAsync();
         }
 
-       
+        public async Task DeleteAsync(TEntity entity)
+        {
+            _context.Remove(entity);
+
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
+        {
+            _context.RemoveRange(entities);
+
+            await Task.CompletedTask;
+        }
+
+        public async Task UpdateAsync(TEntity entity)
+        {
+            _context.Update(entity);
+
+            await Task.CompletedTask;
+        }
+
+        public async Task UpdateRangeAsync(IEnumerable<TEntity> entities)
+        {
+            _context.UpdateRange(entities);
+
+            await Task.CompletedTask;
+        }
+
+
         #endregion
     }
 }

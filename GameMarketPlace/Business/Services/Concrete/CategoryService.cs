@@ -4,8 +4,11 @@ using Core.Business.BaseService;
 using Core.DataAccess;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
+using Entities.Enum.Type;
 using Entities.Main;
+using Entities.Models.Blog.Rest;
 using Entities.Models.Category.Rest;
+using GameStore.Enterprise.Shared.MessageModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,27 @@ namespace Business.Services.Concrete
             var entity = _mapper.Map<Category>(request);
 
             await _categoryRepository.AddAsync(entity);
+            await _categoryRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> DeleteAsync(Guid id)
+        {
+            var entity = await _categoryRepository.GetAsync(f => f.Id == id);
+
+            await _categoryRepository.DeleteAsync(entity);
+            await _categoryRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> UpdateAsync(UpdateCategoryRequest updateCategoryRequest)
+        {
+            var entity = await _categoryRepository.GetAsync(f => f.Id == updateCategoryRequest.Id);
+            var mappedEntity = _mapper.Map(updateCategoryRequest, entity);
+
+            await _categoryRepository.UpdateAsync(entity);
             await _categoryRepository.SaveAsync();
 
             return new SuccessResult();

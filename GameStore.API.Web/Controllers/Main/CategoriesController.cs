@@ -23,5 +23,21 @@ namespace GameStore.API.Web.Controllers.Main
 
             return Result(result);
         }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+        {
+            var result = await _categoryService.DeleteAsync(id);
+
+            return Result(result);
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateAsync(UpdateCategoryRequest request)
+        {
+            var result = await _categoryService.UpdateAsync(request);
+
+            return Result(result);
+        }
     }
 }

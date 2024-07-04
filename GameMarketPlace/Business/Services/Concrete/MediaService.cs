@@ -13,6 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Core.Entities.Abstract;
+using Entities.Models.Media.Rest;
+using MassTransit;
+using GameStore.Enterprise.Shared.MessageModels;
 
 namespace Business.Services.Concrete
 {
@@ -20,13 +23,15 @@ namespace Business.Services.Concrete
     {
         readonly IMediaRepository _mediaRepository;
         readonly IFileService _fileService;
+        readonly IBus _bus;
         readonly NET.IHttpContextAccessor HttpContextAccessor;
 
-        public MediaService(IMediaRepository mediaRepository, IFileService fileService, NET.IHttpContextAccessor httpContextAccessor)
+        public MediaService(IMediaRepository mediaRepository, IFileService fileService, NET.IHttpContextAccessor httpContextAccessor, IBus bus)
         {
             _mediaRepository = mediaRepository;
             _fileService = fileService;
             HttpContextAccessor = httpContextAccessor;
+            _bus = bus;
         }
 
         public async Task<IResult> CreateAsync(Media media)
@@ -37,29 +42,33 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
-        public async Task<IResult> UploadMedia(MediaUploadDto mediaUploadDto)
+        public async Task<IDataResult<List<Media>>> GetListByEntityAsync(Guid entityId, MediaTypeEnum? mediaType = null)
         {
-            var mediaList = new List<Media>();
-            //foreach (var file in HttpContextAccessor.HttpContext.Request.Form.Files)
-            //{
-            //    var newFileName = Guid.NewGuid().ToString();
+            var result = await _mediaRepository.GetListAsync(f => f.EntityId == entityId);
 
-            //    var uploadResult = await _fileService.UploadFileAsync(file, new MeArch.Module.File.Model.FileOptionsParameter
-            //    {
-            //        Directory = $"{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{mediaUploadDto.EntityId}",
-            //        NameTemplate = newFileName
-            //    });
+            return new SuccessDataResult<List<Media>>(result);
+        }
 
-            //    mediaList.Add(new Media
-            //    {
-            //        EntityId = mediaUploadDto.EntityId,
-            //        MediaTypeId = (int)MediaTypeEnum.GameImage,
-            //        MediaPath = uploadResult.Data.FileName
-            //    });
-            //}
+        public async Task<IDataResult<List<Media>>> GetListByMediaTypeAsync(MediaTypeEnum mediaType)
+        {
+            var result = await _mediaRepository.GetListAsync(f => f.MediaTypeId == (int)mediaType);
 
-            await _mediaRepository.AddRangeAsync(mediaList);
-            await _mediaRepository.SaveAsync();
+            return new SuccessDataResult<List<Media>>(result);
+        }
+
+        public async Task<IResult> UploadMediaCollectionAsync(UploadMediaCollectionRequest request)
+        {
+            foreach (var mediaItem in request.Medias)
+            {
+                await _bus.Publish(new UploadMediaMessage
+                {
+                    EntityId = request.EntityId,
+                    MediaType = (MediaTypeEnum)Enum.ToObject(typeof(MediaTypeEnum), request.MediaTypeId),
+                    Base64 = mediaItem.Base64,
+                    FileName = mediaItem.FileName,
+                    Size = mediaItem.Size
+                });
+            }
 
             return new SuccessResult();
         }

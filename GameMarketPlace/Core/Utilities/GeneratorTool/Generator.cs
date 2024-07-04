@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models.Game.Dto
+namespace Core.Utilities.GeneratorTool
 {
-    public class GameImageUploadDto
+    public static class Generator
     {
-        public Guid EntityId { get; set; }
+        
     }
 }

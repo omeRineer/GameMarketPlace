@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Enterprise.Shared.Models
+namespace GameStore.Enterprise.Shared.MessageModels
 {
-    public class MediaUploadMessage
+    public class UploadMediaMessage
     {
         public Guid EntityId { get; set; }
         public MediaTypeEnum MediaType { get; set; }

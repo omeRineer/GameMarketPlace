@@ -7,7 +7,7 @@ using Entities.Dto;
 using Entities.Enum.Type;
 using Entities.Main;
 using Entities.Models.Blog.Rest;
-using GameStore.Enterprise.Shared.Models;
+using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;
 using MeArch.Module.File.Service;
 using System;
@@ -22,14 +22,16 @@ namespace Business.Services.Concrete
     public class BlogService : IBlogService
     {
         readonly IBlogRepository _blogRepository;
+        readonly IMediaService _mediaService;
         readonly IMapper _mapper;
         readonly IBus _bus;
 
-        public BlogService(IBlogRepository blogRepository, IMapper mapper, IBus bus)
+        public BlogService(IBlogRepository blogRepository, IMapper mapper, IBus bus, IMediaService mediaService)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;
             _bus = bus;
+            _mediaService = mediaService;
         }
 
         public async Task<IResult> CreateAsync(CreateBlogRequest createBlogRequest)
@@ -40,7 +42,7 @@ namespace Business.Services.Concrete
             await _blogRepository.AddAsync(entity);
             await _blogRepository.SaveAsync();
 
-            await _bus.Publish(new MediaUploadMessage
+            await _bus.Publish(new UploadMediaMessage
             {
                 MediaType = MediaTypeEnum.BlogCoverImage,
                 Base64 = createBlogRequest.Cover.Base64,
@@ -54,9 +56,12 @@ namespace Business.Services.Concrete
         public async Task<IResult> DeleteAsync(Guid id)
         {
             var entity = await _blogRepository.GetAsync(f => f.Id == id);
+            var medias = await _mediaService.GetListByEntityAsync(id);
 
-            _blogRepository.Delete(entity);
-            _blogRepository.Save();
+            medias.Data.ForEach(item => item.RecordState = false);
+
+            await _blogRepository.DeleteAsync(entity);
+            await _blogRepository.SaveAsync();
 
             return new SuccessResult();
         }
@@ -66,16 +71,16 @@ namespace Business.Services.Concrete
             var entity = await _blogRepository.GetAsync(f => f.Id == updateBlogRequest.Id);
             var mappedEntity = _mapper.Map(updateBlogRequest, entity);
 
-            _blogRepository.Update(entity);
-            _blogRepository.Save();
+            await _blogRepository.UpdateAsync(entity);
+            await _blogRepository.SaveAsync();
 
             if (updateBlogRequest.Cover != null)
-                await _bus.Publish(new MediaUploadMessage
+                await _bus.Publish(new UploadMediaMessage
                 {
                     MediaType = MediaTypeEnum.BlogCoverImage,
                     Base64 = updateBlogRequest.Cover.Base64,
                     EntityId = entity.Id,
-                    FileName = updateBlogRequest.Cover.GenerateFileName(),
+                    FileName = updateBlogRequest.Cover.GenerateFileName()
                 });
 
             return new SuccessResult();

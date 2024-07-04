@@ -13,56 +13,72 @@ using Entities.Enum.Type;
 using AutoMapper;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
-using Entities.Models.SliderContent.Dto;
+using Entities.Models.SliderContent.Rest;
+using GameStore.Enterprise.Shared.MessageModels;
+using MassTransit;
+using Entities.Models.Game.Rest;
 
 namespace Business.Services.Concrete
 {
     public class SliderContentService : ISliderContentService
     {
         readonly ISliderContentRepository _sliderContentRepository;
-        readonly NET.IHttpContextAccessor HttpContextAccessor;
-        readonly IFileService _fileService;
-        readonly IMediaService _mediaService;
         readonly IMapper _mapper;
+        readonly IBus _bus;
 
-        public SliderContentService(ISliderContentRepository sliderContentRepository, NET.IHttpContextAccessor httpContextAccessor, IFileService fileService, IMediaService mediaService, IMapper mapper)
+        public SliderContentService(ISliderContentRepository sliderContentRepository, IMapper mapper, IBus bus)
         {
             _sliderContentRepository = sliderContentRepository;
-            HttpContextAccessor = httpContextAccessor;
-            _fileService = fileService;
-            _mediaService = mediaService;
             _mapper = mapper;
+            _bus = bus;
         }
 
-
-        public async Task<IResult> CreateSliderContentAsync(SliderContentCreateDto sliderContentCreateDto)
+        public async Task<IResult> CreateAsync(CreateSliderContentRequest request)
         {
-            var entity = _mapper.Map<SliderContent>(sliderContentCreateDto);
+            var entity = _mapper.Map<SliderContent>(request);
 
             await _sliderContentRepository.AddAsync(entity);
             await _sliderContentRepository.SaveAsync();
 
-            // TODO : Queueda yapılacak
-            //var fileName = $"{Guid.NewGuid()}{Path.GetExtension(sliderContentCreateDto.Image.FileName)}";
-            //var fileBytes = Convert.FromBase64String(sliderContentCreateDto.Image.Base64);
-            //var sliderType = (SliderTypeEnum)Enum.ToObject(typeof(SliderTypeEnum), sliderContentCreateDto.SliderTypeId);
-            //var mediaType = sliderType == SliderTypeEnum.SliderItem ? MediaTypeEnum.SliderItemImage : MediaTypeEnum.SliderSideItemImage;
-
-            //await _mediaService.AddAsync(new Media
-            //{
-            //    EntityId = entity.Id,
-            //    MediaTypeId = (int)mediaType,
-            //    MediaPath = fileName
-            //});
-
-            //await _fileService.UploadFileAsync(fileBytes, new MeArch.Module.File.Model.FileOptionsParameter
-            //{
-            //    Directory = $"{Enum.GetName(typeof(MediaTypeEnum), mediaType)}/{entity.Id}",
-            //    NameTemplate = fileName
-            //});
+            await _bus.Publish(new UploadMediaMessage
+            {
+                Base64 = request.Image.Base64,
+                EntityId = entity.Id,
+                FileName = request.Image.GenerateFileName(),
+                MediaType = MediaTypeEnum.SliderItemImage
+            });
 
             return new SuccessResult();
         }
 
+        public async Task<IResult> DeleteAsync(Guid id)
+        {
+            var entity = await _sliderContentRepository.GetAsync(f => f.Id == id);
+
+            await _sliderContentRepository.DeleteAsync(entity);
+            await _sliderContentRepository.SaveAsync();
+
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> UpdateAsync(UpdateSliderContentRequest request)
+        {
+            var entity = await _sliderContentRepository.GetAsync(f => f.Id == request.Id);
+            var mappedEntity = _mapper.Map(request, entity);
+
+            await _sliderContentRepository.UpdateAsync(entity);
+            await _sliderContentRepository.SaveAsync();
+
+            if (request.Image != null)
+                await _bus.Publish(new UploadMediaMessage
+                {
+                    MediaType = MediaTypeEnum.GameCoverImage,
+                    Base64 = request.Image.Base64,
+                    EntityId = entity.Id,
+                    FileName = request.Image.GenerateFileName()
+                });
+
+            return new SuccessResult();
+        }
     }
 }

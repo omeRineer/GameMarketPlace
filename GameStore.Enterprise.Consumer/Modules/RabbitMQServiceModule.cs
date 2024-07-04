@@ -17,7 +17,7 @@ namespace GameStore.Enterprise.Consumer.Modules
         {
             services.AddMassTransit(x =>
             {
-                x.AddConsumer<MediaUploadConsumer>();
+                x.AddConsumer<UploadMediaConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -32,7 +32,7 @@ namespace GameStore.Enterprise.Consumer.Modules
 
                     cfg.ReceiveEndpoint("FileUploadQueue", rcfg =>
                     {
-                        rcfg.ConfigureConsumer<MediaUploadConsumer>(context);
+                        rcfg.ConfigureConsumer<UploadMediaConsumer>(context);
                         rcfg.UseMessageRetry(y =>
                         {
                             y.Interval(5, 10);

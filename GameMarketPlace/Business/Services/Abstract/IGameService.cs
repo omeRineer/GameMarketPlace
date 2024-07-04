@@ -4,12 +4,15 @@ using Entities.Main;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Entities.Models.Game.Dto;
+using Entities.Models.Game.Rest;
+using Entities.Models.Blog.Rest;
 
 namespace Business.Services.Abstract
 {
     public interface IGameService
     {
         Task<IResult> CreateAsync(CreateGameRequest request);
+        Task<IResult> UpdateAsync(UpdateGameRequest updateGameRequest);
+        Task<IResult> DeleteAsync(Guid id);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Business.Services.Abstract;
-using Entities.Dto.Media;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
+using Entities.Models.Media.Rest;
 
 namespace GameStore.API.Web.Controllers.Main
 {
@@ -15,6 +15,13 @@ namespace GameStore.API.Web.Controllers.Main
             _mediaService = mediaService;
         }
 
-       
+        [HttpPost("UploadMediaCollection")]
+        public async Task<IActionResult> UploadMediaCollectionAsync(UploadMediaCollectionRequest request)
+        {
+            var result = await _mediaService.UploadMediaCollectionAsync(request);
+
+            return Result(result);
+        }
+
     }
 }

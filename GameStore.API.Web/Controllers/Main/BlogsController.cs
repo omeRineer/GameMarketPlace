@@ -24,7 +24,7 @@ namespace GameStore.API.Web.Controllers.Main
             return Result(result);
         }
 
-        [HttpGet("Delete/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             var result = await _blogService.DeleteAsync(id);
@@ -32,7 +32,7 @@ namespace GameStore.API.Web.Controllers.Main
             return Result(result);
         }
 
-        [HttpPost("Update")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateAsync(UpdateBlogRequest request)
         {
             var result = await _blogService.UpdateAsync(request);

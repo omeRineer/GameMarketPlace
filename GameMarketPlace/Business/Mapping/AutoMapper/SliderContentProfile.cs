@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Main;
-using Entities.Models.SliderContent.Dto;
+using Entities.Models.SliderContent.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Business.Mapping.AutoMapper
     {
         public SliderContentProfile()
         {
-            CreateMap<SliderContent, SliderContentCreateDto>().ReverseMap();
+            CreateMap<SliderContent, CreateSliderContentRequest>().ReverseMap();
         }
     }
 }

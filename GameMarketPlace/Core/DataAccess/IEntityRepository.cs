@@ -16,13 +16,15 @@ namespace Core.DataAccess
         List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null,
                              Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
                              Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                             PaginationParameter? paginationParameter = null);
+                             PaginationParameter? paginationParameter = null,
+                             bool isTracking = true);
 
         Dictionary<TKey, TValue> GetDictionaries<TKey, TValue>(Func<TEntity, TKey> key,
                                                                Func<TEntity, TValue> value,
                                                                Expression<Func<TEntity, bool>> filter = null);
         TEntity Get(Expression<Func<TEntity, bool>> filter,
-                    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null);
+                    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
+                    bool isTracking = true);
 
         bool IsExist(Expression<Func<TEntity, bool>> expression);
 

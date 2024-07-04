@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete.GeneralSettings;
 using Core.Entities.Concrete.Menu;
+using Core.Entities.Concrete.Notification;
 using Core.Entities.Concrete.ProcessGroups;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,6 +44,14 @@ namespace Core.Extensions
         {
             modelBuilder.Entity<Menu>()
                         .ToTable("Menus");
+
+            return modelBuilder;
+        }
+
+        public static ModelBuilder Notifications(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Notification>()
+                        .ToTable("Notifications");
 
             return modelBuilder;
         }

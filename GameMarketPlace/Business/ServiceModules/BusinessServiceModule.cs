@@ -30,6 +30,7 @@ namespace Business.ServiceModules
             services.AddScoped<IMediaService, MediaService>();
             services.AddScoped<ISliderContentService, SliderContentService>();
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IPermissionSe, GameService>();

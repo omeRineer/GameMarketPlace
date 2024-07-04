@@ -1,24 +1,24 @@
 ﻿using Business.Services.Abstract;
 using Configuration;
 using Entities.Enum.Type;
-using GameStore.Enterprise.Shared.Models;
+using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;
 using MeArch.Module.File.Service;
 
 namespace GameStore.Enterprise.Consumer.Consumers
 {
-    public class MediaUploadConsumer : IConsumer<MediaUploadMessage>
+    public class UploadMediaConsumer : IConsumer<UploadMediaMessage>
     {
         readonly IMediaService _mediaService;
         readonly IFileService _fileService;
 
-        public MediaUploadConsumer(IMediaService mediaService, IFileService fileService)
+        public UploadMediaConsumer(IMediaService mediaService, IFileService fileService)
         {
             _mediaService = mediaService;
             _fileService = fileService;
         }
 
-        public async Task Consume(ConsumeContext<MediaUploadMessage> context)
+        public async Task Consume(ConsumeContext<UploadMediaMessage> context)
         {
             var message = context.Message;
 
