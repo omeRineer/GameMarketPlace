@@ -52,7 +52,7 @@
 
         var result = await MediaODataService.GetListAsync(new ODataRequestParams
         {
-            Filter = $"EntityId eq {GameId} and MediaTypeId eq {(int)Entities.Enum.Type.MediaTypeEnum.GameImage}"
+            Filter = $"EntityId eq {GameId} and MediaTypeId eq {(int)MediaTypeEnum.GameImage}"
         });
 
         GameCollection = result.Value.AsODataEnumerable();

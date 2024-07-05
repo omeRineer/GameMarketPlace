@@ -1,4 +1,5 @@
 ﻿using Business.Services.Abstract;
+using Core.Entities.DTO.Enterprise;
 using Entities.Models.Notification.Rest;
 using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;

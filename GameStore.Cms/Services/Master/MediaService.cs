@@ -2,9 +2,9 @@
 using GameStore.Cms.Services.Base;
 using Configuration;
 using Core.Utilities.RestHelper;
-using Entities.Enum.Type;
 using Entities.Main;
 using RestSharp;
+using Entities.Enum.Type;
 
 namespace GameStore.Cms.Services.Master
 {

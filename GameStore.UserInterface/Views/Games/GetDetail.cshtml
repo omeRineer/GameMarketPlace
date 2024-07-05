@@ -17,7 +17,7 @@
 
                                 <div class="carousel-item @(Model.GameMedias[0] == gameMedia ? "active" : null)">
                                     <img class="d-block w-100"
-                                         src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(Entities.Enum.Type.MediaTypeEnum), Entities.Enum.Type.MediaTypeEnum.GameImage)}/{Model.Id}/{gameMedia.MediaPath}")" alt="First slide">
+                                         src="@($"{Configuration.CoreConfiguration.APIOptions.WebAPI.BaseUrl}/Main/{Enum.GetName(typeof(MediaTypeEnum), MediaTypeEnum.GameImage)}/{Model.Id}/{gameMedia.MediaPath}")" alt="First slide">
                                 </div>
 
                             }

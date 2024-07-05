@@ -1,7 +1,6 @@
 ﻿using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Enum.Type;
 using Entities.Main;
 using MeArch.Module.File.Service;
 using NET = Microsoft.AspNetCore.Http;
@@ -15,6 +14,7 @@ using Core.Entities.Abstract;
 using Entities.Models.Media.Rest;
 using MassTransit;
 using GameStore.Enterprise.Shared.MessageModels;
+using Entities.Enum.Type;
 
 namespace Business.Services.Concrete
 {

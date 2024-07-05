@@ -1,4 +1,5 @@
-﻿using MA = Core.Entities.Concrete.Notification;
+﻿using Core.Entities.Concrete.ProcessGroups.Enums.Types;
+using Core.Entities.DTO.Enterprise;
 using Core.Utilities.ResultTool;
 using Core.Utilities.ServiceTools;
 using MassTransit;
@@ -8,10 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entities.Enum.Type;
-using GameStore.Enterprise.Shared.MessageModels;
 
-namespace Business.Helpers
+namespace Core.Utilities.Helpers
 {
     public static class NotificationHelper
     {

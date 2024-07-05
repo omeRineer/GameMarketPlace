@@ -4,7 +4,6 @@ using Core.Business.BaseService;
 using Core.DataAccess;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Enum.Type;
 using Entities.Main;
 using NET = Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +18,7 @@ using Entities.Models.Game.Rest;
 using MassTransit;
 using GameStore.Enterprise.Shared.MessageModels;
 using Entities.Models.Blog.Rest;
+using Entities.Enum.Type;
 
 namespace Business.Services.Concrete
 {

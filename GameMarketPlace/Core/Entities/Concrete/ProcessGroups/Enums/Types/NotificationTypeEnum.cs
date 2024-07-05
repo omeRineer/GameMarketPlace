@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Core.Entities.Concrete.ProcessGroups;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Enum.Type
+namespace Core.Entities.Concrete.ProcessGroups.Enums.Types
 {
     public enum NotificationTypeEnum
     {

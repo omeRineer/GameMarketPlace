@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeArch.Module.Storage", "Me
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B9FE2583-6398-460C-B737-61DB24AE3D43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Shared", "GameStore.Shared\GameStore.Shared.csproj", "{1698FD3C-E007-4337-A640-61D7821BF114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStore.Shared", "GameStore.Shared\GameStore.Shared.csproj", "{1698FD3C-E007-4337-A640-61D7821BF114}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

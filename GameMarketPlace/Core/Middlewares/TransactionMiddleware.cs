@@ -26,7 +26,7 @@ namespace Core.Middlewares
                     await _next(context);
                     scope.Complete();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     scope.Dispose();
                 }

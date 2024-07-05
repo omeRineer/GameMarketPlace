@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MeArch.Module.File.Service;
-using Entities.Enum.Type;
 using AutoMapper;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +16,7 @@ using Entities.Models.SliderContent.Rest;
 using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;
 using Entities.Models.Game.Rest;
+using Entities.Enum.Type;
 
 namespace Business.Services.Concrete
 {

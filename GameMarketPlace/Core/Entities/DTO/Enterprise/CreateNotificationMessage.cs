@@ -1,11 +1,11 @@
-﻿using Entities.Enum.Type;
+﻿using Core.Entities.Concrete.ProcessGroups.Enums.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Enterprise.Shared.MessageModels
+namespace Core.Entities.DTO.Enterprise
 {
     public class CreateNotificationMessage
     {

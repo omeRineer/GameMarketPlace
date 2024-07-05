@@ -5,6 +5,8 @@ using Core.Entities.Concrete.ProcessGroups;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -48,7 +50,6 @@ namespace Core.Extensions
 
             return modelBuilder;
         }
-
         public static ModelBuilder Notifications(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Notification>()
@@ -57,5 +58,6 @@ namespace Core.Extensions
 
             return modelBuilder;
         }
+
     }
 }
