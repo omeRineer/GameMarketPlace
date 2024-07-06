@@ -14,8 +14,7 @@ namespace Business.Mapping.AutoMapper
     {
         public NotificationProfile()
         {
-            CreateMap<CreateNotificationRequest, Notification>()
-                .ForMember(d => d.Content, s => s.MapFrom(x => JsonConvert.SerializeObject(x.Content)));
+            CreateMap<CreateNotificationRequest, Notification>();
         }
     }
 }

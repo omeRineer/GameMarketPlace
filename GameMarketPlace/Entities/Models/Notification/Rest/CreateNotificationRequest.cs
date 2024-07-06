@@ -10,6 +10,6 @@ namespace Entities.Models.Notification.Rest
     {
         public int TypeId { get; set; }
         public string Title { get; set; }
-        public object Content { get; set; }
+        public string Content { get; set; }
     }
 }

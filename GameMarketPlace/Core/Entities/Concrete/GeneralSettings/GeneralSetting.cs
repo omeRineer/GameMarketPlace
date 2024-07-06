@@ -11,6 +11,7 @@ namespace Core.Entities.Concrete.GeneralSettings
     public class GeneralSetting : BaseEntity<long>
     {
         public int SettingTypeId { get; set; }
+        public int ValueTypeId { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
         public string? Description { get; set; }
@@ -18,5 +19,6 @@ namespace Core.Entities.Concrete.GeneralSettings
         public int? CacheDuration { get; set; }
 
         public TypeLookup SettingType { get; set; }
+        public TypeLookup ValueType { get; set; }
     }
 }

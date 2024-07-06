@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete.ProcessGroups.Enums.Types;
 using Core.Entities.DTO.Enterprise;
+using Core.Extensions;
 using Core.Utilities.ResultTool;
 using Core.Utilities.ServiceTools;
 using MassTransit;
@@ -27,7 +28,17 @@ namespace Core.Utilities.Helpers
             {
                 Type = notificationType,
                 Title = title,
-                Content = content
+                Content = content.JsonSerialize()
+            });
+        }
+
+        public static void Publish(string title, NotificationTypeEnum notificationType, object content)
+        {
+            Bus.Publish(new CreateNotificationMessage
+            {
+                Type = notificationType,
+                Title = title,
+                Content = content.JsonSerialize()
             });
         }
     }

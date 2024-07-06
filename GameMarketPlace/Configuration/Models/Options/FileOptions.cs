@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities.DTO.Options
+namespace Configuration.Models.Options
 {
     public class FileOptions
     {
@@ -13,5 +13,5 @@ namespace Core.Entities.DTO.Options
         public string FilePath { get; set; }
         public string RequestPath { get; set; }
     }
-    
+
 }

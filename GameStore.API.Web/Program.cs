@@ -5,6 +5,7 @@ using Business.ServiceModules;
 using Configuration;
 using Core.Extensions;
 using Core.ServiceModules;
+using Core.Utilities.ServiceTools;
 using DataAccess.ServiceModules;
 using MeArch.Module.Email.Extensions;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -32,6 +33,8 @@ builder.Services.AddHttpContextAccessor();
 #region Host Build
 
 var app = builder.Build();
+
+StaticServiceProvider.CreateInstance(app.Services.GetService<IServiceScopeFactory>());
 
 if (app.Environment.IsDevelopment())
 {

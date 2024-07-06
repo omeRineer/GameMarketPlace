@@ -11,6 +11,6 @@ namespace Core.Entities.DTO.Enterprise
     {
         public NotificationTypeEnum Type { get; set; }
         public string Title { get; set; }
-        public object Content { get; set; }
+        public string Content { get; set; }
     }
 }

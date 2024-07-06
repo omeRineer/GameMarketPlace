@@ -14,6 +14,7 @@ namespace Core.Entities.Concrete.ProcessGroups
         SliderType = 200,
         NotificationType = 300,
         SettingType = 400,
+        LogType = 500
 
         #endregion
     }

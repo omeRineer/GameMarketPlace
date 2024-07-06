@@ -13,8 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Core.Entities.Abstract;
 using Entities.Models.Media.Rest;
 using MassTransit;
-using GameStore.Enterprise.Shared.MessageModels;
 using Entities.Enum.Type;
+using Entities.Models.Enterprise;
 
 namespace Business.Services.Concrete
 {

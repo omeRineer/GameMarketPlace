@@ -6,7 +6,6 @@ using DataAccess.Concrete.EntityFramework.General;
 using Entities.Dto;
 using Entities.Main;
 using Entities.Models.Blog.Rest;
-using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;
 using MeArch.Module.File.Service;
 using System;
@@ -16,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities.Enum.Type;
+using Entities.Models.Enterprise;
 
 namespace Business.Services.Concrete
 {

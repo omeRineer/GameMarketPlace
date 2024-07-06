@@ -13,10 +13,10 @@ using AutoMapper;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Entities.Models.SliderContent.Rest;
-using GameStore.Enterprise.Shared.MessageModels;
 using MassTransit;
 using Entities.Models.Game.Rest;
 using Entities.Enum.Type;
+using Entities.Models.Enterprise;
 
 namespace Business.Services.Concrete
 {

@@ -8,7 +8,6 @@ using Entities.Enum.Type;
 using Entities.Main;
 using Entities.Models.Blog.Rest;
 using Entities.Models.Category.Rest;
-using GameStore.Enterprise.Shared.MessageModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

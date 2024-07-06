@@ -1,7 +1,7 @@
 ﻿using Business.Services.Abstract;
 using Configuration;
 using Entities.Enum.Type;
-using GameStore.Enterprise.Shared.MessageModels;
+using Entities.Models.Enterprise;
 using MassTransit;
 using MeArch.Module.File.Service;
 

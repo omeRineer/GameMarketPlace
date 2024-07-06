@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Enterprise.Shared.MessageModels
+namespace Entities.Models.Enterprise
 {
     public class UploadMediaMessage
     {

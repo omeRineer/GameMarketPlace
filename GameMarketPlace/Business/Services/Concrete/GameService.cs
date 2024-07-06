@@ -16,9 +16,9 @@ using MeArch.Module.File.Service;
 using System.IO;
 using Entities.Models.Game.Rest;
 using MassTransit;
-using GameStore.Enterprise.Shared.MessageModels;
 using Entities.Models.Blog.Rest;
 using Entities.Enum.Type;
+using Entities.Models.Enterprise;
 
 namespace Business.Services.Concrete
 {

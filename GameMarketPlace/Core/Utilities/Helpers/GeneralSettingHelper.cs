@@ -24,16 +24,32 @@ namespace Core.Utilities.GeneralSettingHelper
             MemoryCache = StaticServiceProvider.GetService<IMemoryCache>();
         }
 
-
-        public static async Task<TModel> GetFromCacheAsync<TModel>(string key, TModel defaultValue = default)
+        public static async Task<TModel> GetOrSetAsync<TModel>(string key)
         {
             if (MemoryCache.TryGetValue(key, out TModel value))
                 return value;
 
-            var entitySetting = await GeneralSettings.SingleOrDefaultAsync(f => f.Key == key);
+            var setting = await GeneralSettings.SingleOrDefaultAsync(f => f.Key == key);
 
+            if (setting != null && setting.IsCached)
+                MemoryCache.Set(key, setting, TimeSpan.FromMinutes(setting.CacheDuration ?? 30));
 
-            return defaultValue;
+            return setting.Value.JsonDeserialize<TModel>();
+        }
+
+        public static async Task<GeneralSetting?> GetAsync(string key)
+        {
+            return await GeneralSettings.SingleOrDefaultAsync(f => f.Key == key);
+        }
+
+        public static async Task SetAsync(string key, object value, int cacheDuration = 30)
+        {
+            MemoryCache.Set(key, value, TimeSpan.FromMinutes(cacheDuration));
+        }
+
+        public static async Task RemoveAsync(string key)
+        {
+            MemoryCache.Remove(key);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Core.Entities.DTO.Options;
+﻿using Configuration.Models.Options;
 using Core.Utilities.ServiceTools;
 using Microsoft.Extensions.Configuration;
 using System;

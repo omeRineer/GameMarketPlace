@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
 using MA = Core.Entities.DTO.File;
 using Entities.Models.Blog.Rest;
+using Core.Utilities.Filters;
+using Core.Entities.Concrete.ProcessGroups.Enums.Types;
 
 namespace GameStore.API.Web.Controllers.Main
 {
@@ -17,11 +19,13 @@ namespace GameStore.API.Web.Controllers.Main
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateAsync(CreateBlogRequest request)
+        [Benchmark(1000, LogTypeEnum.Notification)]
+        public IActionResult CreateAsync(CreateBlogRequest request)
         {
-            var result = await _blogService.CreateAsync(request);
+            Thread.Sleep(5000);
+            //var result = await _blogService.CreateAsync(request);
 
-            return Result(result);
+            return Ok();
         }
 
         [HttpDelete("Delete/{id}")]
