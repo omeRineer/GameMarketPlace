@@ -1,4 +1,4 @@
-﻿using GameStore.Cms.Model.Base;
+﻿using GameStore.Cms.Model.Base.Inputs;
 using Rdz = Radzen;
 
 namespace GameStore.Cms.Model.SliderContent

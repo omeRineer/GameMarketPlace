@@ -1,4 +1,4 @@
-﻿using GameStore.Cms.Model.Base;
+﻿using GameStore.Cms.Model.Base.Inputs;
 
 namespace GameStore.Cms.Model.Game
 {

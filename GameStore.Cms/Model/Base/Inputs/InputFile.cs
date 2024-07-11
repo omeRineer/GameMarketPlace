@@ -1,4 +1,4 @@
-﻿namespace GameStore.Cms.Model.Base
+﻿namespace GameStore.Cms.Model.Base.Inputs
 {
     public class InputFile
     {

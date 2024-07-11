@@ -22,6 +22,7 @@ builder.Services.AddSingleton<MenuODataService>();
 builder.Services.AddSingleton<MenuService>();
 builder.Services.AddSingleton<BlogODataService>();
 builder.Services.AddSingleton<BlogService>();
+builder.Services.AddSingleton<GeneralSettingODataService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddRadzenComponents();

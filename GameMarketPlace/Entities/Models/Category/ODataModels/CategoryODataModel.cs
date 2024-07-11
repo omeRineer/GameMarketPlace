@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Entities.Models.Category.ODataModels
 {
-    public record CategoryCreateODataModel(string name) : IODataModel;
-    public record CategoryUpdateODataModel(string name) : IODataModel;
+    public record CategoryCreateODataModel(string Name) : IODataModel;
+    public record CategoryUpdateODataModel(string Name) : IODataModel;
 }

@@ -11,7 +11,6 @@ namespace Business.Mapping.AutoMapper
         public CategoryProfile()
         {
 
-
             #region View Models
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             #endregion

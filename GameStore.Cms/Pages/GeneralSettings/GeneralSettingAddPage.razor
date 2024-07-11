@@ -1,0 +1,147 @@
+﻿
+
+@inject TypeLookupODataService TypeLookupODataService
+
+<div class="row mb-2">
+    <div class="col-md-6">
+        <RadzenLabel Text="Anahtar Değeri (Key) :" />
+    </div>
+    <div class="col-md-6">
+        <RadzenTextBox class="w-100" @bind-Value="newSetting.Key" />
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-6">
+        <RadzenLabel Text="Ayar Tipi :" />
+    </div>
+    <div class="col-md-6">
+        <RadzenDropDown TValue="int" class="w-100" @bind-Value="newSetting.SettingTypeId" Data="settingTypes" ValueProperty="Key" TextProperty="Value" />
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-3">
+        <RadzenLabel Text="Önbellek Durumu :" />
+    </div>
+    <div class="col-md-3">
+        <RadzenCheckBox @bind-Value="newSetting.IsCached" />
+    </div>
+
+    <div class="col-md-3">
+        <RadzenLabel Text="Önbellek Süresi :" />
+    </div>
+    <div class="col-md-3">
+        <RadzenNumeric TValue="int?" Disabled="!newSetting.IsCached" @bind-Value="newSetting.CacheDuration" />
+    </div>
+</div>
+
+<hr />
+
+<div class="row mb-2">
+    <div class="col-md-4">
+        <RadzenDropDown TValue="string" Data="valueTypes" @bind-Value="ValueType" />
+    </div>
+    <div class="col-md-4">
+        <RadzenButton Click="AddProperty" />
+    </div>
+</div>
+
+@foreach (var inputArea in InputAreas)
+{
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <RadzenTextBox class="w-100" ReadOnly="inputArea.Key.ReadOnly" Placeholder="Property" Change="(args => inputArea.Key.Value = args)" />
+        </div>
+        <div class="col-md-5">
+            <DynamicInput ValueType="" @bind-Value="inputArea.Value.Input.Value" />
+        </div>
+        <div class="col-md-3">
+
+            @if (!SettingValues.Any(x => x.Key == inputArea.Key.Value))
+            {
+                <RadzenButton Icon="save" Click="(args=>
+                                             {
+                                                 SettingValues.Add(inputArea.Key.Value.ToString(), inputArea.Value.Input.Value);
+                                                 inputArea.Key.ReadOnly = true;
+                                                 inputArea.Value.Input.ReadOnly = true;
+                                             })" />
+            }
+
+            @if (SettingValues.Any(x => x.Key == inputArea.Key.Value))
+            {
+                <RadzenButton Icon="edit" Click="(args=>
+                                             {
+                                                 SettingValues.Remove(inputArea.Key.Value.ToString());
+                                                 inputArea.Key.ReadOnly = false;
+                                                 inputArea.Value.Input.ReadOnly = false;
+                                             })" />
+
+                <RadzenButton Icon="remove" Click="(args=>
+                                             {
+                                                 if (inputArea.Key.Value != null)
+                                                 {
+                                                     SettingValues.Remove(inputArea.Key.Value);
+                                                 }
+                                                 InputAreas.Remove(inputArea.Key);
+                                             })" />
+            }
+
+        </div>
+    </div>
+}
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" />
+    </div>
+</div>
+
+
+@code {
+    CreateSettingModel newSetting = new CreateSettingModel();
+    Dictionary<string, object> SettingValues = new Dictionary<string, object>();
+    Dictionary<int, string> settingTypes;
+    Dictionary<BaseModel.Input<string>, InputModel> InputAreas = new Dictionary<BaseModel.Input<string>, InputModel>();
+
+    string ValueType = string.Empty;
+    string[] valueTypes =
+    {
+        "Text",
+        "Number",
+        "Bool"
+    };
+
+    protected override async void OnInitialized()
+    {
+        var result = (await TypeLookupODataService.GetListAsync(new ODataRequestParams
+        {
+            Filter = $"ProcessGroupId eq {(int)ProcessGroupEnum.SettingType}"
+        })).Value.AsODataEnumerable();
+
+        settingTypes = result.ToDictionary(k => k.Id, v => v.Description);
+
+
+    }
+
+    void Save()
+    {
+        newSetting.Value = Newtonsoft.Json.JsonConvert.SerializeObject(SettingValues, Newtonsoft.Json.Formatting.Indented);
+    }
+
+    void AddProperty(MouseEventArgs args)
+    {
+        InputAreas.Add(new BaseModel.Input<string>(), new BaseModel.Input<object>());
+    }
+
+    void SetValue<TValue>(BaseModel.Input<object> input, TValue value)
+    {
+        input.Value = value;
+    }
+
+    private class InputModel
+    {
+        public string Type { get; set; }
+        public BaseModel.Input<object> Input { get; set; }
+    }
+}

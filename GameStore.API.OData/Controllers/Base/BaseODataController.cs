@@ -58,7 +58,7 @@ namespace GameStore.API.OData.Controllers.Base
 
         #region Write Actions
         protected IActionResult Post<TODataModel>(TODataModel model)
-    where TODataModel : class, IODataModel
+            where TODataModel : class, IODataModel
         {
             var entity = _mapper.Map<TEntity>(model);
 

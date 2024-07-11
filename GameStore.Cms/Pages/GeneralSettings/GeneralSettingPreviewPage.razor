@@ -1,0 +1,50 @@
+﻿@foreach (var property in GetProperties())
+{
+    <div class="row">
+        <div class="col-md-2 align-items-center d-flex">
+            <RadzenLabel Text="@property.Key" />
+        </div>
+        <div class="col-md-10">
+            @switch (property.Value)
+            {
+                case bool val:
+                    <RadzenCheckBox Value="val" TValue="bool?" Disabled="true" />
+                    break;
+                case string val:
+                    if (val.Length > 200)
+                    {
+                        <RadzenTextArea class="w-100" ReadOnly="true" Value="@val" Rows="10" Cols="100" />
+                    }
+                    else
+                    {
+                        <RadzenTextBox class="w-100" Value="@val" ReadOnly="true" />
+                    }
+                    break;
+                case int val:
+                    <RadzenNumeric Value="val"></RadzenNumeric>
+                    break;
+                case double val:
+                    <RadzenNumeric Value="val"></RadzenNumeric>
+                    break;
+                case float val:
+                    <RadzenNumeric Value="val"></RadzenNumeric>
+                    break;
+
+                case IEnumerable<object> val:
+                    <RadzenTextArea class="w-100" ReadOnly="true" Value="@string.Join(',',val)" Rows="10" Cols="100" />
+                    break;
+            }
+        </div>
+    </div>
+}
+@code {
+    [Parameter] public string Model { get; set; }
+    private dynamic Value { get; set; }
+
+    private IEnumerable<KeyValuePair<string, object>> GetProperties()
+    {
+        Value = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Dynamic.ExpandoObject>(Model);
+        IDictionary<string, object> deneme = (IDictionary<string, object>)Value;
+        return deneme;
+    }
+}

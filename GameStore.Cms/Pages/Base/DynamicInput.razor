@@ -1,0 +1,27 @@
+﻿
+@switch (ValueType)
+{
+    case "Integer":
+        {
+            <RadzenNumeric class="w-100" TValue="int" Change="(args => ValueChange(args))" />
+        }
+        break;
+
+    case "Bool":
+        {
+            <RadzenCheckBox TValue="bool" Change="(args => ValueChange(args))" />
+        }
+        break;
+}
+
+@code {
+    [Parameter] public dynamic Value { get; set; }
+    [Parameter] public string ValueType { get; set; }
+    [Parameter] public EventCallback<object> ValueChanged { get; set; }
+
+    async Task ValueChange(dynamic item)
+    {
+        Value = item;
+        await ValueChanged.InvokeAsync(Value);
+    }
+}

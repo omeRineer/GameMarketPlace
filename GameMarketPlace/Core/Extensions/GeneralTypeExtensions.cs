@@ -10,7 +10,7 @@ namespace Core.Extensions
 {
     public static class GeneralTypeExtensions
     {
-        public static string JsonSerialize<TModel>(this TModel obj)
+        public static string JsonSerialize(this object obj)
         {
             return JsonConvert.SerializeObject(obj);
         }

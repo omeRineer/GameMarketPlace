@@ -14,6 +14,7 @@ using System.Text.Json.Serialization;
 using Core.Utilities.ResultTool.APIResult;
 using Core.Utilities.ServiceTools;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Core.Entities.Concrete.GeneralSettings;
 
 #region Edm Models
 static IEdmModel GetEdmModel()
@@ -26,6 +27,7 @@ static IEdmModel GetEdmModel()
     oDataBuilder.EntitySet<SystemRequirement>("SystemRequirements");
     oDataBuilder.EntitySet<SliderContent>("SliderContents");
     oDataBuilder.EntitySet<TypeLookup>("TypeLookups");
+    oDataBuilder.EntitySet<GeneralSetting>("GeneralSettings");
     oDataBuilder.EntitySet<Menu>("Menus");
     oDataBuilder.EntitySet<Blog>("Blogs");
 
