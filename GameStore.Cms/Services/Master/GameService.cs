@@ -11,10 +11,12 @@ namespace GameStore.Cms.Services.Master
 {
     public class GameService : BaseService<Game>
     {
+        public GameService() : base("Games") { }
+
         public async Task<RestResponse> UploadGameImagesAsync(UploadGameImagesModel uploadGameImagesModel)
             => await RestHelper.PostAsync<UploadGameImagesModel, object>(new RestRequestParameter
             {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/games/uploadgameimages",
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/uploadgameimages",
                 QueryParameters = new Dictionary<string, object> { { "EntityId", uploadGameImagesModel.EntityId } },
                 Files = uploadGameImagesModel.Images.Select(s => new RestFile
                 {
@@ -24,19 +26,13 @@ namespace GameStore.Cms.Services.Master
                 }).ToList()
             });
 
-        public async Task<RestResponse> CreateGameAsync(CreateGameModel createGameModel)
+        public async Task<RestResponse> CreateAsync(CreateGameModel createGameModel)
             => await RestHelper.PostAsync<CreateGameModel, object>(new RestRequestParameter
             {
                 BaseUrl = $"{CoreConfiguration.WebApiUrl}/games/creategame"
             }, createGameModel);
 
-        public async Task<RestResponse> AddAsync(Game game)
-            => await AddAsync("/games/add", game);
-
         public async Task<RestResponse> DeleteAsync(Guid id)
             => await DeleteAsync("/games/delete", id);
-
-        public async Task<RestResponse> UpdateAsync(Game game)
-            => await UpdateAsync("/games/update", game);
     }
 }

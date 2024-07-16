@@ -24,15 +24,21 @@ namespace GameStore.Cms.Services.Base
         where TEntity : class, new()
     {
         readonly HttpClient HttpClient;
+        protected readonly string Controller;
 
         public BaseODataService()
         {
             HttpClient = new HttpClient();
         }
 
-        protected async Task<ODataServiceResult<TEntity>> GetListAsync(string path, ODataRequestParams requestParams)
+        public BaseODataService(string controller) : this()
         {
-            var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{path}");
+            Controller = controller;
+        }
+
+        public async Task<ODataServiceResult<TEntity>> GetListAsync(ODataRequestParams requestParams)
+        {
+            var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{Controller}");
             var oDataUri = uri.GetODataUri(requestParams.Filter,
                                     requestParams.Top,
                                     requestParams.Skip,
@@ -48,9 +54,9 @@ namespace GameStore.Cms.Services.Base
             return await response.ReadAsync<ODataServiceResult<TEntity>>();
         }
 
-        protected async Task<TEntity> GetByIdAsync(string path)
+        public async Task<TEntity> GetByIdAsync(object id)
         {
-            var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{path}");
+            var uri = new Uri($"{CoreConfiguration.ODataApiUrl}/{Controller}/{id}");
 
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
 

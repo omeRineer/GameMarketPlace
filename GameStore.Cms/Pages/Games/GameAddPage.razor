@@ -93,7 +93,7 @@
     async Task Save()
     {
         _isLoading = true;
-        var result = await GameService.CreateGameAsync(newGame);
+        var result = await GameService.CreateAsync(newGame);
 
         if (!result.IsSuccessful)
         {

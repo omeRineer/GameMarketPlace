@@ -8,7 +8,7 @@
     <div class="col-xl-3">
         <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<GeneralSettingAddPage>("Ayar Ekle",
                                            null,
-                                           new DialogOptions{Width = "1000px"} )) />
+                                           new DialogOptions{Width = "1200px"} )) />
 
         <RadzenButton Icon="edit" Click=@(args => DialogService.Open<GeneralSettingPreviewPage>("Ayar Düzenle",
                                                   new Dictionary<string, object> { { "Model", ((GeneralSetting)SelectedItem).Value } })) />

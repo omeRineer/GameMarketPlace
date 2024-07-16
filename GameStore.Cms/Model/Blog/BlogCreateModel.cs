@@ -2,7 +2,7 @@
 
 namespace GameStore.Cms.Model.Blog
 {
-    public class BlogCreateModel
+    public class CreateBlogModel
     {
         public string Header { get; set; }
         public string Content { get; set; }

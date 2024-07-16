@@ -9,17 +9,15 @@ namespace GameStore.Cms.Services.Master
 {
     public class SliderContentService : BaseService<SliderContent>
     {
-        public async Task<RestResponse> CreateSliderContentAsync(SliderContentCreateModel sliderContentCreateModel)
+        public SliderContentService() : base("SliderContents") { }
+
+        public async Task<RestResponse> CreateAsync(SliderContentCreateModel sliderContentCreateModel)
             => await RestHelper.PostAsync<SliderContentCreateModel, object>(new RestRequestParameter
             {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/slidercontents/createslidercontent"
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/createslidercontent"
             }, sliderContentCreateModel);
 
-        public async Task<RestResponse> AddAsync(SliderContent sliderContent)
-            => await AddAsync("/slidercontents/add", sliderContent);
         public async Task<RestResponse> DeleteAsync(Guid id)
             => await DeleteAsync("/slidercontents/delete", id);
-        public async Task<RestResponse> UpdateAsync(SliderContent sliderContent)
-            => await UpdateAsync("/slidercontents/update", sliderContent);
     }
 }

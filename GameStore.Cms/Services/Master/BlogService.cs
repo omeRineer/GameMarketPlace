@@ -8,24 +8,17 @@ using RestSharp;
 
 namespace GameStore.Cms.Services.Master
 {
-    public class BlogService: BaseService<Blog>
+    public class BlogService : BaseService<Blog>
     {
-        public async Task<RestResponse> AddAsync(BlogCreateModel blogCreateModel)
-            => await RestHelper.PostAsync<BlogCreateModel, object>(new RestRequestParameter
+        public BlogService() : base("Blogs") { }
+
+        public async Task<RestResponse> AddAsync(CreateBlogModel blogCreateModel)
+            => await RestHelper.PostAsync<CreateBlogModel, object>(new RestRequestParameter
             {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/blogs/create"
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/create"
             }, blogCreateModel);
 
-        public async Task<RestResponse<Blog>> GetByIdAsync(Guid id)
-            => await GetByIdAsync($"/blogs/getblog/{id}");
-
-        public async Task<RestResponse> AddAsync(Blog blog)
-            => await AddAsync("/blogs/add", blog);
-
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync("/blogs/delete", id);
-
-        public async Task<RestResponse> UpdateAsync(Blog blog)
-            => await UpdateAsync("/blogs/update", blog);
+            => await DeleteAsync($"delete", id);
     }
 }
