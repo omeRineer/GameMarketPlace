@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Business.Services.Abstract;
 using Core.Utilities.ResultTool;
-using Entities.Dto.Auth.Login;
-using Entities.Dto.Auth.Register;
 using MeArch.Module.Security.Model.UserIdentity;
 using MeArch.Module.Security.Service;
+using Models.Auth.Login;
+using Models.Auth.Register;
 using System;
 using System.Collections.Generic;
 using System.Linq;

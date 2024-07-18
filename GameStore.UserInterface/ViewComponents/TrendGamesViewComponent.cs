@@ -3,7 +3,6 @@ using Core.Utilities.ResultTool;
 using Entities.Enum.Type;
 using Entities.Main;
 using Microsoft.AspNetCore.Mvc;
-using GameStore.UserInterface.Models.Game;
 
 namespace GameStore.UserInterface.ViewComponents
 {

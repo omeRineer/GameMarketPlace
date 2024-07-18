@@ -14,11 +14,10 @@ using System.Text;
 using System.Threading.Tasks;
 using MeArch.Module.File.Service;
 using System.IO;
-using Entities.Models.Game.Rest;
 using MassTransit;
-using Entities.Models.Blog.Rest;
 using Entities.Enum.Type;
 using Entities.Models.Enterprise;
+using Models.Game.WebService;
 
 namespace Business.Services.Concrete
 {

@@ -1,8 +1,7 @@
 ﻿using Core.Business;
 using Core.Utilities.ResultTool;
 using Entities.Main;
-using Entities.Models.Blog.Rest;
-using Entities.Models.Category.Rest;
+using Models.Category.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

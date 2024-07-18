@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.Entities.Concrete.Notification;
-using Entities.Models.Notification.Rest;
+using Models.Notification.WebService;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

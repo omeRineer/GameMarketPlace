@@ -1,10 +1,10 @@
 ﻿using Business.Services.Abstract;
-using Entities.Dto.Auth.Login;
-using Entities.Dto.Auth.Register;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.Auth.Login;
+using Models.Auth.Register;
 using System.Security.Claims;
 
 namespace GameStore.UserInterface.Controllers

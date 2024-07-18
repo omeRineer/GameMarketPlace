@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
 using MA = Core.Entities.DTO.File;
-using Entities.Models.Blog.Rest;
 using Core.Utilities.Filters;
 using Core.Entities.Concrete.ProcessGroups.Enums.Types;
+using Models.Blog.WebService;
 
 namespace GameStore.API.Web.Controllers.Main
 {

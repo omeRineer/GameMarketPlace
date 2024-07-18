@@ -1,8 +1,7 @@
 ﻿using Core.Business;
 using Core.Utilities.ResultTool;
 using Entities.Main;
-using Entities.Models.Game.Rest;
-using Entities.Models.SliderContent.Rest;
+using Models.SliderContent.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

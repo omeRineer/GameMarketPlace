@@ -1,9 +1,8 @@
 ﻿using Business.Services.Abstract;
-using Entities.Models.Game.Rest;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
-using Entities.Models.Category.Rest;
+using Models.Game.WebService;
 
 namespace GameStore.API.Web.Controllers.Main
 {

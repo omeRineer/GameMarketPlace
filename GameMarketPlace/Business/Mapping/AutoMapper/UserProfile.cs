@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Entities.Dto.Auth.Login;
-using Entities.Dto.Auth.Register;
 using MeArch.Module.Security.Model.UserIdentity;
+using Models.Auth.Register;
 using System;
 using System.Collections.Generic;
 using System.Linq;

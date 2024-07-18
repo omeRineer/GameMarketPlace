@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Entities.Concrete.GeneralSettings;
 using Core.Extensions;
-using Entities.Models.GeneralSetting;
+using Models.GeneralSetting.OData;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

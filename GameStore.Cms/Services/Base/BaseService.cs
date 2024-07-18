@@ -5,7 +5,7 @@ using RestSharp;
 
 namespace GameStore.Cms.Services.Base
 {
-    public class BaseService<TEntity>
+    public class BaseService
     {
         protected readonly string Controller;
         public BaseService()
@@ -17,28 +17,28 @@ namespace GameStore.Cms.Services.Base
             Controller = controller;
         }
 
-        protected async Task<RestResponse<TEntity>> GetByIdAsync<TKey>(string actionName, TKey id)
-            => await RestHelper.GetAsync<TEntity>(new RestRequestParameter
+        protected async Task<RestResponse<TModel>> GetAsync<TKey, TModel>(string actionName, TKey id)
+            => await RestHelper.GetAsync<TModel>(new RestRequestParameter
             {
                 BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{actionName}/{id}"
             });
 
-        protected async Task<RestResponse> AddAsync(string path, TEntity entity)
-            => await RestHelper.PostAsync<TEntity, object>(new RestRequestParameter
+        protected async Task<RestResponse> CreateAsync<TModel>(string actionName, TModel entity)
+            => await RestHelper.PostAsync<TModel, object>(new RestRequestParameter
             {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{path}"
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{actionName}"
             }, entity);
 
-        protected async Task<RestResponse> DeleteAsync<TKey>(string path, TKey id)
+        protected async Task<RestResponse> DeleteAsync<TKey>(string actionName, TKey id)
             => await RestHelper.PostAsync<TKey, object>(new RestRequestParameter
             {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{path}"
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{actionName}"
             }, id);
 
-        protected async Task<RestResponse> UpdateAsync(string path, TEntity entity)
-            => await RestHelper.PostAsync<TEntity, object>(new RestRequestParameter
+        protected async Task<RestResponse> UpdateAsync<TModel>(string actionName, TModel entity)
+            => await RestHelper.PostAsync<TModel, object>(new RestRequestParameter
             {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{path}"
+                BaseUrl = $"{CoreConfiguration.WebApiUrl}/{Controller}/{actionName}"
             }, entity);
 
     }

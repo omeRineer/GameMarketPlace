@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace GameStore.Cms.Services.Master
 {
-    public class GeneralSettingService : BaseService<Category>
+    public class GeneralSettingService : BaseService
     {
         public GeneralSettingService() : base("GeneralSettings") { }
 

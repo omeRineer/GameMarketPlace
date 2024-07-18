@@ -34,6 +34,7 @@
 		<ProjectReference Include="..\GameMarketPlace\Core\Core.csproj" />
 		<ProjectReference Include="..\GameMarketPlace\Entities\Entities.csproj" />
 		<ProjectReference Include="..\GameStore.Shared\GameStore.Shared.csproj" />
+		<ProjectReference Include="..\Models\Models.csproj" />
 	</ItemGroup>
 
 </Project>

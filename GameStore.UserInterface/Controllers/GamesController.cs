@@ -4,8 +4,6 @@ using Configuration;
 using Core.Utilities.ResultTool;
 using Entities.Enum.Type;
 using Entities.Main;
-using Entities.Models.Game.ViewModels;
-using Entities.Models.Media.ViewModels;
 using MeArch.Module.Email.Model.Enums;
 using MeArch.Module.Email.Service;
 using MeArch.Module.Security.Model.Dto;
@@ -16,7 +14,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MimeKit;
-using GameStore.UserInterface.Models.Game;
 
 namespace GameStore.UserInterface.Controllers
 {

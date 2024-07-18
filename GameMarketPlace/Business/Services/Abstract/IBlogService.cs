@@ -1,7 +1,7 @@
 ﻿using Core.Business;
 using Core.Entities.DTO.File;
 using Core.Utilities.ResultTool;
-using Entities.Models.Blog.Rest;
+using Models.Blog.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

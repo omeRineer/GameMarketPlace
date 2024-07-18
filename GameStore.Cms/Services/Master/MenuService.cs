@@ -5,11 +5,11 @@ using RestSharp;
 
 namespace GameStore.Cms.Services.Master
 {
-    public class MenuService : BaseService<Menu>
+    public class MenuService : BaseService
     {
         public MenuService() : base("Menus") { }
 
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync("/menus/delete", id);
+            => await DeleteAsync("delete", id);
     }
 }

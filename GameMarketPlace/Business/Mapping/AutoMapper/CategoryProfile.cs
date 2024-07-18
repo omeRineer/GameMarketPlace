@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Main;
-using Entities.Models.Category.ODataModels;
-using Entities.Models.Category.Rest;
-using Entities.Models.Category.ViewModels;
+using Models.Category.OData;
 
 namespace Business.Mapping.AutoMapper
 {
@@ -12,7 +10,6 @@ namespace Business.Mapping.AutoMapper
         {
 
             #region View Models
-            CreateMap<Category, CategoryViewModel>().ReverseMap();
             #endregion
 
             #region ODataModel

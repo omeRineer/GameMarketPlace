@@ -4,8 +4,7 @@ using Entities.Main;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Entities.Models.Game.Rest;
-using Entities.Models.Blog.Rest;
+using Models.Game.WebService;
 
 namespace Business.Services.Abstract
 {

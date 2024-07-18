@@ -1,10 +1,9 @@
 ﻿using Business.Services.Abstract;
 using Entities.Main;
-using Entities.Models.SliderContent.Rest;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
-using Entities.Models.Game.Rest;
+using Models.SliderContent.WebService;
 
 namespace GameStore.API.Web.Controllers.Main
 {

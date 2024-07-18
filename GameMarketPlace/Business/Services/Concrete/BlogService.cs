@@ -3,9 +3,7 @@ using Business.Services.Abstract;
 using MA = Core.Entities.DTO.File;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Dto;
 using Entities.Main;
-using Entities.Models.Blog.Rest;
 using MassTransit;
 using MeArch.Module.File.Service;
 using System;
@@ -16,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Enum.Type;
 using Entities.Models.Enterprise;
+using Models.Blog.WebService;
 
 namespace Business.Services.Concrete
 {

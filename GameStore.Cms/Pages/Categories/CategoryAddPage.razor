@@ -34,7 +34,7 @@
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen Kategori Giriniz" });
             return;
         }
-        var result = await CategoryService.AddAsync(newCategory);
+        var result = await CategoryService.CreateAsync(newCategory);
 
         if (!result.IsSuccessStatusCode)
         {

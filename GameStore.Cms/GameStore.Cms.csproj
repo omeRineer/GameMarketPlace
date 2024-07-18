@@ -18,6 +18,7 @@
     <ProjectReference Include="..\GameMarketPlace\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\GameMarketPlace\Core\Core.csproj" />
     <ProjectReference Include="..\GameMarketPlace\Entities\Entities.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>

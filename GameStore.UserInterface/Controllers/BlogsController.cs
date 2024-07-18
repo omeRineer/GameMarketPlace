@@ -1,6 +1,5 @@
 ﻿using Business.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using GameStore.UserInterface.Models.Blog;
 
 namespace GameStore.UserInterface.Controllers
 {

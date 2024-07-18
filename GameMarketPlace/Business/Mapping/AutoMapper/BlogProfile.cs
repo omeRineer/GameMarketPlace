@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Main;
-using Entities.Models.Blog.Rest;
+using Models.Blog.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -71,7 +71,7 @@
 
 @code {
     bool _isLoading = false;
-    SliderContentCreateModel newSliderContent = new SliderContentCreateModel();
+    CreateSliderContentModel newSliderContent = new CreateSliderContentModel();
     Dictionary<int, string> sliderTypes;
 
 
@@ -87,7 +87,7 @@
     async Task Save()
     {
         _isLoading = true;
-        var result = await SliderContentService.CreateSliderContentAsync(newSliderContent);
+        var result = await SliderContentService.CreateAsync(newSliderContent);
 
         if (!result.IsSuccessful)
         {

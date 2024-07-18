@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Blog\OData\" />
+    <Folder Include="Category\View\" />
+    <Folder Include="Game\OData\" />
+    <Folder Include="GeneralSetting\View\" />
+    <Folder Include="GeneralSetting\WebService\" />
+    <Folder Include="Media\OData\" />
+    <Folder Include="Media\View\" />
+    <Folder Include="SliderContent\OData\" />
+    <Folder Include="SliderContent\View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameMarketPlace\Core\Core.csproj" />
+  </ItemGroup>
+
+</Project>

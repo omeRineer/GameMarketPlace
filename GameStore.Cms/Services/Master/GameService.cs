@@ -1,15 +1,14 @@
-﻿using GameStore.Cms.Model.Game;
-using GameStore.Cms.Model.Media;
-using GameStore.Cms.Services.Base;
+﻿using GameStore.Cms.Services.Base;
 using Configuration;
 using Core.Utilities.RestHelper;
 using Entities.Enum.Type;
 using Entities.Main;
 using RestSharp;
+using Models.Game.Cms;
 
 namespace GameStore.Cms.Services.Master
 {
-    public class GameService : BaseService<Game>
+    public class GameService : BaseService
     {
         public GameService() : base("Games") { }
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Main;
-using Entities.Models.Category.ODataModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.EntityFrameworkCore;
 using GameStore.API.OData.Controllers.Base;
 using GameStore.API.OData.Filters;
+using Models.Category.OData;
 
 namespace GameStore.API.OData.Controllers.Main
 {

@@ -12,11 +12,10 @@ using MeArch.Module.File.Service;
 using AutoMapper;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
-using Entities.Models.SliderContent.Rest;
 using MassTransit;
-using Entities.Models.Game.Rest;
 using Entities.Enum.Type;
 using Entities.Models.Enterprise;
+using Models.SliderContent.WebService;
 
 namespace Business.Services.Concrete
 {

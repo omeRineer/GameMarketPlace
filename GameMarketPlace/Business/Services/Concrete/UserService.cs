@@ -2,9 +2,9 @@
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
-using Entities.Dto.Auth.Login;
 using MeArch.Module.Security.Model.UserIdentity;
 using Microsoft.EntityFrameworkCore;
+using Models.Auth.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;

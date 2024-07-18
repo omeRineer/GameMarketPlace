@@ -2,7 +2,7 @@
 using Core.Utilities.ResultTool;
 using Entities.Enum.Type;
 using Entities.Main;
-using Entities.Models.Media.Rest;
+using Models.Media.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

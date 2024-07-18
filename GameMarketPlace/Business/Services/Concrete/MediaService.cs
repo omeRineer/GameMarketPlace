@@ -11,10 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Core.Entities.Abstract;
-using Entities.Models.Media.Rest;
 using MassTransit;
 using Entities.Enum.Type;
 using Entities.Models.Enterprise;
+using Models.Media.WebService;
 
 namespace Business.Services.Concrete
 {

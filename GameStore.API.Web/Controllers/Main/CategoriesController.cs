@@ -3,7 +3,7 @@ using Core.Utilities.ResultTool;
 using MeArch.Module.File.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
-using Entities.Models.Category.Rest;
+using Models.Category.WebService;
 
 namespace GameStore.API.Web.Controllers.Main
 {

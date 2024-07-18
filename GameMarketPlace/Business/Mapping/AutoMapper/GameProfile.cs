@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Main;
-using Entities.Models.Game.Rest;
-using Entities.Models.Game.ViewModels;
+using Models.Game.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,6 @@ namespace Business.Mapping.AutoMapper
             #endregion
 
             #region View Models
-            CreateMap<Game, GameDetailViewModel>().ReverseMap();
             #endregion
         }
     }

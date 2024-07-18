@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GameStore.API.Web.Controllers.Base;
-using Entities.Models.Media.Rest;
+using Models.Media.WebService;
 
 namespace GameStore.API.Web.Controllers.Main
 {

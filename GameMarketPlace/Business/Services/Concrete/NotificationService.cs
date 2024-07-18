@@ -4,12 +4,12 @@ using MA = Core.Entities.Concrete.Notification;
 using Core.Utilities.ResultTool;
 using DataAccess.Concrete.EntityFramework.General;
 using Entities.Enum.Type;
-using Entities.Models.Notification.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Notification.WebService;
 
 namespace Business.Services.Concrete
 {

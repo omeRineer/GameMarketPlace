@@ -1,6 +1,6 @@
 ﻿using Core.Utilities.ResultTool;
 using Entities.Enum.Type;
-using Entities.Models.Notification.Rest;
+using Models.Notification.WebService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
