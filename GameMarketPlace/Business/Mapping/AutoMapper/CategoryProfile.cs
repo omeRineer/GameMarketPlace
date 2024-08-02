@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Main;
 using Models.Category.OData;
+using Models.Category.WebService;
 
 namespace Business.Mapping.AutoMapper
 {
@@ -8,6 +9,9 @@ namespace Business.Mapping.AutoMapper
     {
         public CategoryProfile()
         {
+            #region Web Service
+            CreateMap<Category, SingleCategoryResponse>().ReverseMap();
+            #endregion
 
             #region View Models
             #endregion

@@ -7,14 +7,14 @@
 <h3>Oyunlar</h3>
 <div class="row">
     <div class="col-xl-3">
-        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<GameAddPage>("Oyun Ekle",
+        <RadzenButton Icon="add" Click=@(args => DialogService.Open<GameAddPage>("Oyun Ekle",
                                            null,
                                            new DialogOptions{Width = "800px"} )) />
 
         <RadzenButton Icon="edit" Click=@(args => DialogService.Open<GameUpdatePage>("Oyun Düzenle")) />
         <RadzenButton Icon="remove" Click=@Delete />
         <RadzenButton Icon="refresh" Click=@Refresh />
-        <RadzenButton Icon="collections" Click=@(args => base.DialogService.Open<GameGalleryPage>("Galeri",
+        <RadzenButton Icon="collections" Click=@(args => DialogService.Open<GameGalleryPage>("Galeri",
                                                  new Dictionary<string, object> { { "GameId", ((Game)SelectedItem).Id } },
                                                  new DialogOptions{Width = "800px"} )) />
     </div>

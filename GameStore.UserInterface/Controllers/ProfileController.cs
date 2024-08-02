@@ -1,12 +1,9 @@
 ﻿using Business.Services.Abstract;
 using Entities.Enum.Type;
 using Entities.Main;
-using Entities.Models.Game.ViewModels;
-using Entities.Models.Media.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using GameStore.UserInterface.Models.Game;
 
 namespace GameStore.UserInterface.Controllers
 {

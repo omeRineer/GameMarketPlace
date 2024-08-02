@@ -1,8 +1,7 @@
 ﻿@page "/blogadd"
 
+@inherits BasePage
 @inject BlogService BlogService
-@inject DialogService DialogService
-@inject NotificationService NotificationService
 
 <div class="row mb-2">
         <div class="col-md-2 align-items-center d-flex">
@@ -45,36 +44,35 @@
 
 <div class="row mt-3">
     <div class="col-md-12">
-        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(_isLoading == false)" />
+        <RadzenButton Click="@Save" Text="Kaydet" Style="margin-bottom: 10px; width: 150px" Visible="@(IsLoading == false)" />
         <RadzenButton Click="@((args) => DialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="İptal" Style="margin-bottom: 10px; width: 150px" />
     </div>
 </div>
 
 @code {
-    CreateBlogModel newBlog = new Model.Blog.CreateBlogModel();
-    bool _isLoading = false;
+    CreateBlogModel newBlog = new CreateBlogModel();
 
     private async Task Save()
     {
-        _isLoading = true;
+        IsLoading = true;
 
         if (newBlog.Header == null)
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Lütfen Başlık Giriniz" });
             return;
         }
-        var result = await BlogService.AddAsync(newBlog);
+        var result = await BlogService.CreateAsync(newBlog);
 
         if (!result.IsSuccessStatusCode)
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = result.StatusCode.ToString() });
-            _isLoading = false;
+            IsLoading = false;
             return;
         }
 
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = result.StatusCode.ToString() });
 
         DialogService.Close(true);
-        _isLoading = false;
+        IsLoading = false;
     }
 }

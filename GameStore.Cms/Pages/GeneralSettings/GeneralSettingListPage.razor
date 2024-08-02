@@ -6,7 +6,7 @@
 <h3>Genel Ayarlar</h3>
 <div class="row">
     <div class="col-xl-3">
-        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<GeneralSettingAddPage>("Ayar Ekle",
+        <RadzenButton Icon="add" Click=@(args => DialogService.Open<GeneralSettingAddPage>("Ayar Ekle",
                                            null,
                                            new DialogOptions{Width = "1200px"} )) />
 

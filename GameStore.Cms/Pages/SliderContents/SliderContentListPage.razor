@@ -7,10 +7,10 @@
 <h3>Oyunlar</h3>
 <div class="row">
     <div class="col-xl-3">
-        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<SliderContentAddPage>("Slider İçeriği Ekle",
+        <RadzenButton Icon="add" Click=@(args => DialogService.Open<SliderContentAddPage>("Slider İçeriği Ekle",
                                            null,
                                            new DialogOptions{Width = "600px"} )) />
-        <RadzenButton Icon="preview" Click=@(async args => await base.DialogService.OpenAsync<SliderContentDetailPage>("Galeri",
+        <RadzenButton Icon="preview" Click=@(async args => await DialogService.OpenAsync<SliderContentDetailPage>("Galeri",
                                                  new Dictionary<string, object> { { "SliderContentId", ((SliderContent)SelectedItem).Id } },
                                                  new DialogOptions{Width = "600px"} )) />
         <RadzenButton Icon="remove" Click=@Delete />

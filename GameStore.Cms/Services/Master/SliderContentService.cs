@@ -18,6 +18,6 @@ namespace GameStore.Cms.Services.Master
             }, sliderContentCreateModel);
 
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync("delete", id);
+            => await DeleteAsync(id);
     }
 }

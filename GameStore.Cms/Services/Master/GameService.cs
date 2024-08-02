@@ -5,6 +5,7 @@ using Entities.Enum.Type;
 using Entities.Main;
 using RestSharp;
 using Models.Game.Cms;
+using Models.Blog.Cms;
 
 namespace GameStore.Cms.Services.Master
 {
@@ -25,13 +26,16 @@ namespace GameStore.Cms.Services.Master
                 }).ToList()
             });
 
-        public async Task<RestResponse> CreateAsync(CreateGameModel createGameModel)
-            => await RestHelper.PostAsync<CreateGameModel, object>(new RestRequestParameter
-            {
-                BaseUrl = $"{CoreConfiguration.WebApiUrl}/games/creategame"
-            }, createGameModel);
+        public async Task<RestResponse<SingleBlogModel>> GetAsync(Guid id)
+            => await GetAsync<Guid, SingleBlogModel>(id);
+
+        public async Task<RestResponse> CreateAsync(CreateGameModel model)
+            => await CreateAsync(model);
+
+        public async Task<RestResponse> UpdateAsync(UpdateGameModel model)
+            => await UpdateAsync(model);
 
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync("/games/delete", id);
+            => await DeleteAsync(id);
     }
 }

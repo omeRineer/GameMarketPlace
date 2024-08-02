@@ -10,6 +10,6 @@ namespace GameStore.Cms.Services.Master
         public MenuService() : base("Menus") { }
 
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync("delete", id);
+            => await DeleteAsync(id);
     }
 }

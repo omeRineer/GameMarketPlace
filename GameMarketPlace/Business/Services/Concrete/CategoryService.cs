@@ -45,6 +45,14 @@ namespace Business.Services.Concrete
             return new SuccessResult();
         }
 
+        public async Task<IDataResult<SingleCategoryResponse>> GetAsync(Guid id)
+        {
+            var entity = await _categoryRepository.GetAsync(f => f.Id == id);
+            var mappedEntity = _mapper.Map<SingleCategoryResponse>(entity);
+
+            return new SuccessDataResult<SingleCategoryResponse>(mappedEntity);
+        }
+
         public async Task<IResult> UpdateAsync(UpdateCategoryRequest updateCategoryRequest)
         {
             var entity = await _categoryRepository.GetAsync(f => f.Id == updateCategoryRequest.Id);

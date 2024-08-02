@@ -30,7 +30,7 @@ namespace Configuration
 
         #region Silinecek
         public static string ODataApiUrl { get => "https://localhost:7227/odata"; }
-        public static string WebApiUrl { get => "https://localhost:7075/webapi"; }
+        public static string WebApiUrl { get => "https://localhost:7184/webapi"; }
         public static string RootPath { get => "C:\\Users\\sandi\\source\\repos\\GameMarketPlace\\GameStore.Shared"; }
 
         #endregion

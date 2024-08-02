@@ -1,13 +1,11 @@
 ﻿@implements IDisposable
+@inherits BasePage
 @typeparam TData
 
 @code {
-    [Inject] public DialogService DialogService { get; set; }
-
 
     protected IEnumerable<TData> Data;
     public TData SelectedItem;
-    protected bool IsLoading = false;
     protected LoadDataArgs LastArgs;
     protected int Count;
 

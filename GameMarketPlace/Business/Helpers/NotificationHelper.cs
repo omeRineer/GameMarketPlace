@@ -1,17 +1,17 @@
 ﻿using Core.Entities.Concrete.ProcessGroups.Enums.Types;
-using Core.Entities.DTO.Enterprise;
 using Core.Extensions;
 using Core.Utilities.ResultTool;
 using Core.Utilities.ServiceTools;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Models.Enterprise;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities.Helpers
+namespace Business.Helpers
 {
     public static class NotificationHelper
     {

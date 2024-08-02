@@ -7,7 +7,7 @@
 <h3>Kategoriler</h3>
 <div class="row">
     <div class="col-xl-3">
-        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<CategoryAddPage>("Kategori Ekle",
+        <RadzenButton Icon="add" Click=@(args => DialogService.Open<CategoryAddPage>("Kategori Ekle",
                                            null,
                                            new DialogOptions{Width = "600px"} )) />
 

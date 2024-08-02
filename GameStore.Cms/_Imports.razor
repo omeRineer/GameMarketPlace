@@ -1,5 +1,9 @@
 ﻿
 @inject NotificationService NotificationService
+@inject DialogService DialogService
+@inject AutoMapper.IMapper Mapper
+
+@using Extensions
 
 @using System.Net.Http
 @using System.Net.Http.Json
@@ -27,10 +31,11 @@
 @using GameStore.Cms.Services.Master
 
 @using Models.Blog.Cms
-@using Models.Game.Cms 
-@using Models.SliderContent.Cms 
-@using Models.Media.Cms 
+@using Models.Game.Cms
+@using Models.SliderContent.Cms
+@using Models.Media.Cms
 @using Models.GeneralSetting.Cms
+@using Models.Category.Cms
 
 @using BaseModel = Models.Base.Cms.Inputs
 @using Models.Base.Cms.Enums

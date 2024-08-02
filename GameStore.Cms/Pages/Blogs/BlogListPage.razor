@@ -7,7 +7,7 @@
 <h3>Bloglar</h3>
 <div class="row">
     <div class="col-xl-3">
-        <RadzenButton Icon="add" Click=@(args => base.DialogService.Open<BlogAddPage>("Blog Ekle",
+        <RadzenButton Icon="add" Click=@(args => DialogService.Open<BlogAddPage>("Blog Ekle",
                                            null,
                                            new DialogOptions{Width = "1000px"} )) />
 

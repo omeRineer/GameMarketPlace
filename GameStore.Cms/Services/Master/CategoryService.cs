@@ -10,10 +10,16 @@ namespace GameStore.Cms.Services.Master
     {
         public CategoryService() : base("Categories") { }
 
-        public async Task<RestResponse<SingleCategoryModel>> GetByIdAsync(Guid id)
-            => await GetAsync<Guid, SingleCategoryModel>("getcategory", id);
+        public async Task<RestResponse> CreateAsync(CreateCategoryModel model)
+            => await CreateAsync(model);
+
+        public async Task<RestResponse> UpdateAsync(UpdateCategoryModel model)
+            => await UpdateAsync(model);
+
+        public async Task<RestResponse<SingleCategoryModel>> GetAsync(Guid id)
+            => await GetAsync<Guid, SingleCategoryModel>(id);
 
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync("delete", id);
+            => await DeleteAsync(id);
     }
 }

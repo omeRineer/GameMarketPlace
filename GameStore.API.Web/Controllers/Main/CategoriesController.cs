@@ -16,6 +16,14 @@ namespace GameStore.API.Web.Controllers.Main
             _categoryService = categoryService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync([FromRoute] Guid id)
+        {
+            var result = await _categoryService.GetAsync(id);
+
+            return Result(result);
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> CreateAsync(CreateCategoryRequest request)
         {

@@ -9,6 +9,6 @@ namespace GameStore.Cms.Services.Master
         public GeneralSettingService() : base("GeneralSettings") { }
 
         public async Task<RestResponse> DeleteAsync(Guid id)
-            => await DeleteAsync($"delete", id);
+            => await DeleteAsync(id);
     }
 }
